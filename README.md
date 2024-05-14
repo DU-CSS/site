@@ -1,2 +1,2 @@
 # DUCSS-Site
-Duck website
+Duck
