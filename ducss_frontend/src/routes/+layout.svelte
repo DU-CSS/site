@@ -184,11 +184,11 @@
     /* ↓↓ Footer Styling ↓↓ */
 
     footer.collapsed {
-        position: relative;
+        position: fixed;
         bottom: 0;
         height: 24px;
         width: 100%;
-        margin-top: 38px;
+        margin-top: 16px;
         background-color: hsl(240, 100%, 99%);
         border-top: 3px outset hsl(229, 19%, 62%);
 
@@ -196,7 +196,7 @@
     }
 
     footer.expanded {
-        position: relative;
+        position: fixed;
         bottom: 0;
         height: 64px;
         width: 100%;

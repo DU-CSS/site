@@ -6,7 +6,7 @@
 
 	import funkyTown from "$lib/audio/FunkyTown.mp3";
 
-	let duck : boolean = false;
+	let duck : boolean = true;
 
 	let basketHasItem : boolean = false;
 	$: basketStatus = basketHasItem ? "active" : "inactive";
