@@ -1,21 +1,42 @@
 <script lang="ts">
+
+	import type { PageData } from "../$types";  
+
 	import ShopCard from "$lib/components/ShopCard.svelte";
+	import ShopModal from "$lib/components/ShopModal.svelte";
 
 	import duckSpin from "$lib/images/duckspinning.gif";
 	import shoppingCart from "$lib/images/UI_Icons/shopping-cart.png";
 
 	import funkyTown from "$lib/audio/FunkyTown.mp3";
 
-	let duck : boolean = true;
-
 	let basketHasItem : boolean = false;
 	$: basketStatus = basketHasItem ? "active" : "inactive";
+
+	export let data: PageData;
+
+	$: ({ products } = data);
+
+	let duck : boolean = false;
+	if (data.products.length == 0) duck = true;
+	else duck = false;
 
 	function swap () {
 		basketHasItem = !basketHasItem;
 	}
 
+	let showModal : boolean = false;
+	let modalName : string;
+	let modalDesc : string;
+	let modalCost : string;
+	let modalOptions : string;
+
+	const modal =  () => {
+		showModal = true;
+	} 
+
 </script>
+
 
 {#if duck}
 
@@ -29,7 +50,9 @@
 	<marquee>Please Accept This Duck as an Apology</marquee>
 
 {:else}
-
+	{#if showModal}
+		<ShopModal bind:showModal/>
+	{/if}
 	<div class="basket-container {basketStatus}">
 		<div class="basket-left {basketStatus}"/>
 		<div class="basket {basketStatus}">
@@ -39,16 +62,13 @@
 	</div>
 
 	<div class="cards">
-		<ShopCard name="CS Ball Ticket" cost=50 descShort="Dancing and fun at the Radison Blu Hotel!"/>
-		<ShopCard on:add={swap}/>
-		<ShopCard/>
-		<ShopCard/>
-		<ShopCard/>
-		<ShopCard/>
-
+		{#each products as product}
+			<ShopCard name={product.name} descShort={product.descShort} cost={product.cost} image={product.image}/>
+		{/each}
 	</div>
 
 {/if}
+
 
 <style>
 
