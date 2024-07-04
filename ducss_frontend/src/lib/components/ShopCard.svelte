@@ -1,11 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
 
-    import image from '$lib/images/image1.jpeg'
-
     export let name : String = "Product Name";
     export let cost : String = "0";
     export let descShort : String = "Lorem ipsum dolor sit amet, conse";
+    export let image : String = "https://images.unsplash.com/photo-1585533530535-2f4236949d08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
     let dispatcher = createEventDispatcher();
 
@@ -17,11 +16,11 @@
 
 <button on:click={add}>
 <div class="card">
-    <div class="image" style="background-image: url(https://images.unsplash.com/photo-1585533530535-2f4236949d08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)"/>
+    <div class="image" style="background-image: url({image})"/>
     <div class="details">
         <h1 class="name"> {name} </h1>
         <div class="details small">
-            <h2 class="cost"> €{cost} </h2>
+            <h2 class="cost"> {cost} </h2>
             <h3 class="description-short"> {descShort} </h3>
         </div>
     </div>
