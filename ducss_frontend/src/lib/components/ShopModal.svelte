@@ -1,6 +1,11 @@
 <script lang="ts">
 
     export let showModal : boolean;
+	export let modalName : string;
+	export let modalDesc : string;
+	export let modalCost : string;
+	export let modalOptions : string;
+
     let dialog : HTMLDialogElement;
 
     $: if (dialog && showModal) dialog.showModal();
@@ -11,9 +16,9 @@
 <dialog bind:this={dialog} on:close={() => (showModal = false)} on:click|self={() => dialog.close()}>
     <!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
-		<h1>TEST</h1>
-        <h2>TEST</h2>
-        <h3>TEST</h3>
+		<h1>{modalName}</h1>
+        <h2>{modalCost}</h2>
+        <h3>{modalDesc}</h3>
 		<!-- svelte-ignore a11y-autofocus -->
 		<button autofocus on:click={() => dialog.close()}>close modal</button>
 	</div>

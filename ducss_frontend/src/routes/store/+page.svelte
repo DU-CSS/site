@@ -31,7 +31,10 @@
 	let modalCost : string;
 	let modalOptions : string;
 
-	const modal =  () => {
+	function modal(event) {
+		modalName = event.detail.name;
+		modalDesc = event.detail.description;
+		modalCost = event.detail.cost;
 		showModal = true;
 	} 
 
@@ -50,9 +53,13 @@
 	<marquee>Please Accept This Duck as an Apology</marquee>
 
 {:else}
+
 	{#if showModal}
-		<ShopModal bind:showModal/>
+
+		<ShopModal bind:showModal modalName={modalName} modalCost={modalCost} modalDesc={modalDesc} modalOptions=null/>
+
 	{/if}
+
 	<div class="basket-container {basketStatus}">
 		<div class="basket-left {basketStatus}"/>
 		<div class="basket {basketStatus}">
@@ -62,9 +69,15 @@
 	</div>
 
 	<div class="cards">
+
 		{#each products as product}
-			<ShopCard name={product.name} descShort={product.descShort} cost={product.cost} image={product.image}/>
+
+			<ShopCard name={product.name} cost={product.cost} 
+			descShort={product.descShort} description={product.description} image={product.image}
+			on:inspect={modal}/>
+
 		{/each}
+
 	</div>
 
 {/if}
