@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
 
+    export let id : number;
     export let name : String = "Product Name";
     export let cost : String = "0";
     export let descShort : String = "Lorem ipsum dolor sit amet, conse";
@@ -12,6 +13,7 @@
     function inspect() {
         dispatcher('inspect', 
             {
+                id : id,
                 name : name,
                 cost : cost,
                 descShort : descShort,
@@ -24,16 +26,20 @@
 </script>
 
 <button on:click={inspect}>
-<div class="card">
-    <div class="image" style="background-image: url({image})"/>
-    <div class="details">
-        <h1 class="name"> {name} </h1>
-        <div class="details small">
-            <h2 class="cost"> {cost} </h2>
-            <h3 class="description-short"> {descShort} </h3>
+    <div class="card">
+        <div class="image" style="background-image: url({image})"/>
+        <div class="details">
+            <h1 class="name"> {name} </h1>
+            <div class="details small">
+                {#if cost === "0"}
+                <h2 class="cost"> FREE </h2>
+                {:else}
+                <h2 class="cost"> €{cost} </h2>
+                {/if}
+                <h3 class="description-short"> {descShort} </h3>
+            </div>
         </div>
     </div>
-</div>
 </button>
 
 <style>

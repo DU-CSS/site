@@ -2,11 +2,11 @@ import { products } from "$db/collections";
 import type { WithId } from "mongodb";
 import type { PageServerLoad } from './$types'
 
-export const load : PageServerLoad = async function() {
+export const load : PageServerLoad = async function({ cookies }) {
     var productDetails = await products.find({}, {projection: {_id : false}}).toArray();
-    
-    console.log('Product Details', productDetails)
+    console.log('Product Details', productDetails);
+
     return {
-        products : productDetails
+        products : productDetails,
     }
-}
+} 
