@@ -1,7 +1,9 @@
 <script lang="ts">
 
 	import type { PageData } from "../$types"; 
+	import { fly } from 'svelte/transition';
 	import { cartItems, addToCart, removeFromCart } from "./cart";
+	import { browser } from "$app/environment";
 
 	import ShopCard from "$lib/components/ShopCard.svelte";
 	import ShopModal from "$lib/components/ShopModal.svelte";
@@ -12,8 +14,12 @@
 	import funkyTown from "$lib/audio/FunkyTown.mp3";
 	import ShoppingBasket from "$lib/images/UI_Icons/shoppingBasket.svelte";
 
-	let basketHasItem : boolean = false;
-	$: basketStatus = basketHasItem ? "active" : "inactive";
+	var basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false;
+
+	function updateBasket() {
+		if (JSON.parse(localStorage.cartItems).length > 0) basketStatus = true;
+		else basketStatus = false;
+	}
 
 	export let data: PageData;
 
@@ -70,6 +76,7 @@
 		price : event.detail.cost
 	};
 	addToCart(product);
+	updateBasket();
   }
 
 </script>
@@ -96,13 +103,16 @@
 
 	{/if}
 
-	<div class="basket-container {basketStatus}">
-		<div class="basket-left {basketStatus}"/>
-		<div class="basket {basketStatus}">
+	{#if basketStatus}
+	<div class="basket-container" transition:fly={{ y: 50 }} on:introstart on:outroend>
+		<div class="basket-left"/>
+		<div class="basket">
 			<ShoppingBasket/>
 		</div>
-		<div class="basket-right {basketStatus}"/>
+		<div class="basket-right"/>
 	</div>
+
+	{/if}
 
 	<div class="cards">
 
@@ -140,20 +150,7 @@
 		margin-left: -40px;
 	}
 
-	.basket-container.inactive {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 16px;
-		margin-top: -15px;
-
-		transform: scale(0,0);
-		transition: transform 850ms ease, height 400ms ease;
-	}
-
-	.basket-container.active{
+	.basket-container {
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: center;
@@ -167,20 +164,6 @@
 		transition: transform 850ms ease, height 500ms ease;
 	}
 
-	.basket.inactive {
-		width: 50px;
-		height: 50px;
-		border-radius: 100%;
-		background-color: hsl(240, 100%, 99%);
-		border: 3.5px solid hsl(25, 95%, 58%);
-
-		text-align: center;
-		align-content: flex-end;
-
-		transform: scale(0,0);
-		transition: transform 500ms ease;
-	}
-
 	.basket {
 		
 		width: 50px;
@@ -192,6 +175,8 @@
 		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
+
+		cursor: pointer;
 
 		transform: scale(1,1);
 		transition: transform 500ms ease;
