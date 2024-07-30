@@ -3,7 +3,12 @@ import type { WithId } from "mongodb";
 import type { PageServerLoad } from './$types'
 
 export const load : PageServerLoad = async function({ cookies }) {
-    var productDetails = await products.find({}, {projection: {_id : false}}).toArray();
+    try {
+        var productDetails : any = await products.find({}, {projection: {_id : false}}).toArray();  
+    } catch (error) {
+        var productDetails = null;
+    }
+    
     console.log('Product Details', productDetails);
 
     return {

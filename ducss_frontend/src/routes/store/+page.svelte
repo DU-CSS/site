@@ -26,8 +26,13 @@
 	$: ({ products } = data);
 
 	let duck : boolean = false;
-	if (data.products.length == 0) duck = true;
-	else duck = false;
+	let MongoError : boolean = false;
+
+	if (data.products == null)  MongoError = true;
+	else { MongoError = false;
+		if (data.products.length == 0) duck = true;
+		else duck = false;
+	}
 
 	let showModal : boolean = false;
 	let modalName : string;
@@ -81,52 +86,54 @@
 
 </script>
 
-
-{#if duck}
-
-	<!-- svelte-ignore a11y-distracting-elements -->
-	<marquee direction="right">Nothing For Sale</marquee>
-
-	<audio src={funkyTown} loop autoplay/>
-	<img class="spinning-duck"  src={duckSpin} alt="Spinning Duck to signify nothing for sale"/>
-
-	<!-- svelte-ignore a11y-distracting-elements -->
-	<marquee>Please Accept This Duck as an Apology</marquee>
-
+{#if MongoError}
+	<h1>Error Connecting to Mongo DB</h1>
 {:else}
+	{#if duck}
 
-	{#if showModal}
+		<!-- svelte-ignore a11y-distracting-elements -->
+		<marquee direction="right">Nothing For Sale</marquee>
 
-	<ShopModal bind:showModal name={modalName} id={modalId} cost={modalCost} desc={modalDesc} image={modalImage}
-	on:buyNow={checkout} on:addToCart={addToCartWrapper}
-	/>
+		<audio src={funkyTown} loop autoplay/>
+		<img class="spinning-duck"  src={duckSpin} alt="Spinning Duck to signify nothing for sale"/>
 
-	{/if}
+		<!-- svelte-ignore a11y-distracting-elements -->
+		<marquee>Please Accept This Duck as an Apology</marquee>
 
-	{#if basketStatus}
-	<div class="basket-container" transition:fly={{ y: 50 }} on:introstart on:outroend>
-		<div class="basket-left"/>
-		<div class="basket">
-			<ShoppingBasket/>
+	{:else}
+
+		{#if showModal}
+
+		<ShopModal bind:showModal name={modalName} id={modalId} cost={modalCost} desc={modalDesc} image={modalImage}
+		on:buyNow={checkout} on:addToCart={addToCartWrapper}
+		/>
+
+		{/if}
+
+		{#if basketStatus}
+		<div class="basket-container" transition:fly={{ y: 50 }} on:introstart on:outroend>
+			<div class="basket-left"/>
+			<div class="basket">
+				<ShoppingBasket/>
+			</div>
+			<div class="basket-right"/>
 		</div>
-		<div class="basket-right"/>
-	</div>
+
+		{/if}
+
+		<div class="cards">
+
+			{#each products as product}
+
+				<ShopCard name={product.name} cost={product.cost} id={product.id}
+				descShort={product.descShort} description={product.description} image={product.image}
+				on:inspect={modal}/>
+
+			{/each}
+		</div>
 
 	{/if}
-
-	<div class="cards">
-
-		{#each products as product}
-
-			<ShopCard name={product.name} cost={product.cost} id={product.id}
-			descShort={product.descShort} description={product.description} image={product.image}
-			on:inspect={modal}/>
-
-		{/each}
-	</div>
-
 {/if}
-
 
 <style>
 
