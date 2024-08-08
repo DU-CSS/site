@@ -1,7 +1,7 @@
 <script lang="ts">
 
 	import type { PageData } from "../$types"; 
-	import { fly } from 'svelte/transition';
+	import { fly, scale } from 'svelte/transition';
 	import { cartItems, addToCart, removeFromCart } from "./cart";
 	import { browser } from "$app/environment";
 
@@ -13,8 +13,14 @@
 
 	import funkyTown from "$lib/audio/FunkyTown.mp3";
 	import ShoppingBasket from "$lib/images/UI_Icons/shoppingBasket.svelte";
+	import { quintInOut, quintOut } from "svelte/easing";
 
 	var basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false;
+	var viewBasket : boolean = false;
+
+	function basketClick() {
+		viewBasket = !viewBasket;
+	}
 
 	function updateBasket() {
 		if (JSON.parse(localStorage.cartItems).length > 0) basketStatus = true;
@@ -113,11 +119,16 @@
 		{#if basketStatus}
 		<div class="basket-container" transition:fly={{ y: 50 }} on:introstart on:outroend>
 			<div class="basket-left"/>
-			<div class="basket">
+			<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
+			<div class="basket" on:click={basketClick} on:focus={basketClick}>
 				<ShoppingBasket/>
+				
 			</div>
 			<div class="basket-right"/>
 		</div>
+		{#if viewBasket}
+			<div class="basket-details" transition:fly={{ duration: 1000, x: 0, y: 0,  easing: quintOut}} />
+		{/if}
 
 		{/if}
 
@@ -159,6 +170,8 @@
 
 	.basket-container {
 		display: flex;
+		position: relative;
+		z-index: 2;
 		flex-flow: row nowrap;
 		justify-content: center;
 		align-items: center;
@@ -172,7 +185,7 @@
 	}
 
 	.basket {
-		
+
 		width: 50px;
 		height: 50px;
 		border-radius: 100%;
@@ -232,6 +245,24 @@
   		-ms-transform: skew(-45deg);
   		transform: skew(-45deg);
   		z-index: -1;
+	}
+
+	.basket-details {
+		position: absolute;
+		left: 0; 
+  		right: 0; 
+  		margin-left: auto; 
+  		margin-right: auto;
+		margin-top: -34px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		background-color: hsl(25, 100%, 97%);
+		border: 4px solid hsl(25, 95%, 58%);
+		border-top: none;
+		
+		height: 300px;
+		width: 68%;
+
 	}
 
 </style>

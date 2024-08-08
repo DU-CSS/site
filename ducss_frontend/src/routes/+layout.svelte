@@ -77,6 +77,7 @@
         background-color: hsl(240, 100%, 99%);
         border-bottom: 3px inset hsl(229, 19%, 62%);
         box-sizing: border-box;
+        overflow: auto;
     }
 
     .nav-content-container {
