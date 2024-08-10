@@ -127,7 +127,16 @@
 			<div class="basket-right"/>
 		</div>
 		{#if viewBasket}
-			<div class="basket-details" transition:fly={{ duration: 1000, x: 0, y: 0,  easing: quintOut}} />
+			<div class="basket-details" transition:fly={{ duration: 1000, x: 0, y: 0,  easing: quintOut}}>
+				{#each JSON.parse(localStorage.cartItems) as cartItem}
+					<div class="basket-item"> 
+						<h1 style="display: inline;">{cartItem.name}</h1>
+						<h2 style="display: inline;">{cartItem.price}</h2>
+						<h3 style="display: inline;">{cartItem.amount}</h3>
+					</div>
+				{/each}
+				<button class="checkout-button" on:click={checkout}>checkout</button>
+			</div>
 		{/if}
 
 		{/if}
@@ -263,6 +272,41 @@
 		height: 300px;
 		width: 68%;
 
+		box-sizing: content-box;
+
+	}
+
+	.basket-item {
+		margin-top: 25px;
+		margin-left: 8px;
+	}
+
+	.checkout-button {
+		position: absolute;
+		left: 0; 
+  		right: 0; 
+		bottom: 0;
+  		margin-left: auto; 
+  		margin-right: auto;
+		margin-bottom: 8px;
+		
+		padding: 10px;
+		width: 128px;
+		height: 48px;
+		border-radius: 16px;
+		border: none;
+		cursor: pointer;
+
+		background-color: hsl(15, 95%, 58%);
+
+		box-shadow: inset 0 2px 0 hsl(35, 95%, 58%), inset 0 2px 3px rgba(0,0,0,.2);
+
+		transition: box-shadow 1000ms;
+		
+	}
+
+	.checkout-button:active {
+		box-shadow: inset 0 -2px 0 hsl(35, 95%, 58%), inset 0 2px 2px rgba(0,0,0,.1);
 	}
 
 </style>
