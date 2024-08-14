@@ -342,7 +342,7 @@
 		padding-left: 2px;
 		background-color: white;
 
-		align-self:center;
+		align-self:baseline;
 		justify-self: end;
 
 		justify-content:end;
