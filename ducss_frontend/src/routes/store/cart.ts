@@ -39,6 +39,18 @@ export function removeFromCart(id: number) {
 
   for (let item of items) {
     if (item.id === id) {
+      items = items.filter((item) => item.id !== id);
+      cartItems.set(items);
+      return;
+    }
+  }
+}
+
+export function decrementCart(id: number) {
+  let items = get(cartItems);
+
+  for (let item of items) {
+    if (item.id === id) {
       if (item.amount > 1) {
         item.amount--;
       } else {

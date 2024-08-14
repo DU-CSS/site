@@ -2,7 +2,7 @@
 
 	import type { PageData } from "../$types"; 
 	import { fly, scale } from 'svelte/transition';
-	import { cartItems, addToCart, removeFromCart } from "./cart";
+	import { cartItems, addToCart, removeFromCart, decrementCart } from "./cart";
 	import { browser } from "$app/environment";
 
 	import ShopCard from "$lib/components/ShopCard.svelte";
@@ -17,6 +17,9 @@
 
 	var basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false;
 	var viewBasket : boolean = false;
+
+  	let basketItems;
+	cartItems.subscribe(items => basketItems = items)
 
 	function basketClick() {
 		viewBasket = !viewBasket;
@@ -70,16 +73,6 @@
     window.location.replace(data.url);
   }
 
-  function buyNow(event) {
-	var product = {
-		id : event.detail.id,
-		name : event.detail.name,
-		price : event.detail.cost
-	};
-	addToCart(product);
-	checkout;
-  }
-
   function addToCartWrapper(event) {
 	var product = {
 		id : event.detail.id,
@@ -128,11 +121,24 @@
 		</div>
 		{#if viewBasket}
 			<div class="basket-details" transition:fly={{ duration: 1000, x: 0, y: 0,  easing: quintOut}}>
-				{#each JSON.parse(localStorage.cartItems) as cartItem}
+				{#each basketItems as cartItem}
 					<div class="basket-item"> 
-						<h1 style="display: inline;">{cartItem.name}</h1>
-						<h2 style="display: inline;">{cartItem.price}</h2>
-						<h3 style="display: inline;">{cartItem.amount}</h3>
+						<h1 class="basket-item-content item-name">{cartItem.name}</h1>
+						<h2 class="basket-item-content item-price">€{cartItem.price * cartItem.amount}</h2>
+						<div class="item-amount pill">
+							<button class="decrement-button" on:click={() => decrementCart(cartItem.id)}>-</button>
+							<h3 class="basket-item-content item-amount">{cartItem.amount}</h3>
+							<button class="increment-button" on:click={() => 
+								{var product = {
+										id : cartItem.id,
+										name : cartItem.name,
+										price : cartItem.price
+									};
+								 addToCart(product);
+								}}>+</button>
+						</div>
+						<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
+						<div class="remove-button" on:click={() => removeFromCart(cartItem.id)}>remove</div>
 					</div>
 				{/each}
 				<button class="checkout-button" on:click={checkout}>checkout</button>
@@ -277,8 +283,122 @@
 	}
 
 	.basket-item {
-		margin-top: 25px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 2fr 1fr;
+		gap: 0px 0px;
+		grid-template-areas: "name price amount remove";
+
 		margin-left: 8px;
+		margin-right: 8px;
+
+        border-bottom: 3px inset hsla(229, 19%, 62%, .5);
+
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		line-height: .6;
+	
+	}
+
+	.basket-item-content {
+		margin-left: 8px;
+	}
+
+	.item-name {
+		grid-area: name;
+
+		font-size: 24px;
+		font-weight: 600;	
+		letter-spacing: -0.05em;
+        color: hsl(209, 15%, 28%);
+
+		align-self: baseline;
+	}
+
+	.item-price {
+		grid-area: price;
+
+		font-size: 16px;
+		font-weight: 500;
+		color: hsla(207, 12%, 43%);
+		letter-spacing: -0.05em;	
+		
+		align-self: baseline;
+	}
+
+	.item-amount {
+		flex: 0 0 20px;
+		font-size: 12px;
+		font-weight: 500;
+        color: hsl(208, 12%, 58%);
+		text-align: center;
+		padding-right: .5em;
+	}
+
+	.item-amount.pill {
+		display: flex;
+		grid-area: amount;
+		width: 88px;
+		height: 25px;
+		padding-right: 0px;
+		padding-left: 2px;
+		background-color: white;
+
+		align-self:center;
+		justify-self: end;
+
+		justify-content:end;
+  		align-items: center;
+
+		border: 2px solid hsl(207, 12%, 43%);
+		border-radius: 50px;
+	}
+
+	.decrement-button {
+		flex: 0 0 28px;
+		height: 25px;
+		border-radius: 15px;
+		border: none;
+
+		background-color: hsl(208, 21%, 88%);
+		color: hsl(25, 93%, 35%);
+
+		font-size: 16px;
+		font-weight: 500;
+
+		cursor: pointer;
+	}
+
+	.increment-button {
+		flex: 0 0 28px;
+		height: 25px;
+		border-radius: 15px;
+		border: none;
+
+		background-color: hsl(208, 21%, 88%);
+		color: hsl(25, 93%, 35%);
+
+		font-size: 16px;
+		font-weight: 500;
+
+		cursor: pointer;
+	}
+
+	.remove-button {
+		color: hsla(25, 93%, 35%, .8);
+		border-bottom: 2px solid hsla(25, 93%, 35%, .8);
+		font-weight: 600;
+
+		height: 1em;
+		width: max-content;
+
+		align-self: baseline;
+		justify-self: center;
+
+		cursor: pointer;
+	}
+
+	.remove-button:hover {
+		color: hsl(25, 93%, 35%);
+		border-bottom: 2px solid hsl(25, 93%, 35%);
 	}
 
 	.checkout-button {
