@@ -15,20 +15,12 @@
 	import ShoppingBasket from "$lib/images/UI_Icons/shoppingBasket.svelte";
 	import { quintInOut, quintOut } from "svelte/easing";
 
-	var basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false;
+	let basketStatus : any; 
+	cartItems.subscribe(items => basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false)
 	var viewBasket : boolean = false;
 
-  	let basketItems;
+  	let basketItems : any;
 	cartItems.subscribe(items => basketItems = items)
-
-	function basketClick() {
-		viewBasket = !viewBasket;
-	}
-
-	function updateBasket() {
-		if (JSON.parse(localStorage.cartItems).length > 0) basketStatus = true;
-		else basketStatus = false;
-	}
 
 	export let data: PageData;
 
@@ -80,7 +72,6 @@
 		price : event.detail.cost
 	};
 	addToCart(product);
-	updateBasket();
   }
 
 </script>
@@ -110,10 +101,10 @@
 		{/if}
 
 		{#if basketStatus}
-		<div class="basket-container" transition:fly={{ y: 50 }} on:introstart on:outroend>
+		<div class="basket-container" transition:fly={{ duration: 500, y: 50 }} on:introstart on:outroend>
 			<div class="basket-left"/>
 			<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
-			<div class="basket" on:click={basketClick} on:focus={basketClick}>
+			<div class="basket" on:click={() => viewBasket = !viewBasket}>
 				<ShoppingBasket/>
 				
 			</div>
@@ -126,7 +117,7 @@
 						<h1 class="basket-item-content item-name">{cartItem.name}</h1>
 						<h2 class="basket-item-content item-price">€{cartItem.price * cartItem.amount}</h2>
 						<div class="item-amount pill">
-							<button class="decrement-button" on:click={() => decrementCart(cartItem.id)}>-</button>
+							<button class="decrement-button" on:click={() => { if(cartItem.amount === 1) { viewBasket = !viewBasket } decrementCart(cartItem.id) }}>-</button>
 							<h3 class="basket-item-content item-amount">{cartItem.amount}</h3>
 							<button class="increment-button" on:click={() => 
 								{var product = {
@@ -138,10 +129,10 @@
 								}}>+</button>
 						</div>
 						<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
-						<div class="remove-button" on:click={() => removeFromCart(cartItem.id)}>remove</div>
+						<div class="remove-button" on:click={() => { viewBasket = !viewBasket; removeFromCart(cartItem.id);  }}>remove</div>
 					</div>
 				{/each}
-				<button class="checkout-button" on:click={checkout}>checkout</button>
+				<button class="checkout-button" on:click={checkout}>Checkout</button>
 			</div>
 		{/if}
 
@@ -162,6 +153,10 @@
 {/if}
 
 <style>
+
+	* {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
 
 	marquee {
 		font-size: 32px;
@@ -293,7 +288,6 @@
 
         border-bottom: 3px inset hsla(229, 19%, 62%, .5);
 
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 		line-height: .6;
 	
 	}
@@ -411,22 +405,27 @@
 		margin-bottom: 8px;
 		
 		padding: 10px;
-		width: 128px;
+		width: 192px;
 		height: 48px;
-		border-radius: 16px;
+		border-radius: 10px;
 		border: none;
 		cursor: pointer;
 
+		font-size: 18px;
+		font-weight: 600;
+		text-align: center;
+
+		color: hsl(240, 100%, 99%);
 		background-color: hsl(15, 95%, 58%);
 
-		box-shadow: inset 0 2px 0 hsl(35, 95%, 58%), inset 0 2px 3px rgba(0,0,0,.2);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
 
-		transition: box-shadow 1000ms;
+		transition: box-shadow 750ms ease-in-out;
 		
 	}
 
-	.checkout-button:active {
-		box-shadow: inset 0 -2px 0 hsl(35, 95%, 58%), inset 0 2px 2px rgba(0,0,0,.1);
+	.checkout-button:hover {
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.5);
 	}
 
 </style>

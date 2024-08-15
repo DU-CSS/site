@@ -37,6 +37,7 @@
 				cost : cost
 			}
 		);
+		dialog.close();
 	}
 
 </script>
@@ -46,7 +47,11 @@
 	<img src={image} alt={name}>
 	<div class="details"> 
 		<h1>{name}</h1>
-		<h2>{cost}</h2>
+		{#if cost === "0"}
+			<h2>FREE</h2>
+		{:else}
+			<h2>€{cost}</h2>
+		{/if}
 		<p>{desc}</p>
 
 		{#if options !== ""}
@@ -55,7 +60,6 @@
 
 	</div>
 	<button class="cart-button" on:click={addToCart}>Add to Cart</button>
-	<button class="buy-now-button" on:click={buyNow}>Buy Now</button>
 </dialog>
 
 <style>
@@ -72,7 +76,7 @@
 		grid-template-areas: 
 		  "image image image details details"
 		  "image image image details details "
-		  "image image image cartButton buyNowButton"; 
+		  "image image image cartButton cartButton"; 
 
 		width: 1000px;
 		height: 500px;
@@ -159,17 +163,19 @@
 	.cart-button { 
 		grid-area: cartButton; 
 		
-		width: 75%;
-		height: 50%;
-		margin: auto 0 auto auto;
+		width: 85%;
+		height: 45%;
+		margin: 0 auto;
+		margin-top: 48px;
 
 		font-size: 24px;
 		font-weight: 600;
 		text-align: center;
+		color: hsl(240, 100%, 99%);
 
 		background-color: hsl(15, 95%, 58%);
 		border: none;
-		border-radius: 10px 0 0 10px;
+		border-radius: 10px;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
 		transition: box-shadow 750ms ease-in-out;
 
@@ -178,38 +184,6 @@
 
 	.cart-button:hover {
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.5);
-	}
-
-	.cart-button:active {
-		background-color: blue;
-	}
-
-	.buy-now-button { 
-		grid-area: buyNowButton; 
-		
-		width: 75%;
-		height: 50%;
-		margin: auto auto auto 0;
-
-		font-size: 24px;
-		font-weight: 600;
-		text-align: center;
-
-		background-color: blue;
-		border: none;
-		border-radius: 0 10px 10px 0;
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
-		transition: box-shadow 750ms ease-in-out;
-
-		cursor: pointer;
-	}
-
-	.buy-now-button:hover {
-        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.5);
-	}
-
-	.buy-now-button:active {
-		background-color: blue;
 	}
 
 </style>
