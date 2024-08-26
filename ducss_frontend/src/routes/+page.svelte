@@ -16,7 +16,7 @@
 </script>
 
 <div class="heading-container">
-    <h1>
+    <h1 class="heading">
         <p class="open-bracket">&lt; </p>Trinity College Dublin Computer Science Society
         <p class="close-bracket">&#47;&gt;</p>
     </h1>
@@ -48,7 +48,7 @@
         height: max-content;
     }
 
-    h1 {
+    .heading {
         width:100%;
 
         text-align: center;
@@ -56,6 +56,26 @@
         font-weight: 700;
         letter-spacing: -0.05em;
         color: hsl(209, 15%, 20%);
+    }
+
+    .open-bracket {
+        display: inline;
+
+        font-size: 40px;
+        font-weight: 600;
+
+        margin-left: 1ch;
+
+        color: hsl(15, 95%, 58%);
+    }
+
+    .close-bracket {
+        display: inline;
+
+        font-size: 40px;
+        font-weight: 600;
+
+        color: hsl(15, 95%, 58%);
     }
 
     .sign-up-button {
@@ -115,26 +135,6 @@
         width: 60px;
     }
 
-    .open-bracket {
-        display: inline;
-
-        font-size: 40px;
-        font-weight: 600;
-
-        margin-left: 1ch;
-
-        color: hsl(15, 95%, 58%);
-    }
-
-    .close-bracket {
-        display: inline;
-
-        font-size: 40px;
-        font-weight: 600;
-
-        color: hsl(15, 95%, 58%);
-    }
-
     .blurb {
         margin-top: 25px;
     }
@@ -143,7 +143,50 @@
         width: clamp(45ch, 75vw, 75ch);
         text-align: justify;
         margin: 0 auto;
-        font-size: 16px;
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 840px) {
+
+        .heading {
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .open-bracket {
+            font-size: 18px;
+        }
+
+        .close-bracket {
+            font-size: 18px;
+        }
+
+        .blurb-text {
+            font-size: 12px;
+        }
+
+        .sign-up-button {
+            width: 200px;
+            height: 60px;
+        }
+
+        .sign-up-text {
+            font-size: 20px;
+
+            margin-top: 20px;
+            margin-left: 18px;
+        }
+
+        .Johnathan {
+            width: 40px;
+            height: 40px;
+        }
+
+        .sign-up-button:hover > .Johnathan_Stares {
+            width: 40px;
+            height: 40px;
+        }
+
     }
 
 </style>
