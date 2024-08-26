@@ -32,7 +32,6 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ultrices sem, ut ultricies quam. Fusce rhoncus turpis magna, vel finibus nisl venenatis sit amet. In in convallis metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce imperdiet ullamcorper lectus, eget lacinia ligula tempor nec. In eu ligula commodo, commodo nulla nec, venenatis nibh. Phasellus pharetra velit a facilisis commodo. Vivamus molestie nec nulla non porta. Etiam dignissim euismod ornare. Curabitur eleifend eu tortor nec euismod. Vivamus ultricies lacus ligula, non efficitur ante eleifend et. Curabitur tempus volutpat eros, ac fringilla massa dictum vitae. Integer ut ante a ipsum bibendum laoreet quis et elit.
 
     Sed ac lacinia diam. Nam luctus id orci hendrerit semper. Nunc cursus cursus eros. Aenean in nulla pharetra, gravida felis id, bibendum nibh. Aliquam eget elit finibus, blandit purus ut, gravida tellus. Quisque aliquet euismod auctor. Nam augue tortor, blandit nec bibendum eget, tincidunt eget nulla. Nullam consectetur dictum odio at sodales. Nam condimentum vitae tortor at faucibus. Cras ac lacus ac elit porta gravida et eget ex. Nunc sagittis odio sed tincidunt cursus.
-
     </p>
 </div>
 
@@ -141,9 +140,10 @@
     }
 
     .blurb-text {
-        width: clamp(45ch, 75%, 75ch);
+        width: clamp(45ch, 75vw, 75ch);
         text-align: justify;
         margin: 0 auto;
+        font-size: 16px;
     }
 
 </style>

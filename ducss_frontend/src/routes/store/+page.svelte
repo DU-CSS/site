@@ -213,7 +213,7 @@
 	}
 
 	.basket-left {
-		width: 35%;
+		width: 40vw;
 		height: 3.2px;
 		background-color: hsl(25, 95%, 58%);
 
@@ -226,7 +226,7 @@
   		background: hsl(25, 95%, 58%);
 		width: 15px;
 		height: 3px;
-		margin-left: -10px;
+		margin-left: -15px;
   		-webkit-transform-origin: 100% 0;
   		-ms-transform-origin: 100% 0;
   		transform-origin: 100% 0;
@@ -237,7 +237,7 @@
 	}
 
 	.basket-right {
-		width: 35%;
+		width: 40vw;
 		height: 3px;
 		background-color: hsl(25, 95%, 58%);
 	}
@@ -246,7 +246,7 @@
 		content: '';
 		position: absolute;
   		background: hsl(25, 95%, 58%);
-		width: calc(35% + 15px);
+		width: calc(40vw + 15px);
 		height: 3px;
   		-webkit-transform-origin: 100% 0;
   		-ms-transform-origin: 100% 0;
@@ -271,7 +271,7 @@
 		border-top: none;
 		
 		height: 300px;
-		width: 68%;
+		width: 80vw;
 
 		box-sizing: content-box;
 
