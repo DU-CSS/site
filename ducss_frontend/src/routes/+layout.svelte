@@ -134,10 +134,18 @@
         justify-items:auto;
     }
 
+    .ducss {
+        height: 48px;
+    }
+
+    .ducssBracket {
+        height: 48px;
+    }
+
     .ducssMask {
         position: relative;
         display: inline-block;
-        margin-left: -66px;
+        margin-left: -100px;
         margin-right: 2px;
         width: 66px;
         overflow: hidden;
@@ -148,7 +156,7 @@
     }
 
     .ducss:hover + .ducssMask {
-        right: -42px;
+        right: -60px;
     }
 
     ul {

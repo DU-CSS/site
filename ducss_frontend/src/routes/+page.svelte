@@ -17,7 +17,7 @@
 
 <div class="heading-container">
     <h1 class="heading">
-        <p class="open-bracket">&lt; </p>Trinity College Dublin Computer Science Society
+        <p class="open-bracket">&lt; </p> Dublin University Computer Science Society
         <p class="close-bracket">&#47;&gt;</p>
     </h1>
     <a class="sign-up-button" href="https://trinitysocietieshub.com/collections/society-memberships/products/ducss">
@@ -29,9 +29,14 @@
 
 <div class="blurb">
     <p class="blurb-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ultrices sem, ut ultricies quam. Fusce rhoncus turpis magna, vel finibus nisl venenatis sit amet. In in convallis metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce imperdiet ullamcorper lectus, eget lacinia ligula tempor nec. In eu ligula commodo, commodo nulla nec, venenatis nibh. Phasellus pharetra velit a facilisis commodo. Vivamus molestie nec nulla non porta. Etiam dignissim euismod ornare. Curabitur eleifend eu tortor nec euismod. Vivamus ultricies lacus ligula, non efficitur ante eleifend et. Curabitur tempus volutpat eros, ac fringilla massa dictum vitae. Integer ut ante a ipsum bibendum laoreet quis et elit.
-
-    Sed ac lacinia diam. Nam luctus id orci hendrerit semper. Nunc cursus cursus eros. Aenean in nulla pharetra, gravida felis id, bibendum nibh. Aliquam eget elit finibus, blandit purus ut, gravida tellus. Quisque aliquet euismod auctor. Nam augue tortor, blandit nec bibendum eget, tincidunt eget nulla. Nullam consectetur dictum odio at sodales. Nam condimentum vitae tortor at faucibus. Cras ac lacus ac elit porta gravida et eget ex. Nunc sagittis odio sed tincidunt cursus.
+        A student-run society, the Dublin University Computer Science Society (DUCSS), 
+        is a cornerstone of technical exploration and social interaction within Trinity College Dublin. 
+        Hosting students from a variety of academic backgrounds such as Computer Science, Engineering, Mathematics, 
+        and eSports enthusiasts, DUCSS is dedicated to fostering a dynamic environment that stimulates both technical prowess 
+        and essential soft skills. Members partake in diverse activities ranging from workshops, hackathons, and eSports events, 
+        to social gatherings like gaming tournaments and networking sessions. With a dedicated society space within the Hamilton building, 
+        joining DUCSS is about more than society membership; it's about engaging with a thriving community united by innovation, inclusivity, 
+        and a passion for technology and gaming.    
     </p>
 </div>
 
@@ -46,6 +51,7 @@
 
         width: 100%;
         height: max-content;
+        margin-top: -15px;
     }
 
     .heading {
@@ -144,12 +150,14 @@
         text-align: justify;
         margin: 0 auto;
         font-size: 18px;
+
+        color: hsl(209, 15%, 28%);
     }
 
     @media screen and (max-width: 840px) {
 
         .heading {
-            font-size: 15px;
+            font-size: 16px;
             margin-bottom: 30px;
         }
 

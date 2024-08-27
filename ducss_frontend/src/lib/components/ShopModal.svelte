@@ -71,7 +71,7 @@
 	dialog {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-		grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+		grid-template-rows: 1fr 1fr 1fr; 
 		gap: 0px 0px; 
 		grid-template-areas: 
 		  "image image image details details"
@@ -184,6 +184,38 @@
 
 	.cart-button:hover {
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.5);
+	}
+
+	@media screen and (max-width: 1040px), screen and (max-height: 540px) {
+
+		dialog {
+			grid-template-areas: 
+		  "details details details details details"
+		  "details details details details details"
+		  "cartButton cartButton cartButton cartButton cartButton"; 
+
+		  width: 60vw;
+		  height: 90vh;
+		}
+
+		img {
+			display: none;
+		}
+
+	}
+
+	@media screen and (max-width: 450px) {
+		h1 {
+			font-size: 24px;
+		}
+
+		h2 {
+			font-size: 16px;
+		}
+
+		p {
+			font-size: 14px;
+		}
 	}
 
 </style>

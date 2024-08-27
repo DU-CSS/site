@@ -334,7 +334,7 @@
 		height: 25px;
 		padding-right: 0px;
 		padding-left: 2px;
-		background-color: white;
+		background-color: hsl(240, 100%, 99%);
 
 		align-self:baseline;
 		justify-self: end;
@@ -426,6 +426,75 @@
 
 	.checkout-button:hover {
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.5);
+	}
+
+
+	@media screen and (max-width: 620px) {
+		.basket-details {
+			width: 95%;
+			height: 40vh;
+
+			padding-top: 15px;
+		}
+
+		.basket-left {
+			width: 45vw;
+		}
+
+		.basket-right {
+			width: 45vw;
+		}
+
+		.basket-item {
+
+			grid-template-columns: 2fr 1fr 2fr 1fr;
+
+			margin-top: 15px;
+		}
+
+		.item-name {
+			font-size: 16px;
+		}
+
+		.item-price {
+			font-size: 14px;
+		}
+
+		.remove-button {
+			font-size: 12px;
+		}
+
+		.item-amount.pill {
+			width: 62px;
+			height: 18px;
+			background-color: white;
+			margin-right: 25px;
+		}
+
+		.decrement-button {
+			flex: 0 0 20px;
+			height: 18px;
+
+			font-size: 12px;
+		}
+
+		.increment-button {
+			flex: 0 0 14px;
+			height: 18px;
+
+			font-size: 12px;
+		}
+
+		.item-amount {
+			flex: 0 0 9px;
+			font-size: 12px;
+		}
+	}
+
+	@media screen and (max-width: 875px) {
+		.basket-item {
+			grid-template-columns: 2fr 1fr 2fr 1fr;
+		}
 	}
 
 </style>
