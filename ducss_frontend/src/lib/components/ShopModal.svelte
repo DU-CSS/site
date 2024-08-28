@@ -148,7 +148,6 @@
 	p {
 		grid-area: description;
 
-		margin-top: -42px;
 		font-weight: 400;
 		color: hsl(208, 12%, 58%);
 		hyphens: auto;
@@ -194,12 +193,20 @@
 		  "details details details details details"
 		  "cartButton cartButton cartButton cartButton cartButton"; 
 
-		  width: 60vw;
-		  height: 90vh;
+		  width: 80vw;
+		  height: 55vh;
 		}
 
 		img {
 			display: none;
+		}
+
+		.cart-button {
+			width: 100%;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+
+			align-self: end;
 		}
 
 	}
