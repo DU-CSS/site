@@ -72,7 +72,7 @@
 
         margin-left: 1ch;
 
-        color: hsl(15, 95%, 58%);
+        color: hsl(33, 96%, 65%);
     }
 
     .close-bracket {
@@ -81,7 +81,7 @@
         font-size: 40px;
         font-weight: 600;
 
-        color: hsl(15, 95%, 58%);
+        color: hsl(33, 96%, 65%);
     }
 
     .sign-up-button {

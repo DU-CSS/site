@@ -7,13 +7,10 @@
     import doubleArrow from '$lib/images/UI_Icons/double-arrow.png';
 
     import discord from '$lib/images/Footer_Icons/discord.png';
-    import facebook from '$lib/images/Footer_Icons/facebook.png';
     import instagram from '$lib/images/Footer_Icons/instagram.png';
     import linkedin from '$lib/images/Footer_Icons/linkedin.png';
-    import twitter from '$lib/images/Footer_Icons/twitter.png';
 
     import contactForm from '$lib/images/Footer_Icons/contactForm.png';
-    import email from '$lib/images/Footer_Icons/email.png';
 
     var collapsed: boolean = true;
 
@@ -61,9 +58,6 @@
 
 <footer class={footerState}>
     <div class="footer-content-container">
-        <a class="footer-icon-wrapper facebook" href="https://facebook.com/ducss.ie">
-            <img class="footer-icon facebook" src={facebook} alt="Link to facebook"/>
-        </a>
         <a class="footer-icon-wrapper instagram" href="https://instagram.com/ducss_">
             <img class="footer-icon instagram" src={instagram} alt="Link to instagram"/>
         </a>
@@ -78,9 +72,6 @@
         </a>
         <a class="footer-icon-wrapper contact" href="/contact">
             <img class="footer-icon contact" src={contactForm} alt="Link to contact form"/>
-        </a>
-        <a class="footer-icon-wrapper email" href="mailto:ducss@csc.tcd.ie">
-            <img class="footer-icon email" src={email} alt="Link to email"/>
         </a>
     </div>
 </footer>

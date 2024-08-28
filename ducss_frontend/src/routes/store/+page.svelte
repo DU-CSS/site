@@ -101,7 +101,7 @@
 		{/if}
 
 		{#if basketStatus}
-		<div class="basket-container" transition:fly={{ duration: 500, y: 50 }} on:introstart on:outroend>
+		<div class="basket-container" in:fly={{ duration: 500, y: 50 }}>
 			<div class="basket-left"/>
 			<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
 			<div class="basket" on:click={() => viewBasket = !viewBasket}>
@@ -111,7 +111,7 @@
 			<div class="basket-right"/>
 		</div>
 		{#if viewBasket}
-			<div class="basket-details" transition:fly={{ duration: 1000, x: 0, y: 0,  easing: quintOut}}>
+			<div class="basket-details">
 				{#each basketItems as cartItem}
 					<div class="basket-item"> 
 						<h1 class="basket-item-content item-name">{cartItem.name}</h1>
@@ -258,9 +258,11 @@
 	}
 
 	.basket-details {
-		position: absolute;
+		position: relative;
+
 		left: 0; 
   		right: 0; 
+		z-index: 0;
   		margin-left: auto; 
   		margin-right: auto;
 		margin-top: -34px;
@@ -272,9 +274,6 @@
 		
 		height: 300px;
 		width: 80vw;
-
-		box-sizing: content-box;
-
 	}
 
 	.basket-item {
