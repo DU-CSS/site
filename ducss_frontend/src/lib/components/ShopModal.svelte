@@ -4,7 +4,7 @@
 	import { fly } from 'svelte/transition';
 
     export let showModal : boolean;
-	export let id : number;
+	export let id : string;
 	export let name : string;
 	export let desc : string;
 	export let cost : string;

@@ -1,17 +1,19 @@
-import { products } from "$db/collections";
-import type { WithId } from "mongodb";
-import type { PageServerLoad } from './$types'
+
+import type { PageServerLoad } from './$types';
+import { env } from "$env/dynamic/private";
+import Stripe from 'stripe';
 
 export const load : PageServerLoad = async function({ cookies }) {
     try {
-        var productDetails : any = await products.find({}, {projection: {_id : false}}).toArray();  
+        const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+        var productDetails : any = await stripe.products.list({active : true, expand: ['data.default_price'],}); 
     } catch (error) {
         var productDetails = null;
     }
     
-    console.log('Product Details', productDetails);
+    //console.log('Product Details', productDetails.data);
 
     return {
         products : productDetails,
     }
-} 
+}

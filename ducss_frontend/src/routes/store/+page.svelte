@@ -16,7 +16,11 @@
 	import { quintInOut, quintOut } from "svelte/easing";
 
 	let basketStatus : any; 
-	cartItems.subscribe(items => basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false)
+
+	if (browser) {
+		cartItems.subscribe(items => basketStatus = JSON.parse(localStorage.cartItems).length > 0 ? true : false);
+	}
+
 	var viewBasket : boolean = false;
 
   	let basketItems : any;
@@ -24,23 +28,21 @@
 
 	export let data: PageData;
 
-	$: ({ products } = data);
+	$: products = data.products.data;
+
+	console.log(products);
 
 	let duck : boolean = false;
-	let MongoError : boolean = false;
 
-	if (data.products == null)  MongoError = true;
-	else { MongoError = false;
-		if (data.products.length == 0) duck = true;
+	if (data.products.length == 0) duck = true;
 		else duck = false;
-	}
 
 	let showModal : boolean = false;
 	let modalName : string;
 	let modalDesc : string;
 	let modalCost : string;
 	let modalImage : string;
-	let modalId : number;
+	let modalId : string;
 	let modalOptions : string;
 
 	function modal(event) {
@@ -76,80 +78,63 @@
 
 </script>
 
-{#if MongoError}
-	<h1>Error Connecting to Mongo DB</h1>
+
+{#if duck}
+	<!-- svelte-ignore a11y-distracting-elements -->
+	<marquee direction="right">Nothing For Sale</marquee>
+	<audio src={funkyTown} loop autoplay/>
+	<img class="spinning-duck"  src={duckSpin} alt="Spinning Duck to signify nothing for sale"/>
+	<!-- svelte-ignore a11y-distracting-elements -->
+	<marquee>Please Accept This Duck as an Apology</marquee>
 {:else}
-	{#if duck}
-
-		<!-- svelte-ignore a11y-distracting-elements -->
-		<marquee direction="right">Nothing For Sale</marquee>
-
-		<audio src={funkyTown} loop autoplay/>
-		<img class="spinning-duck"  src={duckSpin} alt="Spinning Duck to signify nothing for sale"/>
-
-		<!-- svelte-ignore a11y-distracting-elements -->
-		<marquee>Please Accept This Duck as an Apology</marquee>
-
-	{:else}
-
-		{#if showModal}
-
-		<ShopModal bind:showModal name={modalName} id={modalId} cost={modalCost} desc={modalDesc} image={modalImage}
-		on:buyNow={checkout} on:addToCart={addToCartWrapper}
-		/>
-
-		{/if}
-
-		{#if basketStatus}
-		<div class="basket-container" in:fly={{ duration: 500, y: 50 }}>
-			<div class="basket-left"/>
-			<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
-			<div class="basket" on:click={() => viewBasket = !viewBasket}>
-				<ShoppingBasket/>
-				
-			</div>
-			<div class="basket-right"/>
-		</div>
-		{#if viewBasket}
-			<div class="basket-details">
-				{#each basketItems as cartItem}
-					<div class="basket-item"> 
-						<h1 class="basket-item-content item-name">{cartItem.name}</h1>
-						<h2 class="basket-item-content item-price">€{cartItem.price * cartItem.amount}</h2>
-						<div class="item-amount pill">
-							<button class="decrement-button" on:click={() => { if(cartItem.amount === 1) { viewBasket = !viewBasket } decrementCart(cartItem.id) }}>-</button>
-							<h3 class="basket-item-content item-amount">{cartItem.amount}</h3>
-							<button class="increment-button" on:click={() => 
-								{var product = {
-										id : cartItem.id,
-										name : cartItem.name,
-										price : cartItem.price
-									};
-								 addToCart(product);
-								}}>+</button>
-						</div>
-						<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
-						<div class="remove-button" on:click={() => { viewBasket = !viewBasket; removeFromCart(cartItem.id);  }}>remove</div>
-					</div>
-				{/each}
-				<button class="checkout-button" on:click={checkout}>Checkout</button>
-			</div>
-		{/if}
-
-		{/if}
-
-		<div class="cards">
-
-			{#each products as product}
-
-				<ShopCard name={product.name} cost={product.cost} id={product.id}
-				descShort={product.descShort} description={product.description} image={product.image}
-				on:inspect={modal}/>
-
-			{/each}
-		</div>
-
+	{#if showModal}
+	<ShopModal bind:showModal name={modalName} id={modalId} cost={modalCost} desc={modalDesc} image={modalImage}
+	on:buyNow={checkout} on:addToCart={addToCartWrapper}
+	/>
 	{/if}
+	{#if basketStatus}
+	<div class="basket-container" in:fly={{ duration: 500, y: 50 }}>
+		<div class="basket-left"/>
+		<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
+		<div class="basket" on:click={() => viewBasket = !viewBasket}>
+			<ShoppingBasket/>
+			
+		</div>
+		<div class="basket-right"/>
+	</div>
+	{#if viewBasket}
+		<div class="basket-details">
+			{#each basketItems as cartItem}
+				<div class="basket-item"> 
+					<h1 class="basket-item-content item-name">{cartItem.name}</h1>
+					<h2 class="basket-item-content item-price">€{cartItem.price * cartItem.amount}</h2>
+					<div class="item-amount pill">
+						<button class="decrement-button" on:click={() => { if(cartItem.amount === 1) { viewBasket = !viewBasket } decrementCart(cartItem.id) }}>-</button>
+						<h3 class="basket-item-content item-amount">{cartItem.amount}</h3>
+						<button class="increment-button" on:click={() => 
+							{var product = {
+									id : cartItem.id,
+									name : cartItem.name,
+									price : cartItem.price
+								};
+							 addToCart(product);
+							}}>+</button>
+					</div>
+					<!-- svelte-ignore a11y-click-events-have-key-events svelte-ignore a11y-no-static-element-interactions -->
+					<div class="remove-button" on:click={() => { viewBasket = !viewBasket; removeFromCart(cartItem.id);  }}>remove</div>
+				</div>
+			{/each}
+			<button class="checkout-button" on:click={checkout}>Checkout</button>
+		</div>
+	{/if}
+	{/if}
+	<div class="cards">
+		{#each products as product}
+			<ShopCard name={product.name} cost={product.default_price.unit_amount} id={product.id}
+			descShort={product.metadata.descShort} description={product.description} image={product.images[0]}
+			on:inspect={modal}/>
+		{/each}
+	</div>
 {/if}
 
 <style>
