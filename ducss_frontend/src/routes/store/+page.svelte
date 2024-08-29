@@ -11,7 +11,7 @@
 	import duckSpin from "$lib/images/duckspinning.gif";
 	import shoppingBasket from "$lib/images/UI_Icons/shoppingBasket.svelte";
 
-	import funkyTown from "$lib/audio/FunkyTown.mp3";
+	import funkyTown from "$lib/audio/Duck.mp3";
 	import ShoppingBasket from "$lib/images/UI_Icons/shoppingBasket.svelte";
 	import { quintInOut, quintOut } from "svelte/easing";
 
@@ -34,7 +34,7 @@
 
 	let duck : boolean = false;
 
-	if (data.products.length == 0) duck = true;
+	if (products == null) duck = true;
 		else duck = false;
 
 	let showModal : boolean = false;
