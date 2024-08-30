@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Install Certbot and OpenSSL
-RUN apk add --no-cache certbot openssl
+RUN apk add --no-cache certbot py3-certbot-nginx
 
 # Copy the build output from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
