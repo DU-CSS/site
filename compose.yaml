@@ -11,8 +11,6 @@ services:
 
   frontend-node:
     image: ghcr.io/du-css/frontend-node:latest
-    ports:
-      - "3000:3000"
     networks:
       - internal
 
