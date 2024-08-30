@@ -19,6 +19,8 @@ RUN npm run build
 # Stage 2: Setup Nginx with SSL
 FROM nginx:stable-alpine
 
+RUN --from=build ls -l /app/build
+
 # Copy the build output from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
