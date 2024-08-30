@@ -1,8 +1,5 @@
 FROM nginx:stable-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/build /usr/deploy
-RUN chown -R nginx:nginx /usr/deploy
-RUN chown -R 755 /usr/deploy
 EXPOSE 80   
 EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
