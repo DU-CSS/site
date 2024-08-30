@@ -16,7 +16,7 @@ COPY . .
 # Build the Svelte application
 RUN npm run build
 
-# Stage 2: Setup Nginx with Certbot (Debian-based image)
+# Stage 2: Setup Nginx with Certbot
 FROM nginx:stable
 
 # Install Certbot and the Nginx plugin
@@ -25,12 +25,19 @@ RUN apt-get update && apt-get install -y certbot python3-certbot-nginx && apt-ge
 # Copy the build output from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
+# Create directory for Certbot challenges
+RUN mkdir -p /var/www/certbot
+
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Expose ports 80 and 443
 EXPOSE 80
 EXPOSE 443
 
-# Run Certbot to obtain certificates and start Nginx
-CMD ["/bin/sh", "-c", "certbot --nginx -d ducss.ie -d www.ducss.ie --non-interactive --agree-tos --email your-email@example.com && nginx -g 'daemon off;'"]
+# Run entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]
