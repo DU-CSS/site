@@ -4,7 +4,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	preview: {
 		host: true,
-		port: 443
+		port: 443,
+		https: true
 	},
 	plugins: [sveltekit()]
 });
