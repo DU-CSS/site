@@ -5,4 +5,4 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /etc/letsencrypt/live/ducss.ie/:/etc/nginx/certs
+      - /etc/letsencrypt/live/ducss.ie/:/etc/letsencrypt/live/ducss.ie/
