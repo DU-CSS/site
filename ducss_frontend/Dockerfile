@@ -16,7 +16,7 @@ COPY . .
 # Build the Svelte application
 RUN npm run build
 
-EXPOSE 443
+EXPOSE 80
 
 # Start the Svelte application
 CMD ["npm", "run", "preview"]

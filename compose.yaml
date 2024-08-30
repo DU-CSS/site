@@ -5,4 +5,4 @@ services:
     #   context: ./ducss_frontend
     #   dockerfile: Dockerfile
     ports:
-      - "443:443"  
+      - "80:80"  
