@@ -28,7 +28,8 @@
             {
                 StripeConfiguration.ApiKey = STRIPE_API_KEY;
                 Stripe.Checkout.SessionCreateOptions options = new Stripe.Checkout.SessionCreateOptions();
-                options.SuccessUrl = "https://miarolfe.com";
+                options.SuccessUrl = "https://ducss.ie/store/success";
+                options.CancelUrl = "https://ducss.ie/store/cancel";
                 options.LineItems = new List<Stripe.Checkout.SessionLineItemOptions>();
                 options.Mode = "payment";
                 foreach (StripeCheckoutItem item in items)
