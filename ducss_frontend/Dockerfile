@@ -25,6 +25,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy the build output from the previous stage
 # COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/build /usr/deploy
+RUN sudo chown -R 755 /usr/deploy
 
 
 
