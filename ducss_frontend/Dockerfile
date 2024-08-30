@@ -19,14 +19,14 @@ RUN npm run build
 # Stage 2: Setup Nginx with SSL
 FROM nginx:stable-alpine
 
-# Copy the build output from the previous stage
-COPY --from=build /app/build /usr/share/nginx/html
-COPY --from=build /app/build /usr/test
-
-RUN ls -l /usr/share/nginx/html
-
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy the build output from the previous stage
+# COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/deploy
+
+
 
 # Expose ports 80 and 443
 EXPOSE 80   
