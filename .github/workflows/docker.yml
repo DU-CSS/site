@@ -38,7 +38,7 @@ jobs:
           push: true
           tags: ghcr.io/du-css/frontend:latest
         env:
-          stripe_secret_key: ${{ secrets.StripeSecretKey }}
+          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
 
       # - name: Build and push backend image
       #   uses: docker/build-push-action@v5
