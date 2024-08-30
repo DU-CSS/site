@@ -14,6 +14,11 @@ services:
     networks:
       - internal
 
+  backend:
+    image: ghcr.io/du-css/backend:latest
+    networks:
+      - internal
+
 networks:
   internal:
     driver: bridge
