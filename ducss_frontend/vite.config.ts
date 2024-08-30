@@ -5,7 +5,7 @@ export default defineConfig({
 	preview: {
 		host: true,
 		port: 80,
-		https: true
+		// https: true
 	},
 	plugins: [sveltekit()]
 });
