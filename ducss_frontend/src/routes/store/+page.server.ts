@@ -11,7 +11,7 @@ export const load : PageServerLoad = async function({ cookies }) {
         var productDetails = null;
     }
     
-    //console.log('Product Details', productDetails.data);
+    //console.log('Product Details', productDetails);
 
     return {
         products : productDetails,

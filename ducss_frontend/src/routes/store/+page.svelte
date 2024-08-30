@@ -28,14 +28,21 @@
 
 	export let data: PageData;
 
-	$: products = data.products.data;
-
-	console.log(products);
+	console.log(data);
 
 	let duck : boolean = false;
+	let products;
 
-	if (products == null) duck = true;
+	if (!data.products) {
+		duck = true;
+	}
+	else {
+
+	products = data.products.data;
+
+	if (products.length == 0) duck = true;
 		else duck = false;
+	}
 
 	let showModal : boolean = false;
 	let modalName : string;
@@ -151,8 +158,8 @@
 		display: block;
 		margin: 0 auto;
 		margin-top: 35px;
-		height: 450px;
-		width: 450px;
+		height: 425px;
+		width: 425px;
 	}
 
 	.cards {
