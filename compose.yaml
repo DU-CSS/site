@@ -1,0 +1,8 @@
+services:
+  frontend:
+    image: ghcr.io/DU-CSS/frontend:latest
+    # build:
+    #   context: ./ducss_frontend
+    #   dockerfile: Dockerfile
+    ports:
+      - "80:80"
