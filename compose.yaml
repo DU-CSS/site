@@ -1,8 +1,21 @@
 services:
-  frontend:
-    image: ghcr.io/du-css/frontend:latest
+  frontend-nginx:
+    image: ghcr.io/du-css/frontend-nginx:latest
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./certs:/certs
+    networks:
+      - internal
+
+  frontend-node:
+    image: ghcr.io/du-css/frontend-node:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
