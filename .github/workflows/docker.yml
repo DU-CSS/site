@@ -37,6 +37,8 @@ jobs:
           file: ./ducss_frontend/Dockerfile
           push: true
           tags: ghcr.io/du-css/frontend:latest
+        env:
+          stripe_secret_key: ${{ secrets.StripeSecretKey }}
 
       # - name: Build and push backend image
       #   uses: docker/build-push-action@v5
