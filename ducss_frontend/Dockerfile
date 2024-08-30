@@ -25,9 +25,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy SSL certificates (assuming you have them in a folder called "certs")
-COPY /etc/letsencrypt/live/ducss.ie/ /etc/nginx/certs
-
 # Expose ports 80 and 443
 EXPOSE 80
 EXPOSE 443
