@@ -89,7 +89,7 @@
 {#if duck}
 	<!-- svelte-ignore a11y-distracting-elements -->
 	<marquee direction="right">Nothing For Sale</marquee>
-	<audio src={funkyTown} loop autoplay/>
+	<audio src={funkyTown} loop autoplay volume={0.1}/>
 	<img class="spinning-duck"  src={duckSpin} alt="Spinning Duck to signify nothing for sale"/>
 	<!-- svelte-ignore a11y-distracting-elements -->
 	<marquee>Please Accept This Duck as an Apology</marquee>
