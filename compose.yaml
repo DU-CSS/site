@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: ghcr.io/DU-CSS/frontend:latest
+    image: ghcr.io/du-css/frontend:latest
     # build:
     #   context: ./ducss_frontend
     #   dockerfile: Dockerfile
