@@ -53,7 +53,7 @@ jobs:
       - name: Build and push frontend-provisional image
         uses: docker/build-push-action@v5
         with:
-          context: ./ducss_frontend
+          context: ./provisional-ducss-stie
           file: ./provisional-ducss-site/Dockerfile
           push: true
           tags: ghcr.io/du-css/frontend-provisional:latest
