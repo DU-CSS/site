@@ -15,10 +15,7 @@ services:
       - internal
 
   frontend-provisional:
-    # image: ghcr.io/du-css/frontend-provisional:latest
-    build:
-      context: ./provisional-ducss-site
-      dockerfile: Dockerfile
+    image: ghcr.io/du-css/frontend-provisional:latest
     networks:
       - internal
 
