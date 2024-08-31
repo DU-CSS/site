@@ -15,7 +15,7 @@ services:
       - internal
 
   frontend-provisional:
-    image: ghcr.io/du-css/frontend-provisional:lastest
+    image: ghcr.io/du-css/frontend-provisional:latest
     networks:
       - internal
 
