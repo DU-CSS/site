@@ -9,15 +9,18 @@ services:
     networks:
       - internal
 
-  frontend-node:
-    image: ghcr.io/du-css/frontend-node:latest
-    networks:
-      - internal
+  # frontend-node:
+    # image: ghcr.io/du-css/frontend-node:latest
+    # networks:
+      # - internal
 
   frontend-provisional:
     image: ghcr.io/du-css/frontend-provisional:latest
     networks:
       - internal
+    depends_on:
+      - backend
+      - frontend-nginx
 
   backend:
     image: ghcr.io/du-css/backend:latest
