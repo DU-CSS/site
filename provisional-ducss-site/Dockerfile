@@ -5,4 +5,4 @@ RUN npm install
 COPY . .
 RUN npm run build
 EXPOSE 3000
-CMD ["next", "start", "-p", "80"]
+CMD ["node_modules/.bin/next", "start", "-p", "80"]
