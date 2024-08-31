@@ -50,6 +50,16 @@ jobs:
         env:
           stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
 
+      - name: Build and push frontend-provisional image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ducss_frontend
+          file: ./provisional-ducss-site/Dockerfile
+          push: true
+          tags: ghcr.io/du-css/frontend-provisional:latest
+        env:
+          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
+
       - name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
