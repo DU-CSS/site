@@ -26,6 +26,9 @@ services:
     image: ghcr.io/du-css/backend:latest
     networks:
       - internal
+    environment:
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+    
 
 networks:
   internal:
