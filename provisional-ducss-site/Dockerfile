@@ -4,6 +4,6 @@ COPY package*.json ./
 RUN npm install
 RUN npm run build
 EXPOSE 3000
-RUN ls -l
+RUN ls -l -a
 COPY build ./
 CMD ["npm", "run", "start"]
