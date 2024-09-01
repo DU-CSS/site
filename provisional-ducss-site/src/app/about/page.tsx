@@ -125,7 +125,7 @@ export default function Page() {
           pronouns={"he/him"}
           role={"eSports Officer"}
           picture={"/rohn.jpg"}
-          bio={"Hey everyone! My name is Rohn, I’m in 4th year CS, and this year I will be our eSports Officer. My job is to promote Esports and run events for anyone who is interested in competitive gaming. I will do my best to run events for people of all skill levels so I hope to see you there!"}
+          bio={"Hey everyone! My name is Rohn, I’m in 4th year CS, and this year I will be our eSports Officer. My job is to promote eSports and run events for anyone who is interested in competitive gaming. I will do my best to run events for people of all skill levels so I hope to see you there!"}
         />
         <CommitteeMember
           name={"Elizabeth Gogova"}
