@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ChakraProvider theme={theme}>
           <Header />
-          <ScaleFade in={true}>
+          {/* <ScaleFade in={true}> */}
             <Flex 
             w={"100%"}
             minH={"100vh"}>
@@ -37,7 +37,7 @@ export default function RootLayout({
                 {children}
               </Box>
             </Flex>
-          </ScaleFade>
+          {/* </ScaleFade> */}
         </ChakraProvider>
       </body>
     </html>
