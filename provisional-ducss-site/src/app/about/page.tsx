@@ -12,9 +12,6 @@ export default function Page() {
       p={"20px"}
       justify={"center"}
     >
-
-
-
       <Card w={isTabletOrMobile ? "100%" : "60%"}>
         <VStack p={"25px"}>
           {/* <Text fontSize={"6xl"} fontWeight={"black"}>DUCSS</Text> */}
@@ -43,14 +40,14 @@ export default function Page() {
           pronouns={"he/him"}
           role={"Chairperson"}
           picture={"/darragh.jpg"}
-          bio={"TODO"}
+          bio={""}
         />
         <CommitteeMember
           name={"Manuel Araújo"}
           pronouns={"he/him"}
           role={"Treasurer"}
           picture={"/manel.jpg"}
-          bio={"TODO"}
+          bio={"Hey everyone! I’m Manel, your new Treasurer for DUCSS. I’m going into my fourth year of ICS and my second year on the DUCSS committee and I will be responsible for dealing with the finances of the society to make sure we have the money to make the best possible events for all of you. Whenever I’m not doing that, I will probably be napping in the DUCSS room pretending lectures don’t exist or watching the latest F1 highlights."}
         />
         <CommitteeMember
           name={"Mia Rolfe"}
@@ -64,7 +61,7 @@ export default function Page() {
           pronouns={"she/her"}
           role={"PRO"}
           picture={"/leah.png"}
-          bio={"TODO"}
+          bio={""}
         />
         <CommitteeMember
           name={"James Doyle"}
@@ -100,7 +97,7 @@ export default function Page() {
           pronouns={"he/him"}
           role={"Events Officer"}
           picture={"/dan.png"}
-          bio={"TODO"}
+          bio={"Hey, my name is Daniel and I've been around DUCSS for most of my time in college. Studying CS, as most of us are and really excited about this year's events. As Ents it's my job to run and host social events, whether that's a pub quiz or a collab with another society. Feel free to say hi to me if you ever see me at an event, and if you ever have any suggestions or idea for events lmk:^) Curly hair is probably one of my biggest personality traits and I'm known to play a game here or there."}
         />
         <CommitteeMember
           name={"Siddhi Srivastav"}
@@ -135,7 +132,7 @@ export default function Page() {
           pronouns={"she/her"}
           role={"Diversity and Inclusion Officer"}
           picture={"/elizabeth.jpg"}
-          bio={"TODO"}
+          bio={"Hi everyone!! My name is Elizabeth, and this year I am going to be your Diversity and Inclusion Officer. I'm a student of Business and German here in trinity. I like programming in my free time :)) I'm very excited to meet you all during the course of this year!! <3"}
         />
       </SimpleGrid>
     </VStack>
