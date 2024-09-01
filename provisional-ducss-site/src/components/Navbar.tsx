@@ -74,7 +74,7 @@ export const Navbar = () => {
               <Text>About</Text>
             </MenuItem>
           </Link>
-          <Link href="/contact" aria-label="Contact">
+          <Link href="/contact-us" aria-label="Contact">
             <MenuItem bg={"#EFF1FF"}>
               <Text>Contact</Text>
             </MenuItem>
@@ -100,7 +100,7 @@ export const Navbar = () => {
           <Link color={"#111111"} fontSize={{ base: "1xl" }} href="/events" aria-label="Events">Events</Link> 
           */}
           <Link color={"#111111"} fontSize={{ base: "1xl" }} href="/about" aria-label="About">About</Link>
-          <Link color={"#111111"} fontSize={{ base: "1xl" }} href="/contact" aria-label="Contact">Contact</Link>
+          <Link color={"#111111"} fontSize={{ base: "1xl" }} href="/contact-us" aria-label="Contact">Contact</Link>
           {/* 
           <Link color={"#111111"} fontSize={{ base: "1xl" }} href="/sponsors" aria-label="Sponsors">Sponsors</Link> 
           */}
