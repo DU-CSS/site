@@ -2,7 +2,7 @@ services:
   frontend-nginx:
     image: ghcr.io/du-css/frontend-nginx:latest
     ports:
-      - "80:80"
+      - "3000:3000"
       - "443:443"
     volumes:
       - ./certs:/certs
