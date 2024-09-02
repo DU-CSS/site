@@ -6,30 +6,24 @@ services:
       - "443:443"
     volumes:
       - ./certs:/certs
-    networks:
-      - internal
+    network_mode: host
 
-  # frontend-node:
-    # image: ghcr.io/du-css/frontend-node:latest
-    # networks:
-      # - internal
-
-  frontend-provisional:
-    image: ghcr.io/du-css/frontend-provisional:latest
-    networks:
-      - internal
+  frontend-node:
+    image: ghcr.io/du-css/frontend-node:latest
+    network_mode: host
     depends_on:
       - backend
-      - frontend-nginx
+      - frontend-nginx 
+
+  #frontend-provisional:
+  #  image: ghcr.io/du-css/frontend-provisional:latest
+  #  network_mode: host
+  #  depends_on:
+  #    - backend
+  #    - frontend-nginx
 
   backend:
     image: ghcr.io/du-css/backend:latest
-    networks:
-      - internal
+    network_mode: host
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
-    
-
-networks:
-  internal:
-    driver: bridge
