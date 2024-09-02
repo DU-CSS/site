@@ -30,15 +30,15 @@ jobs:
           username: du-css
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build and push frontend-node image
-        # uses: docker/build-push-action@v5
-        # with:
-          # context: ./ducss_frontend
-          # file: ./ducss_frontend/Dockerfile-node
-          # push: true
-          # tags: ghcr.io/du-css/frontend-node:latest
-        # env:
-          # stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
+      - name: Build and push frontend-node image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ducss_frontend
+          file: ./ducss_frontend/Dockerfile-node
+          push: true
+          tags: ghcr.io/du-css/frontend-node:latest
+        env:
+          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
 
       - name: Build and push frontend-nginx image
         uses: docker/build-push-action@v5
@@ -50,15 +50,15 @@ jobs:
         env:
           stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
 
-      - name: Build and push frontend-provisional image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./provisional-ducss-site
-          file: ./provisional-ducss-site/Dockerfile
-          push: true
-          tags: ghcr.io/du-css/frontend-provisional:latest
-        env:
-          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
+      # - name: Build and push frontend-provisional image
+        # uses: docker/build-push-action@v5
+        # with:
+          # context: ./provisional-ducss-site
+          # file: ./provisional-ducss-site/Dockerfile
+          # push: true
+          # tags: ghcr.io/du-css/frontend-provisional:latest
+        # env:
+          # stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
 
       - name: Build and push backend image
         uses: docker/build-push-action@v5
