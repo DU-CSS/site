@@ -5,7 +5,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./certs:/certs
+      - ./certs:/etc/letsencrypt/live/ducss.ie
     networks:
       - internal
   # frontend-node:
