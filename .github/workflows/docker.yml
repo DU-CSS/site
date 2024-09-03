@@ -1,5 +1,4 @@
 name: Build and push Docker images
-
 on:
   push:
     branches:
@@ -7,39 +6,32 @@ on:
   pull_request:
     branches:
       - main  # Trigger the workflow on pull request to the main branch
-
 permissions:
   contents: write
   packages: write
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: du-css
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push frontend-node image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./ducss_frontend
-          file: ./ducss_frontend/Dockerfile-node
-          push: true
-          tags: ghcr.io/du-css/frontend-node:latest
-        env:
-          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
-
+      # - name: Build and push frontend-node image
+        # uses: docker/build-push-action@v5
+        # with:
+          # context: ./ducss_frontend
+          # file: ./ducss_frontend/Dockerfile-node
+          # push: true
+          # tags: ghcr.io/du-css/frontend-node:latest
+        # env:
+          # stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
       - name: Build and push frontend-nginx image
         uses: docker/build-push-action@v5
         with:
@@ -49,17 +41,15 @@ jobs:
           tags: ghcr.io/du-css/frontend-nginx:latest
         env:
           stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
-
-      # - name: Build and push frontend-provisional image
-        # uses: docker/build-push-action@v5
-        # with:
-          # context: ./provisional-ducss-site
-          # file: ./provisional-ducss-site/Dockerfile
-          # push: true
-          # tags: ghcr.io/du-css/frontend-provisional:latest
-        # env:
-          # stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
-
+      - name: Build and push frontend-provisional image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./provisional-ducss-site
+          file: ./provisional-ducss-site/Dockerfile
+          push: true
+          tags: ghcr.io/du-css/frontend-provisional:latest
+        env:
+          stripe_secret_key: ${{ secrets.STRIPESECRETKEY }}
       - name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
