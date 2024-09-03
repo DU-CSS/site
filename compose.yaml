@@ -1,37 +1,31 @@
-version: "3"
-
 services:
-  #frontend-nginx:
-  #  image: ghcr.io/du-css/frontend-nginx:latest
-  #  ports:
-  #    - "3000:3000"
-  #    - "443:443"
-  #  volumes:
-  #    - ./certs:/certs
-  #  networks:
-  #    - internal
-
-  frontend-node:
-    image: ghcr.io/du-css/frontend-node:latest
-    restart: unless-stopped
-    ports: 
-      - 3000:5050
-
-  #frontend-provisional:
-  #  image: ghcr.io/du-css/frontend-provisional:latest
-  #  networks:
-  #    - internal
-  #  depends_on:
-  #    - backend
-  #    - frontend-nginx
-
+  frontend-nginx:
+    image: ghcr.io/du-css/frontend-nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/certs
+    networks:
+      - internal
+  # frontend-node:
+    # image: ghcr.io/du-css/frontend-node:latest
+    # networks:
+      # - internal
+  frontend-provisional:
+    image: ghcr.io/du-css/frontend-provisional:latest
+    networks:
+      - internal
+    depends_on:
+      - backend
+      - frontend-nginx
   backend:
     image: ghcr.io/du-css/backend:latest
     networks:
       - internal
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
-    
+
 
 networks:
   internal:
