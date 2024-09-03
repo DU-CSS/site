@@ -1,18 +1,21 @@
+version: "3"
+
 services:
-  frontend-nginx:
-    image: ghcr.io/du-css/frontend-nginx:latest
-    ports:
-      - "3000:3000"
-      - "443:443"
-    volumes:
-      - ./certs:/certs
-    networks:
-      - internal
+  #frontend-nginx:
+  #  image: ghcr.io/du-css/frontend-nginx:latest
+  #  ports:
+  #    - "3000:3000"
+  #    - "443:443"
+  #  volumes:
+  #    - ./certs:/certs
+  #  networks:
+  #    - internal
 
   frontend-node:
     image: ghcr.io/du-css/frontend-node:latest
-    networks:
-      - internal
+    restart: unless-stopped
+    ports: 
+      - 3000:5050
 
   #frontend-provisional:
   #  image: ghcr.io/du-css/frontend-provisional:latest
