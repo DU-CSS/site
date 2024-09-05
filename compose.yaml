@@ -8,38 +8,38 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-    expose:
-      - 3000
+    ports:
+      - 80:3000
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
 
-  frontend-nginx:
-    container_name: nginx
-    restart: unless-stopped
-    image: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/conf:/etc/letsencrypt
-      - ./cerbot/www:/var/www/certbot
-    depends_on:
-      - frontend-node
-
-  backend:
-    image: ghcr.io/du-css/backend:latest
-    restart: unless-stopped
-    environment:
-      - STRIPE_API_KEY=${STRIPE_API_KEY}
-
-  certbot:
-    image: certbot/certbot    
-    container_name: certbot
-    restart: unless-stopped
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot    
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
-    depends_on:
-      - frontend-node
+#  frontend-nginx:
+#    container_name: nginx
+#    restart: unless-stopped
+#    image: nginx
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./cerbot/www:/var/www/certbot
+#    depends_on:
+#      - frontend-node
+#
+#  backend:
+#    image: ghcr.io/du-css/backend:latest
+#    restart: unless-stopped
+#    environment:
+#      - STRIPE_API_KEY=${STRIPE_API_KEY}
+#
+#  certbot:
+#    image: certbot/certbot    
+#    container_name: certbot
+#    restart: unless-stopped
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot    
+#    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
+#    depends_on:
+#      - frontend-node
