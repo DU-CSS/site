@@ -9,7 +9,7 @@ services:
       - NODE_ENV=production
     restart: unless-stopped
     ports:
-      - 80:3000
+      - 3000:3000
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
 
