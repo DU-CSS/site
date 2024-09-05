@@ -11,8 +11,6 @@ services:
       - 3000
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
-    networks:
-      - internal
     depends_on:
       - backend
       - frontend-nginx
@@ -26,14 +24,10 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./cerbot/www:/var/www/certbot
-    networks:
-      - internal
 
   backend:
     image: ghcr.io/du-css/backend:latest
     restart: unless-stopped
-    networks:
-      - internal
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
 
@@ -44,8 +38,6 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot    
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.ie -d ducss.ie --agree-tos
-
-networks:
-  internal:
-      driver: bridge
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
+    depends_on:
+      - frontend-node
