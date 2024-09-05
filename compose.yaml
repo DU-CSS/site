@@ -21,21 +21,22 @@ services:
     volumes:
       - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/letsencrypt
-      - ./cerbot/www:/var/www/certbot
-#
-#  backend:
-#    image: ghcr.io/du-css/backend:latest
-#    restart: unless-stopped
-#    environment:
-#      - STRIPE_API_KEY=${STRIPE_API_KEY}
-#
-#  certbot:
-#    image: certbot/certbot    
-#    container_name: certbot
-#    restart: unless-stopped
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot    
-#    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
-#    depends_on:
-#      - frontend-node
+      - ./certbot/www:/var/www/certbot
+
+  backend:
+    image: ghcr.io/du-css/backend:latest
+    restart: unless-stopped
+    environment:
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+
+  certbot:
+    image: certbot/certbot    
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot    
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
+    depends_on:
+      - frontend-node
+      - nginx
