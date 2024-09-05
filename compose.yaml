@@ -7,8 +7,8 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
     networks:
