@@ -6,8 +6,6 @@ services:
     user: "node"
     environment:
       - NODE_ENV=production
-    env_file:
-      - /ducss_frontend/.env
     restart: unless-stopped
     ports:
       - 3000:3000
