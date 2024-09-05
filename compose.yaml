@@ -8,24 +8,20 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-    ports:
-      - 80:3000
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
 
-#  frontend-nginx:
-#    container_name: nginx
-#    restart: unless-stopped
-#    image: nginx
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    volumes:
-#      - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./cerbot/www:/var/www/certbot
-#    depends_on:
-#      - frontend-node
+  frontend-nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./cerbot/www:/var/www/certbot
 #
 #  backend:
 #    image: ghcr.io/du-css/backend:latest
