@@ -2,6 +2,7 @@ version: "3"
 
 services:
   frontend-node:
+    container_name: frontend-node
     image: ghcr.io/du-css/frontend-node:latest
     user: "node"
     environment:
@@ -16,12 +17,14 @@ services:
       - frontend-nginx
 
   frontend-nginx:
-    image: ghcr.io/du-css/frontend-nginx:latest
+    container_name: nginx
     restart: unless-stopped
+    image: nginx
     ports:
       - "80:80"
       - "443:443"
     volumes:
+      - ./ducss_frontend/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/letsencrypt
       - ./cerbot/www:/var/www/certbot
 
