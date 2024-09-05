@@ -19,6 +19,7 @@ services:
 
   frontend-nginx:
     image: ghcr.io/du-css/frontend-nginx:latest
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -30,6 +31,7 @@ services:
 
   backend:
     image: ghcr.io/du-css/backend:latest
+    restart: unless-stopped
     networks:
       - internal
     environment:
