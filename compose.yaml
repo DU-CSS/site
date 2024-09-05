@@ -39,4 +39,4 @@ services:
     command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d ducss.ie --agree-tos
     depends_on:
       - frontend-node
-      - nginx
+      - frontend-nginx
