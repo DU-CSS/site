@@ -23,7 +23,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ../etc/letsencrypt/live/ducss.ie:/certs
+      - ./certbot/conf:/etc/letsencrypt
+      - ./cerbot/www:/var/www/certbot
     networks:
       - internal
 
@@ -33,6 +34,14 @@ services:
       - internal
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
+
+  certbot:
+    image: certbot/certbot    
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot    
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.ie -d ducss.ie --agree-tos
 
 networks:
   internal:
