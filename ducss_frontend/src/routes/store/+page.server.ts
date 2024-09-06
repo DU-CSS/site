@@ -12,6 +12,7 @@ export const load : PageServerLoad = async function({ cookies }) {
     }
     
     //console.log('Product Details', productDetails);
+    console.log(env.BASE)
 
     return {
         products : productDetails,
