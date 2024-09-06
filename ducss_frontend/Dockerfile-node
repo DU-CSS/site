@@ -4,4 +4,4 @@ COPY . .
 RUN npm ci
 RUN npm run build
 USER node:node
-CMD ["node","build/index.js"]
+CMD ["node","-r","dotenv/config","build/index.js"]
