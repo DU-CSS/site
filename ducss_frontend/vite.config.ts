@@ -6,5 +6,8 @@ export default defineConfig({
 		host: true,
 		port: 80
 	},
-	plugins: [sveltekit()]
+	plugins: [
+		sveltekit(),
+	],
+	assetsInclude: ['**/*.html']
 });
