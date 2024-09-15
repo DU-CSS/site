@@ -8,7 +8,7 @@
 </div>
 
 <div class="container">
-    <form action="https://formsubmit.co/ducss@csc.tcd.ie" method="POST">
+    <form action="https://formsubmit.co/496e912bc81e561bc8dd9b6b1a9b7af4" method="POST">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
 
