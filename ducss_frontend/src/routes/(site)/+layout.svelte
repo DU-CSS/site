@@ -69,7 +69,7 @@
 
         <input type="image" class="footer-toggle {footerState}" src={doubleArrow} alt="Footer Toggle Button" on:click={() => collapsed = !collapsed}/>
         
-        <a class="footer-icon-wrapper discord" href="https://discord.gg/NUZGYT4">
+        <a class="footer-icon-wrapper discord" href="https://discord.gg/GcTjxcsbW4">
             <img class="footer-icon discord" src={discord} alt="Link to discord"/>
         </a>
         <a class="footer-icon-wrapper contact" href="/contact-us">
