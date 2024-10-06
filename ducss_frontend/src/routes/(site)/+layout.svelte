@@ -46,10 +46,10 @@
             <li>
                 <a class="nav-button" href="/about">About</a>
             </li>
+        -->
             <li>
                 <a class="nav-button" href="/sponsors">Sponsors</a>
             </li>
-        -->
         </ul>
     </div>    
 </nav>
@@ -79,13 +79,12 @@
 </footer>
 
 <style>
-
-    /*@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');*/
     
     :global(body) {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        width: 100%;
         margin: 0;
         background-color: hsla(30, 100%, 85%, .2);
         overflow-x: hidden;
