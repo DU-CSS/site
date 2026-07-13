@@ -66,7 +66,7 @@
       background-color: hsl(25, 100%, 97%);
     }
 
-    textarea::placeholder {
+    input[type=text]::placeholder, input[type=email]::placeholder, textarea::placeholder {
         opacity: .5;
     }
 

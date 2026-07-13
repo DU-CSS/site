@@ -19,7 +19,7 @@
     $: footerState = collapsed ? 'collapsed' : 'expanded';
 
 </script>
-
+<!--
 <nav>
     <div class="nav-content-container">
         <div class="logo-container">
@@ -36,7 +36,7 @@
             <li>
               <a class="nav-button" href="/store">Store</a>
             </li>
-        <!--
+        
             <li>
                 <a class="nav-button" href="/opportunities">Opportunities</a>
             </li>
@@ -44,7 +44,7 @@
                 <a class="nav-button" href="/events">Events</a>
             </li>
 
-        -->
+        
             <li>
                 <a class="nav-button" href="/about">About</a>
             </li>
@@ -55,11 +55,11 @@
         </ul>
     </div>    
 </nav>
-
+-->
 <div class="content">
     <slot/>
 </div>
-
+<!--
 <footer class={footerState}>
     <div class="footer-content-container">
         <a class="footer-icon-wrapper instagram" href="https://instagram.com/ducss_">
@@ -79,7 +79,7 @@
         </a>
     </div>
 </footer>
-
+-->
 <style>
     
     :global(body) {
