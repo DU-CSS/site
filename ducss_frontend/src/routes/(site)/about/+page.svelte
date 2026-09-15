@@ -12,6 +12,7 @@
 	import TV from '$lib/images/Design/tv.png';
 	import CommitteeNest from '$lib/images/committee/committee-nest.png';
 	import OurSociety from '$lib/images/Our_Society.png';
+	import constitution from '$lib/images/committee/constitution.pdf';
 	import Johnathan from '$lib/images/Johnathan.gif';
 	import Johnathan_Stares_Into_Soul from '$lib/images/Johnathan_Stares_Into_Soul.png';
 	import instagram from '$lib/images/Footer_Icons/instagram.png';
@@ -53,7 +54,7 @@
 					Engineering, Mathematics, and eSports enthusiasts, DUCSS is dedicated to fostering a
 					dynamic environment that stimulates both technical prowess and essential soft skills.
 				</p>
-                <button><a href="src/lib/images/committee/constitution.pdf">Read Our Constitution</a></button>
+                <button><a href={constitution}>Read Our Constitution</a></button>
 			</div>
 			<div class="box">
 				<h3>How to Become a Member</h3>
