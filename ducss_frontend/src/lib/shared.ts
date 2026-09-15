@@ -170,37 +170,37 @@ export const sponsors = [
     new Map<string, any>([
         ['Title', 'Arista Networks'],
         ['Description', 'Arista Networks is a global technology company specialising in cloud networking and high-performance networking solutions for data centres, AI infrastructure, campuses and enterprise environments. Its technology combines networking hardware with its software-driven EOS platform, with a strong focus on automation, reliability and large-scale systems. Arista offers opportunities particularly relevant to students interested in software engineering, networking, distributed systems and cloud infrastructure.'],
-        ['Photo', '/images/sponsors/arista.png']
+        ['Photo', '/sponsors/arista.png']
     ]),
     new Map<string, any>([
         ['Title', 'Millennium'],
         ['Description', 'Millennium is a global, diversified alternative investment firm founded in 1989. The firm brings together hundreds of specialised investment teams operating across global financial markets, supported by large-scale technology and infrastructure. For Computer Science students, Millennium provides exposure to the intersection of software engineering, data, quantitative finance and technology within financial markets.'],
-        ['Photo', '/images/sponsors/millenium.png']
+        ['Photo', '/sponsors/millenium.png']
     ]),
     new Map<string, any>([
         ['Title', 'Stripe'],
         ['Description', "Stripe is a technology company that builds economic infrastructure for the internet. Its software enables businesses ranging from startups to some of the world's largest companies to accept payments, manage online businesses and build financial products. Stripe has dual headquarters in Dublin and San Francisco, making it particularly relevant to Ireland's technology ecosystem and students interested in software engineering, distributed systems, fintech and internet infrastructure."],
-        ['Photo', '/images/sponsors/stripe.png']
+        ['Photo', '/sponsors/stripe.png']
     ]),
     new Map<string, any>([
         ['Title', 'PwC'],
         ['Description', "PwC is one of Ireland's largest professional services firms, providing services across audit, tax and advisory. Its teams work with organisations ranging from startups to major global companies, increasingly combining business expertise with technology, data and digital transformation. PwC provides students with opportunities to explore careers spanning technology consulting, cybersecurity, data and analytics, business transformation and professional services."],
-        ['Photo', '/images/sponsors/pwc.png']
+        ['Photo', '/sponsors/PWC.png']
     ]),
     new Map<string, any>([
         ['Title', 'Bloomberg'],
         ['Description', "Bloomberg is a global financial, software, data and media company that uses technology to provide financial professionals with real-time information, analytics and news. Technology sits at the centre of Bloomberg's products, including the Bloomberg Terminal, with thousands of engineers and technologists working across areas such as software engineering, data, AI, machine learning and financial systems."],
-        ['Photo', '/images/sponsors/bloomberg.png']
+        ['Photo', '/sponsors/bloomberg.png']
     ]),
     new Map<string, any>([
         ['Title', 'MongoDB'],
         ['Description', 'MongoDB is a global software company best known for its modern document database and cloud data platform. Its technology is designed to give developers a flexible and scalable way to build and operate modern applications, with MongoDB Atlas providing its database platform in the cloud. MongoDB is particularly relevant to students interested in databases, backend engineering, distributed systems, cloud computing and developer tools.'],
-        ['Photo', '/images/sponsors/mongodb.png']
+        ['Photo', '/sponsors/MongoDB.png']
     ]),
     new Map<string, any>([
         ['Title', 'Susquehanna International Group (SIG)'],
         ['Description', 'Susquehanna is a global quantitative trading firm that brings together technology, quantitative research and trading to operate across financial markets. Founded in 1987, the firm uses mathematics, probability, data and technology to solve complex problems and make decisions under uncertainty. SIG is particularly relevant to students interested in software engineering, quantitative trading, algorithms, machine learning, mathematics and financial technology.'],
-        ['Photo', '/images/sponsors/sig.png']
+        ['Photo', '/sponsors/SIG.png']
     ])
 ]
 
