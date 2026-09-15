@@ -11,7 +11,7 @@
 	import Pond2 from '$lib/images/Ponds/Pond2.png';
 	import TV from '$lib/images/Design/tv.png';
 	import CommitteeNest from '$lib/images/committee/committee-nest.png';
-	import OurSociety from '$lib/images/our_society.png';
+	import OurSociety from '$lib/images/Our_Society.png';
 	import Johnathan from '$lib/images/Johnathan.gif';
 	import Johnathan_Stares_Into_Soul from '$lib/images/Johnathan_Stares_Into_Soul.png';
 	import instagram from '$lib/images/Footer_Icons/instagram.png';
