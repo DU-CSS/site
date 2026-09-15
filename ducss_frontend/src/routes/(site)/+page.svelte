@@ -1,35 +1,240 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
-    import Johnathan from '$lib/images/Johnathan.gif'
-    import Johnathan_Stares_Into_Soul from '$lib/images/Johnathan_Stares_Into_Soul.png'
-    import SIG from '$lib/images/sponsors/SIG.png';
-    import Stripe from '$lib/images/sponsors/stripe.png';
-    import Accenture from '$lib/images/sponsors/accenture.png';
-    import Sulu from '$lib/images/sponsors/sulu.png';
-    import KPMG from '$lib/images/sponsors/KPMG.png';
-    import PWC from '$lib/images/sponsors/PWC.png';
-    import instagram from '$lib/images/Footer_Icons/instagram.png';
+	import '$lib/style.css';
+	import { events } from '$lib/shared'; // Import event data
+	import { sponsors } from '$lib/shared';
+	import social from '$lib/images/event_categories/social.png';
+	import gaming from '$lib/images/event_categories/gaming.png';
+	import tech from '$lib/images/event_categories/tech.png';
+	import Pond1 from '$lib/images/Ponds/Pond1.png';
+	import Pond2 from '$lib/images/Ponds/Pond2.png';
+	import TV from '$lib/images/Design/tv.png';
+    import Room from '$lib/images/Room.jpg';
+	import OurSociety from '$lib/images/our_society.png';
+	import Johnathan from '$lib/images/Johnathan.gif';
+	import Johnathan_Stares_Into_Soul from '$lib/images/Johnathan_Stares_Into_Soul.png';
+	import instagram from '$lib/images/Footer_Icons/instagram.png';
+	import Our_Society from '$lib/images/Our_Society.png';
 
-    function Johnathan_hover(element) {
-        element.setAttribute('src', Johnathan_Stares_Into_Soul);
-    }
+	function Johnathan_hover(element) {
+		element.setAttribute('src', Johnathan_Stares_Into_Soul);
+	}
 
-    function Johnathan_unhover(element) {
-        element.setAttribute('src', Johnathan);
-    }
-
+	function Johnathan_unhover(element) {
+		element.setAttribute('src', Johnathan);
+	}
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=mail"/>
-</svelte:head>
+	<!-- Icons loaded here. Specify which ones to load in the link after "icon_names=" -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=confirmation_number,schedule,location_on,account_balance,crowdsource&display=block"
+		rel="stylesheet"
+	/>
+	<!-- Shrikhand loaded here.-->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@100;200;300;400;500;600;700&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Odibee+Sans&family=Shrikhand&display=swap"
+		rel="stylesheet"
+	/></svelte:head
+>
+<main>
+	<body class="yellow">
+		<section
+			class="hero photo home"
+			style="background-image: linear-gradient(var(--clear-only-fullscreen), rgba(15, 10, 0, 0.8)), url({Pond2});"
+		>
+			<div class="header">
+				<h1>Welcome to the quackiest society!</h1>
+				<p>
+					The Dublin University Computer Science Society (DUCSS) is Trinity College Dublin’s student
+					society for computer science, technology and the wider computing community.
+				</p>
+				<div style="display: flex; flex-flow: row wrap; gap: 15px;">
+					<button><a href="https://trinitysocietieshub.com">Join the Society</a></button>
+					<button type="button" class="instagram-button">
+						<a class="instagram-link" href="https://instagram.com/ducss_">
+							Follow Us on Instagram
+						</a>
+					</button>
+				</div>
+			</div>
+			<div class="relative-container">
+				<img
+					class="img-side"
+					src={TV}
+					alt="An old, grey tv sitting in a large orange nest. The screen is pixelated and translucent."
+				/>
+				<!--<img class="tv-background" src={Johnathan}>-->
+			</div>
+		</section>
+		<section>
+			<div class="header">
+				<h2>Coming Up</h2>
+				<p>
+					Over the years, the society has developed from a student-led computing community into one
+					of Trinity’s established technical societies, hosting a wide range of events including
+					coding competitions, technical workshops, company talks, careers events, hackathons,
+					gaming events and socials.
+				</p>
+			</div>
+			<div class="grid">
+				{#each events as card}
+					<div class="card">
+						<p class="caps">{card.get('Day')}, {card.get('Month')} {card.get('Date')}</p>
+						<h3>{card.get('Title')}</h3>
+						<div class="tags">
+							<div class="tag">
+								<span class="material-symbols-outlined">confirmation_number</span>
+								<p>Free</p>
+							</div>
+							<div class="tag">
+								<span class="material-symbols-outlined">schedule</span>
+								<p>{card.get('Start Time')}-{card.get('End Time')}</p>
+							</div>
+							<div class="tag">
+								<span class="material-symbols-outlined">location_on</span>
+								<p>{card.get('Location')}</p>
+							</div>
+						</div>
+						<p class="description">{card.get('Description')}</p>
+						<div
+							class="category {card.get('Category') === 'Social'
+								? 'social'
+								: card.get('Category') === 'Gaming'
+									? 'gaming'
+									: card.get('Category') === 'Tech'
+										? 'tech'
+										: ''}"
+						>
+							<!--TO-DO: On hover say category name-->
+							<div class="noise"></div>
+							<img
+								src={card.get('Category') === 'Social'
+									? social
+									: card.get('Category') === 'Gaming'
+										? gaming
+										: card.get('Category') === 'Tech'
+											? tech
+											: ''}
+								alt={card.get('Category') === 'Social'
+									? 'A coffee cup.'
+									: card.get('Category') === 'Gaming'
+										? 'A mechanical cog.'
+										: card.get('Category') === 'Tech'
+											? 'Headphones.'
+											: ''}
+							/>
+						</div>
+					</div>
+				{/each}
+			</div>
+		</section>
+		<section class="blue">
+			<div class="header">
+				<h2>Our Society</h2>
+				<p>
+					Founded in 1980, DUCSS has been part of Trinity College Dublin’s computing community for
+					more than four decades, growing alongside the university’s Computer Science programmes and
+					the wider technology industry.
+				</p>
+				<p>
+					Hosting students from a variety of academic backgrounds such as Computer Science,
+					Engineering, Mathematics, and eSports, DUCSS is dedicated to fostering a dynamic
+					environment that stimulates both technical prowess and essential soft skills.
+				</p>
+				<p>
+					DUCSS is open to Trinity students interested in computer science, technology, gaming,
+					careers, and the society’s social and technical events. As a member, you can enjoy our
+					dedicated society space within the Hamilton building as well as:
+				</p>
+				<div class="list">
+					<div class="category tech">
+						<div class="noise"></div>
+						<img src={tech} alt={'Mechanical cog.'} />
+					</div>
+					<h3 style="-webkit-text-fill-color: var(--lightorange);">
+						Technical Talks and Workshops
+					</h3>
+					<div class="category contest">
+						<div class="noise"></div>
+						<img src={tech} alt={'Headphones'} />
+					</div>
+					<h3 style="-webkit-text-fill-color: var(--lightteal);">
+						Coding Competitions and Hackathons
+					</h3>
+					<div class="category career">
+						<div class="noise"></div>
+						<img src={tech} alt={'Headphones'} />
+					</div>
+					<h3 style="-webkit-text-fill-color: var(--lightpurple);">Careers and Industry Events</h3>
+					<div class="category gaming">
+						<div class="noise"></div>
+						<img src={gaming} alt="Headphones." />
+					</div>
+					<h3 style="-webkit-text-fill-color: var(--lightred);">Gaming and Esports Tournaments</h3>
+					<div class="category social">
+						<div class="noise"></div>
+						<img src={social} alt="Coffee cup." />
+					</div>
+					<h3 style="-webkit-text-fill-color: var(--lightgreen);">
+						Social Events and Community Outreach
+					</h3>
+				</div>
+				<button><a href="/about">Meet Our Committee</a></button>
+			</div>
+			<div class="div-img right" style="background-image: url({OurSociety})"></div>
+		</section>
+		<section>
+			<div class="sponsors">
+				{#each sponsors as sponsor}
+					<img src={sponsor.get('Photo')} alt="{sponsor.get('Title')} logo." />
+				{/each}
+			</div>
+			<div class="header">
+				<h2>Our Sponsors</h2>
+				<p>
+					DUCSS has built long-standing relationships with major technology, finance and
+					professional services companies, giving students opportunities to meet engineers,
+					recruiters and industry professionals and gain insight into careers in technology.
+				</p>
+				<button><a href="/sponsors">Read More</a></button>
+			</div>
+		</section>
+		<section class="blue">
+			<div class="header">
+				<h2>Come visit our society room in Hamilton!</h2>
+				<p>
+					Our society room is available for events and is usually open whenever a committee member
+					is around. Inside, you’ll find game consoles, PCs, couches, and a space to relax,
+					socialise, or hang out between lectures.
+				</p>
+				<div class="list">
+					<h3>1</h3>
+					<p>Enter through the door to the first door on the left. The door code is 01986.</p>
+					<h3>2</h3>
+					<p>
+						Walk up the stairs to the first floor.
+					</p>
+					<h3>3</h3>
+					<p>
+						Turn right and pass through the two red doors. The DUCSS room will be on your right!
+					</p>
+				</div>
+			</div>
+			<div class="div-img right" style="background-image: url({Room})"></div>
+		</section>
+	</body>
+</main>
 
+<!--
 <main>
     <div class="home-container">
         <div class="heading-container">
             <h1 class="heading">
-                <p class="open-bracket">&lt; </p> Dublin University Computer Science Society
+                <p class="open-bracket">&lt; </p> Dublin University  Science Society
                 <p class="close-bracket">&#47;&gt;</p>
             </h1>
             <h3 class="ribbon">Now Accepting Sponsors for 2026/27!</h3>
@@ -46,7 +251,22 @@
                 to social gatherings like gaming tournaments and networking sessions. With a dedicated society space within the Hamilton building, 
                 joining DUCSS is about more than society membership; it's about engaging with a thriving community united by innovation, inclusivity, 
                 and a passion for technology and gaming.</p>
-                <div class="form-container">
+                
+            </div>
+        </div>
+    </div>
+
+</main>
+-->
+<!--
+    <img  class="KPMG" src={KPMG} alt="KPMG"/>
+    <img class="PWC" src={PWC} alt="PWC"/>
+    <img class="Stripe" src={Stripe} alt="Stripe"/>
+    <img class="SIG" src={SIG} alt="SIG"/>
+    <img class="Sulu" src={Sulu} alt="Sulu"/>
+    <img class="Accenture" src={Accenture} alt="Accenture"/>
+
+    <div class="form-container">
                     <form action="https://formsubmit.co/496e912bc81e561bc8dd9b6b1a9b7af4" method="POST">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="example@yourcompany.com" required>
@@ -61,8 +281,6 @@
                         
                         <div class="button-container">
                             <button type="submit" class="sign-up-button">
-                                <!--Sign up link: https://trinitysocietieshub.com/collections/society-memberships/products/ducss-->
-                                <!--Contact us link: /contact-us-->
                                 <p class="sign-up-text">Contact Us</p>
                                 <img class="Johnathan" src={Johnathan} alt="Our mascot, Johnathan DUCSS (Pronounced Ducks)"/>
                                 <img class="Johnathan_Stares" src={Johnathan_Stares_Into_Soul} alt="Our mascot, Johnathan DUCSS (Pronounced Ducks)"/>
@@ -79,44 +297,15 @@
                                     </svg>
                                 </a>
                             </button>
-                            <button type="button" class="instagram-button">
-                                <a class="instagram-link" href="https://instagram.com/ducss_">
-                                    <img class="instagram-img" src={instagram} alt="Link to instagram"/>
-                                </a>
-                            </button>
                         </div>
                     </form>
                 </div>
-            </div>
-            <div class="column">
-                <div class="sponsor-images">
-                    <h2 class="subheading">Our Previous Sponsors</h2>
-                    <img  class="KPMG" src={KPMG} alt="KPMG"/>
-                    <img class="PWC" src={PWC} alt="PWC"/>
-                    <img class="Stripe" src={Stripe} alt="Stripe"/>
-                    <img class="SIG" src={SIG} alt="SIG"/>
-                    <img class="Sulu" src={Sulu} alt="Sulu"/>
-                    <img class="Accenture" src={Accenture} alt="Accenture"/>
-                </div>
-            </div>
-        </div>
-    </div>
+-->
 
-    <!-- Previous blurb 
-<div class="blurb">
-    <p class="blurb-text">
-        A student-run society, the Dublin University Computer Science Society (DUCSS)
-        is a cornerstone of technical exploration and social interaction within Trinity College Dublin. 
-        Hosting students from a variety of academic backgrounds such as Computer Science, Engineering, Mathematics, 
-        and eSports enthusiasts, DUCSS is dedicated to fostering a dynamic environment that stimulates both technical prowess 
-        and essential soft skills. Members partake in diverse activities ranging from workshops, hackathons, and eSports events, 
-        to social gatherings like gaming tournaments and networking sessions. With a dedicated society space within the Hamilton building, 
-        joining DUCSS is about more than society membership; it's about engaging with a thriving community united by innovation, inclusivity, 
-        and a passion for technology and gaming.    
-    </p>
-</div>-->
-</main>
+<!--Sign up link: https://trinitysocietieshub.com/collections/society-memberships/products/ducss-->
+<!--Contact us link: /contact-us-->
 
+<!--
 <style>
     
     * {
@@ -457,3 +646,4 @@
     }
 
 </style>
+-->

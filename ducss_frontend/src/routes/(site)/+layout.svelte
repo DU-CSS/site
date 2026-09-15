@@ -1,87 +1,68 @@
 <script lang="ts">
-    import { fade, fly, scale } from 'svelte/transition';
+	import { fade, fly, scale } from 'svelte/transition';
+	
+	import ducss from '$lib/images/UI_Icons/ducss_big.png';
+	import ducssMask from '$lib/images/UI_Icons/ducss_right_bracket.png';
 
-    import ducss from '$lib/images/UI_Icons/ducss_big.png';
-    import ducssMask from '$lib/images/UI_Icons/ducss_right_bracket.png';
+	import doubleArrow from '$lib/images/UI_Icons/double-arrow.png';
 
-    import doubleArrow from '$lib/images/UI_Icons/double-arrow.png';
+	import discord from '$lib/images/Footer_Icons/discord.png';
+	import instagram from '$lib/images/Footer_Icons/instagram.png';
+	import linkedin from '$lib/images/Footer_Icons/linkedin.png';
 
-    import discord from '$lib/images/Footer_Icons/discord.png';
-    import instagram from '$lib/images/Footer_Icons/instagram.png';
-    import linkedin from '$lib/images/Footer_Icons/linkedin.png';
+	import contactForm from '$lib/images/Footer_Icons/contactForm.png';
 
-    import contactForm from '$lib/images/Footer_Icons/contactForm.png';
+	import { page } from '$app/stores';
 
-    import { page } from '$app/stores'
+	var collapsed: boolean = true;
 
-    var collapsed: boolean = true;
-
-    $: footerState = collapsed ? 'collapsed' : 'expanded';
-
+	$: footerState = collapsed ? 'collapsed' : 'expanded';
 </script>
+
+<main>
+	<nav>
+		<div class="relative-container">
+			<div class="logo-container">
+				<a class="ducss" href="/">
+					<img class="ducss" src={ducss} alt="D.U. Computer Science Logo" />
+				</a>
+				<div class="ducssMask">
+					<a href="/">
+						<img class="ducssBracket" src={ducssMask} alt="" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<ul>
+			<!--
+                <li><a class="nav-button" href="/store">Store</a></li>
+                <li><a class="nav-button" href="/opportunities">Opportunities</a></li>
+                    Podcast
+                    Leetcode
+                    Project of the Month
+				<li><a class="nav-button" href="/events">Events</a></li>
+                    Run a workshop
+                <li><a class="nav-button" href="/about">About</a></li>
+                    Structure
+                    Constitution
+                    Sponsors
+                <li><a class="nav-button" href="/contact">Contact</a></li>
+                    For members
+                    For sponsors
+                <li><a class="nav-button" href="/login">Login</a></li>
+                <li><a class="nav-button" href="/join">Join Us</a></li>
+                -->
+			<li><a class="nav-button" href="/about">Structure</a></li>
+			<li><a class="nav-button" href="/sponsors">Sponsors</a></li>
+		</ul>
+	</nav>
+	<div class="content">
+		<slot />
+	</div>
+</main>
+
 <!--
-<nav>
-    <div class="nav-content-container">
-        <div class="logo-container">
-            <a class="ducss" href="/">
-                <img  class="ducss" src={ducss} alt="D.U. Computer Science Logo"/>
-            </a>
-                <div class="ducssMask">
-                    <a href="/">
-                        <img class="ducssBracket" src={ducssMask} alt=""/>
-                    </a>
-                </div>
-        </div>
-        <ul>
-            <li>
-              <a class="nav-button" href="/store">Store</a>
-            </li>
-        
-            <li>
-                <a class="nav-button" href="/opportunities">Opportunities</a>
-            </li>
-            <li>
-                <a class="nav-button" href="/events">Events</a>
-            </li>
-
-        
-            <li>
-                <a class="nav-button" href="/about">About</a>
-            </li>
-
-            <li>
-                <a class="nav-button" href="/sponsors">Sponsors</a>
-            </li>
-        </ul>
-    </div>    
-</nav>
--->
-<div class="content">
-    <slot/>
-</div>
-<!--
-<footer class={footerState}>
-    <div class="footer-content-container">
-        <a class="footer-icon-wrapper instagram" href="https://instagram.com/ducss_">
-            <img class="footer-icon instagram" src={instagram} alt="Link to instagram"/>
-        </a>
-        <a class="footer-icon-wrapper linkedin" href="https://ie.linkedin.com/company/ducss">
-            <img class="footer-icon linkedin" src={linkedin} alt="Link to linkedin"/>
-        </a>
-
-        <input type="image" class="footer-toggle {footerState}" src={doubleArrow} alt="Footer Toggle Button" on:click={() => collapsed = !collapsed}/>
-        
-        <a class="footer-icon-wrapper discord" href="https://discord.gg/GcTjxcsbW4">
-            <img class="footer-icon discord" src={discord} alt="Link to discord"/>
-        </a>
-        <a class="footer-icon-wrapper contact" href="/contact-us">
-            <img class="footer-icon contact" src={contactForm} alt="Link to contact form"/>
-        </a>
-    </div>
-</footer>
--->
 <style>
-    
     :global(body) {
         display: flex;
         flex-direction: column;
@@ -355,4 +336,418 @@
         position: sticky;
     }
 
+</style>
+-->
+
+<!--
+<footer class={footerState}>
+    <div class="footer-content-container">
+        <a class="footer-icon-wrapper instagram" href="https://instagram.com/ducss_">
+            <img class="footer-icon instagram" src={instagram} alt="Link to instagram"/>
+        </a>
+        <a class="footer-icon-wrapper linkedin" href="https://ie.linkedin.com/company/ducss">
+            <img class="footer-icon linkedin" src={linkedin} alt="Link to linkedin"/>
+        </a>
+
+        <input type="image" class="footer-toggle {footerState}" src={doubleArrow} alt="Footer Toggle Button" on:click={() => collapsed = !collapsed}/>
+        
+        <a class="footer-icon-wrapper discord" href="https://discord.gg/GcTjxcsbW4">
+            <img class="footer-icon discord" src={discord} alt="Link to discord"/>
+        </a>
+        <a class="footer-icon-wrapper contact" href="/contact-us">
+            <img class="footer-icon contact" src={contactForm} alt="Link to contact form"/>
+        </a>
+    </div>
+</footer>
+-->
+
+<style>
+	
+	
+	/* Page styling */
+	:global(body.yellow) {
+		background-color: var(--yellow);
+	}
+	:global(body.yellow h2) {
+		color: var(--darkorange);
+		-webkit-text-fill-color: var(--orange);
+		-webkit-text-stroke: 1px;
+	}
+	:global(span.yellow) {
+		color: var(--yellow);
+	}
+	
+	/* Tv background */
+	:global(.tv-background) {
+		position: absolute;
+		top: 20%;
+		left: 32%;
+		z-index: 98;
+		transform: scale(1.8) skewX(-4deg) skewY(5deg);
+		background-color: var(--purple);
+		padding: 25px;
+	}
+	/* Heading styling */
+	:global(h1) {
+		font-size: var(--h1-size);
+		margin: 0px 0px 30px;
+	}
+	:global(h2) {
+		font-size: var(--h2-size);
+		margin: 0px 0px 15px;
+		font-family: var(--font-subheadings), serif;
+		font-weight: 400;
+	}
+	:global(h3) {
+		font-size: var(--h3-size);
+		margin: 10px 0 15px;
+		font-family: var(--font-subheadings), serif;
+		font-weight: 400;
+	}
+	/* Paragraph styling */
+	:global(p) {
+		margin: 0;
+		color: var(--gray);
+		font-family: var(--font-regular), sans-serif;
+	}
+	
+	:global(.point) {
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+		background-color: var(--lightgreen);
+		border: 2px solid var(--darkgreen);
+		box-shadow: 2px 2px var(--darkgreen);
+	}
+	/* Card */
+	:global(.card) {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		padding: 30px;
+		border-radius: var(--border-radius);
+		border: 2px solid var(--orange);
+		background-color: var(--lightyellow);
+		box-shadow: 6px 6px var(--lightorange);
+	}
+	:global(.card .caps) {
+		font-style: normal;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-size: calc(var(--p-size) - 2px);
+	}
+	:global(.card h3) {
+		margin-top: 15px;
+		color: var(--orange);
+	}
+	:global(.tags) {
+		display: flex;
+		flex-flow: row wrap;
+		column-gap: 30px;
+		row-gap: 5px;
+		margin-bottom: 30px;
+	}
+	:global(.tag) {
+		display: flex;
+		justify-content: left;
+		align-items: center;
+		gap: 7px;
+	}
+	/* Icon styling */
+	:global(.material-symbols-outlined) {
+		font-size: calc(var(--p-size) + 10px);
+		color: var(--orange);
+		margin-top: -3px;
+	}
+	:global(.card .description) {
+		font-style: italic;
+		margin-top: auto;
+		color: var(--gray);
+	}
+	:global(.card .category) {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: -2px;
+	}
+	:global(.noise)::before {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 97;
+		filter: contrast(5);
+		transform: scale(2);
+		content: "";
+		position: absolute;
+		inset: 0;
+		opacity: 0.2;
+		background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence baseFrequency='.75' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+	}
+	:global(.category) {
+		overflow: hidden;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5px;
+		border-radius: 0px var(--border-radius);
+		border: 2px solid var(--orange);
+		height: 50px;
+		width: 50px;
+		/* border-top: 3px solid var(--orange);
+        border-right: 3px solid var(--orange);
+        border-bottom: 2px solid var(--gray);
+        border-left: 2px solid var(--gray);
+        box-shadow: inset 7px -2px 7px rgb(220, 212, 188); **/
+	}
+	:global(.category.tech) {
+		background-color: var(--lightorange);
+	}
+	:global(.category.social) {
+		background-color: var(--lightgreen);
+	}
+	:global(.category.gaming) {
+		background-color: var(--lightred);
+	}
+	:global(.category.contest) {
+		background-color: var(--lightteal);
+	}
+	:global(.category.career) {
+		background-color: var(--lightpurple);
+	}
+	:global(.category.contest img) {
+		filter: contrast(150%) hue-rotate(160deg)
+				saturate(200%) brightness(80%)
+				drop-shadow(1px 1px var(--teal))
+				drop-shadow(-1px -1px var(--teal))
+				drop-shadow(4px 1px var(--teal));
+	}
+	:global(.category.career img) {
+		filter: contrast(130%) hue-rotate(160deg)
+				saturate(70%) brightness(80%)
+				drop-shadow(1px 1px var(--purple))
+				drop-shadow(-1px -1px var(--purple))
+				drop-shadow(4px 1px var(--purple));
+	}
+	:global(.category.social img) {
+		filter: contrast(130%) hue-rotate(-80deg)
+				saturate(70%) brightness(100%)
+				drop-shadow(1px 1px var(--green))
+				drop-shadow(-1px -1px var(--green))
+				drop-shadow(5px 1px var(--green));
+	}
+	:global(.category.gaming img) {
+		filter: invert(20%) sepia(80%)
+				saturate(7) hue-rotate(90deg)
+				brightness(90%) contrast(1)
+				drop-shadow(1px 1px var(--red))
+				drop-shadow(-1px -1px var(--red))
+				drop-shadow(4px 1px var(--red));
+		transform: scale(1.1);
+	}
+	:global(.category.tech img) {
+		filter: contrast(100%) hue-rotate(160deg)
+				saturate(150%) brightness(90%)
+			drop-shadow(1px 1px var(--orange)) drop-shadow(-1px -1px var(--orange))
+			drop-shadow(4px 1px var(--orange));
+	}
+	:global(.category img) {
+		height: 75%;
+		object-fit: contain;
+	}
+
+	/* ↓↓ Navigation Styling ↓↓ */
+
+	nav {
+		display: flex;
+		position: fixed;
+		z-index: 100;
+		justify-self: center;
+		width: calc(100% - 150px);
+		margin: 30px auto;
+		background-color: var(--lightyellow);
+		border-radius: 20px;
+		border: 2px solid var(--lightorange);
+		box-shadow: 0px 6px var(--orange);
+	}
+
+	.logo-container {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		background-color: var(--beige);
+		border-radius: 50px;
+		border: 2px solid var(--orange);
+		box-shadow: 0px 6px var(--lightorange);
+		left: 0;
+		margin-left: -15px;
+	}
+
+	.ducss {
+		height: 80px;
+	}
+
+	.ducssBracket {
+		height: 78px;
+		margin-top: 3px;
+	}
+
+	.ducssMask {
+		position: relative;
+		display: inline-block;
+		margin-left: -65px;
+		width: 80px;
+		overflow: hidden;
+		white-space: nowrap;
+		transition: right 500ms ease-in-out;
+	}
+	/*
+	.ducss:hover + .ducssMask {
+		right: -60px;
+	}
+    **/
+	ul {
+		display: flex;
+		list-style: none;
+		margin-left: auto;
+	}
+
+	li {
+		margin-right: 24px;
+	}
+
+	li:before {
+		display: block;
+		content: '';
+		border-bottom: solid 3.5px hsl(15, 95%, 58%);
+		padding-bottom: 2px;
+		margin-bottom: -2px;
+		transform: scaleX(0);
+		transition: transform 500ms ease-in-out;
+	}
+
+	li:hover:before {
+		transform: scaleX(1);
+		transform-origin: 100% 50%;
+	}
+
+	li:after {
+		display: block;
+		content: '';
+		border-bottom: solid 3.5px hsl(15, 95%, 58%);
+		padding-bottom: 2px;
+		transform: scaleX(0);
+		transition: transform 500ms ease-in-out;
+	}
+
+	li:hover:after {
+		transform: scaleX(1);
+		transform-origin: 0% 50%;
+	}
+
+	.nav-button {
+		color: hsl(207, 12%, 43%);
+		font-weight: 500;
+		font-family:
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			Oxygen,
+			Ubuntu,
+			Cantarell,
+			'Open Sans',
+			'Helvetica Neue',
+			sans-serif;
+		font-size: 16px;
+		text-decoration: none;
+	}
+	@media screen and (max-width: 1200px) {
+		nav {
+			display: flex;
+			position: fixed;
+			z-index: 100;
+			justify-self: center;
+			width: calc(100% - 150px);
+			margin: 30px auto;
+			background-color: var(--lightyellow);
+			border-radius: 20px;
+			border: 2px solid var(--lightorange);
+			box-shadow: 0px 6px var(--orange);
+		}
+		.logo-container {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			background-color: var(--beige);
+			border-radius: 50px;
+			border: 2px solid var(--orange);
+			box-shadow: 0px 6px var(--lightorange);
+			left: 0;
+			margin-left: -15px;
+		}
+
+		.ducss {
+			height: 80px;
+		}
+
+		.ducssBracket {
+			height: 78px;
+			margin-top: 3px;
+		}
+
+		.ducssMask {
+			position: relative;
+			display: inline-block;
+			margin-left: -65px;
+			width: 80px;
+			overflow: hidden;
+			white-space: nowrap;
+			transition: right 500ms ease-in-out;
+		}
+	}
+	@media screen and (max-width: 800px) {
+		nav {
+			display: flex;
+			position: fixed;
+			z-index: 100;
+			justify-self: center;
+			width: calc(100% - 30px);
+			margin: 5px 15px;
+			background-color: var(--lightyellow);
+			border-radius: 50px;
+			border: 2px solid var(--lightorange);
+			box-shadow: 0px 6px var(--orange);
+		}
+		.logo-container {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			background-color: var(--beige);
+			border-radius: 50px;
+			border: 2px solid var(--orange);
+			box-shadow: 0px 6px var(--lightorange);
+			margin-left: -5px;
+		}
+
+		.ducss {
+			height: 60px;
+		}
+
+		.ducssBracket {
+			height: 58px;
+			margin-top: 3px;
+		}
+
+		.ducssMask {
+			position: relative;
+			display: inline-block;
+			margin-left: -50px;
+			width: 50px;
+			overflow: hidden;
+			white-space: nowrap;
+			transition: right 500ms ease-in-out;
+		}
+	}
 </style>
