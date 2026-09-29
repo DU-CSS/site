@@ -2,6 +2,7 @@
     /* Colors */
     --lightyellow: #fff3c4;
     --yellow: #fadf70;
+    --yellow-shadow: rgba(176, 166, 105, 0.9);
     --lightgreen: #ece77c;
     --green: #8fb555;
     --darkgreen: #2c491e;
@@ -23,7 +24,7 @@
     --shadow: rgba(23, 21, 11, 0.8);
     /* Font styling */
     --font-subheadings: 'Shrikhand';
-    --font-headings: 'Jersey 20';
+    --font-headings: 'Roboto Slab';
     --font-regular: 'IBM Plex Sans Devanagari';
     --font-titles: 'Shrikhand';
     --line-height: 1.15;
@@ -31,6 +32,7 @@
     --h1-size: 200px;
     --h2-size: 80px;
     --h3-size: 36px;
+    --h4-size: 28px;
     --p-size: 20px;
     /* Hero styling */
     --hero-padding: 60px;
@@ -48,6 +50,9 @@ body {
 }
 body.green {
     background-color: var(--lightgreen);
+}
+body.beige {
+    background-color: var(--beige);
 }
 /* Section styling */
 section {
@@ -85,6 +90,9 @@ section.hero.blue h1 {
     -webkit-text-stroke: 1px;
     text-shadow: 8px 5px var(--gray);
 }
+section.hero.green {
+    background-color: var(--green);
+}
 body.green h1 {
     text-shadow: 8px 5px var(--green);
 }
@@ -96,11 +104,16 @@ body.green h2 {
 body.green p {
     color: var(--shadow);
 }
+body.beige h2 {
+    color: var(--darkgreen);
+    -webkit-text-fill-color: var(--orange);
+    -webkit-text-stroke: 2px;
+}
 section.hero div.box {
     background-color: var(--green);
     padding: 30px 60px;
     width: 60%;
-    margin: 0 auto;
+    margin: 0 auto 0px;
     border-radius: 25px;
     border: 5px solid var(--darkgreen)
 }
@@ -122,12 +135,12 @@ section .header {
     width: 100%;
 }
 section .header p {
-    text-shadow: 1px 1px 0px rgba(176, 166, 105, 0.9);
+    text-shadow: 1px 1px 0px var(--yellow-shadow);
 }
 /* Hero section */
 section.hero {
     align-items: end;
-    padding: 200px var(--hero-padding) var(--hero-padding) var(--hero-padding);
+    padding: 200px 90px 90px 90px;
 }
 section.hero.home {
     min-height: 200px;
@@ -135,6 +148,7 @@ section.hero.home {
 section.hero.photo {
     background-size: cover;
     background-position: center bottom;
+    padding: 200px var(--hero-padding) var(--hero-padding) var(--hero-padding);
 }
 section.hero.photo p {
     color: var(--yellow);
@@ -157,7 +171,7 @@ section.hero h1 {
     text-shadow: 8px 5px var(--gray);
 }
 section.hero p {
-    max-width: 80%;
+    margin-top: 5px;
 }
 section.hero .img-side {
     width: 100%;
@@ -201,10 +215,10 @@ button a {
 img.nest {
     width: 80%;
     z-index: 97;
-    filter: drop-shadow(3px -3px var(--green))
-            drop-shadow(-3px -3px var(--green))
-            drop-shadow(3px 3px var(--green))
-            drop-shadow(-3px 3px var(--green));
+    filter: drop-shadow(3px -3px var(--lightorange))
+            drop-shadow(-3px -3px var(--lightorange))
+            drop-shadow(3px 3px var(--lightorange))
+            drop-shadow(-3px 3px var(--lightorange));
 }
 ul.carousel {
     display: flex;
@@ -299,13 +313,12 @@ div.div-img {
     border-radius: 0px 30px 30px 0px;
     border: 15px solid var(--orange);
     outline: 5px solid var(--darkorange);
-    min-width: calc(100% + 60px);
+    width: 100%;
 }
 div.div-img.right {
     border-radius: 45px 0px 0px 45px;
     border: 15px solid var(--blue);
     outline: 5px solid var(--yellow);
-    margin-left: 60px;
 }
 /* Image styling */
 section .div-img {
@@ -314,6 +327,288 @@ section .div-img {
     background-size: cover;
     margin-right: calc(0px - var(--section-padding) * 2);
 }
+
+/* Page styling */
+body.yellow {
+    background-color: var(--yellow);
+}
+body.yellow h2 {
+    color: var(--darkorange);
+    -webkit-text-fill-color: var(--orange);
+    -webkit-text-stroke: 1px;
+}
+span.yellow {
+    color: var(--yellow);
+}
+
+/* Tv background */
+.tv-background {
+    position: absolute;
+    top: 20%;
+    left: 32%;
+    z-index: 98;
+    transform: scale(1.8) skewX(-4deg) skewY(5deg);
+    background-color: var(--purple);
+    padding: 25px;
+}
+/* Heading styling */
+h1 {
+    font-size: var(--h1-size);
+    margin: 0px 0px 30px;
+}
+h2 {
+    font-size: var(--h2-size);
+    margin: 0px 0px 15px;
+    font-family: var(--font-subheadings), serif;
+    font-weight: 400;
+}
+h3 {
+    font-size: var(--h3-size);
+    margin: 10px 0 15px;
+    font-family: var(--font-subheadings), serif;
+    font-weight: 400;
+}
+h4 {
+    font-family: var(--font-titles);
+    font-size: var(--h4-size);
+}
+/* Paragraph styling */
+p {
+    margin: 0;
+    color: var(--gray);
+    font-family: var(--font-regular), sans-serif;
+}
+
+.point {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: var(--lightgreen);
+    border: 2px solid var(--darkgreen);
+    box-shadow: 2px 2px var(--darkgreen);
+}
+
+/* Card */
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--orange);
+    background-color: var(--lightyellow);
+    box-shadow: 6px 6px var(--lightorange);
+}
+.card .caps {
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: calc(var(--p-size) - 2px);
+}
+.card h3 {
+    margin-top: 15px;
+    color: var(--orange);
+}
+.tags {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 30px;
+    row-gap: 5px;
+    margin-bottom: 30px;
+}
+.tag {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 7px;
+}
+/* Icon styling */
+.material-symbols-outlined {
+    font-size: calc(var(--p-size) + 10px);
+    color: var(--orange);
+    margin-top: -3px;
+}
+.card .description {
+    font-style: italic;
+    margin-top: auto;
+    color: var(--gray);
+}
+.card .category {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -2px;
+}
+.noise::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 97;
+    filter: contrast(5);
+    transform: scale(2);
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.2;
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence baseFrequency='.75' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.category {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 0px var(--border-radius);
+    border: 2px solid var(--orange);
+    height: 50px;
+    width: 50px;
+    /* border-top: 3px solid var(--orange);
+    border-right: 3px solid var(--orange);
+    border-bottom: 2px solid var(--gray);
+    border-left: 2px solid var(--gray);
+    box-shadow: inset 7px -2px 7px rgb(220, 212, 188); **/
+}
+.category.tech {
+    background-color: var(--lightorange);
+}
+.category.social {
+    background-color: var(--lightgreen);
+}
+.category.gaming {
+    background-color: var(--lightred);
+}
+.category.contest {
+    background-color: var(--lightteal);
+}
+.category.career {
+    background-color: var(--lightpurple);
+}
+.category.contest img {
+    filter: contrast(150%) hue-rotate(160deg)
+            saturate(200%) brightness(80%)
+            drop-shadow(1px 1px var(--teal))
+            drop-shadow(-1px -1px var(--teal))
+            drop-shadow(4px 1px var(--teal));
+}
+.category.career img {
+    filter: contrast(130%) hue-rotate(160deg)
+            saturate(70%) brightness(80%)
+            drop-shadow(1px 1px var(--purple))
+            drop-shadow(-1px -1px var(--purple))
+            drop-shadow(4px 1px var(--purple));
+}
+.category.social img {
+    filter: contrast(130%) hue-rotate(-80deg)
+            saturate(70%) brightness(100%)
+            drop-shadow(1px 1px var(--green))
+            drop-shadow(-1px -1px var(--green))
+            drop-shadow(5px 1px var(--green));
+}
+.category.gaming img {
+    filter: invert(20%) sepia(80%)
+            saturate(7) hue-rotate(90deg)
+            brightness(90%) contrast(1)
+            drop-shadow(1px 1px var(--red))
+            drop-shadow(-1px -1px var(--red))
+            drop-shadow(4px 1px var(--red));
+    transform: scale(1.1);
+}
+.category.tech img {
+    filter: contrast(100%) hue-rotate(160deg)
+            saturate(150%) brightness(90%)
+        drop-shadow(1px 1px var(--orange)) drop-shadow(-1px -1px var(--orange))
+        drop-shadow(4px 1px var(--orange));
+}
+.category img {
+    height: 75%;
+    object-fit: contain;
+}
+.error {
+    background-color:mistyrose;
+    color: indianred;
+    border: 2px solid lightpink;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px 15px;
+    text-align: center;
+}
+.success {
+    background-color:honeydew;
+    color:lightseagreen;
+    border: 2px solid aquamarine;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px 15px;
+    text-align: center;
+}
+form {
+		display: flex;
+		flex-direction: column;
+		padding: 30px;
+		background-color: var(--lightyellow);
+		border-radius: var(--border-radius);
+		border: 2px solid var(--orange);
+		box-shadow: 6px 6px var(--lightorange);
+	}
+	form div.links {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		align-items: center;
+	}
+	form div.links a {
+		font-family: var(--font-regular);
+		color: var(--gray);
+	}
+	input {
+		/* Source: https://stackoverflow.com/questions/8951558/css-contain-input-text-to-100-width */
+		box-sizing: border-box; /* Keeps input fitting inside login box */
+		width: 100%;
+		font-size: var(--p-size);
+		background-color: var(--lightorange);
+		padding: 15px;
+		margin-bottom: 15px;
+		border: 2px solid var(--gray);
+		color: var(--gray);
+		/*border: none;*/
+	}
+	input:focus {
+		background-color: var(--beige);
+		border: 2px solid var(--orange);
+		outline: none;
+	}
+	form button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
+		margin: 5px 0px 15px;
+		width: 100%;
+	}
+	form button span {
+		margin-top: 1px;
+		color: var(--beige);
+		font-size: var(--h3-size);
+	}
+	form p {
+		display: flex;
+		align-items: flex-end;
+		gap: 5px;
+	}
+	form p span {
+		font-size: 26px;
+		font-variation-settings: 'wght' 300;
+	}
+	form h3 {
+		font-family: var(--headings);
+		text-align: center;
+		font-weight: bold;
+		text-shadow: 1px 1px 1px var(--darkyellow);
+		color: var(--orange);
+		margin: 0px 0px 15px;
+		letter-spacing: -0.5px;
+	}
 @media screen and (max-width: 1200px) {
     :root {
             /* Font styling */
@@ -378,7 +673,6 @@ section .div-img {
         margin: 30px 0px;
         width: 100%;
         background-size: cover;
-        margin-right: calc(0px - var(--section-padding) * 2);
     }
 }
 @media screen and (max-width: 800px) {
