@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS events AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS events AUTHORIZATION doadmin;
 
 -- Event Category Table
 CREATE TABLE events.categories (
