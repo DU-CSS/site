@@ -11,6 +11,9 @@ const pool = new Pool({
     password: env.SECRET_PGPASSWORD,
     database: env.SECRET_PGDATABASE,
     port: Number(env.SECRET_PGPORT),
+    ssl: {
+        rejectUnauthorized: false
+    },
     /*ssl: {
         rejectUnauthorized: true,
         ca: readFileSync(SECRET_PGSSLROOTCERT, 'utf8')
