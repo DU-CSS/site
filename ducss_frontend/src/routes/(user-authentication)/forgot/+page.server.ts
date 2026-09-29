@@ -1,4 +1,4 @@
-import { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { DB } from "$lib/server/database";
 import { redirect, fail, type Actions } from "@sveltejs/kit";
 import nodemailer from 'nodemailer';
@@ -29,12 +29,12 @@ export const actions = {
             // https://stackoverflow.com/questions/46742402/error-self-signed-certificate-in-certificate-chain-nodejs-nodemailer-express
             // (a bit insecure, needs improvement)
             const mail = nodemailer.createTransport({
-                host: MAIL_HOST,
-                port: Number(MAIL_PORT),
+                host: env.MAIL_HOST,
+                port: Number(env.MAIL_PORT),
                 secure: false,
                 auth: {
-                    user: MAIL_USER,
-                    pass: MAIL_PASSWORD
+                    user: env.MAIL_USER,
+                    pass: env.MAIL_PASSWORD
                 },
                 tls: {
                     rejectUnauthorized: false
@@ -50,7 +50,7 @@ export const actions = {
             await mail.sendMail({
                 from: {
                     name: 'DUCSS',
-                    address: MAIL_USER
+                    address: env.MAIL_USER
                 },
                 to: email.toString(),
                 subject: 'DUCSS - Reset your password',

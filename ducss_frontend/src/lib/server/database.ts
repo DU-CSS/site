@@ -1,5 +1,4 @@
-import { SECRET_PGHOST, SECRET_PGUSER, SECRET_PGPASSWORD, SECRET_PGDATABASE, SECRET_PGPORT, SECRET_PGSSLROOTCERT } from "$env/static/private";
-import { GOOGLESHEETS_CLIENTEMAIL, GOOGLESHEETS_COMMITTEESHEETID, GOOGLESHEETS_MEMBERSSHEETID, GOOGLESHEETS_PRIVATEKEY } from "$env/static/private";
+import { env } from '$env/dynamic/private';
 import { Pool, type PoolClient } from "pg";
 import { readFileSync } from 'fs';
 import { google } from 'googleapis';
@@ -7,11 +6,11 @@ import { google } from 'googleapis';
 // Create one PostgreSQL connection pool
 // The pool manages individual database connections automatically
 const pool = new Pool({
-    host: SECRET_PGHOST,
-    user: SECRET_PGUSER,
-    password: SECRET_PGPASSWORD,
-    database: SECRET_PGDATABASE,
-    port: Number(SECRET_PGPORT),
+    host: env.SECRET_PGHOST,
+    user: env.SECRET_PGUSER,
+    password: env.SECRET_PGPASSWORD,
+    database: env.SECRET_PGDATABASE,
+    port: Number(env.SECRET_PGPORT),
     /*ssl: {
         rejectUnauthorized: true,
         ca: readFileSync(SECRET_PGSSLROOTCERT, 'utf8')
@@ -61,8 +60,8 @@ export const transaction = async <T>(
 export async function findMemberByEmail(email: string) {
     const auth = new google.auth.GoogleAuth({
         credentials: {
-            client_email: GOOGLESHEETS_CLIENTEMAIL,
-            private_key: GOOGLESHEETS_PRIVATEKEY.replace(/\\n/g, '\n')
+            client_email: env.GOOGLESHEETS_CLIENTEMAIL,
+            private_key: env.GOOGLESHEETS_PRIVATEKEY.replace(/\\n/g, '\n')
         },
         scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
     });
@@ -71,7 +70,7 @@ export async function findMemberByEmail(email: string) {
         auth
     });
     const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: GOOGLESHEETS_MEMBERSSHEETID,
+        spreadsheetId: env.GOOGLESHEETS_MEMBERSSHEETID,
         range: 'Sheet1!A:E'
     });
     const rows: string[][] = response.data.values ?? [];
@@ -95,8 +94,8 @@ export async function findMemberByEmail(email: string) {
 export async function isOnCommittee(email: string) {
     const auth = new google.auth.GoogleAuth({
         credentials: {
-            client_email: GOOGLESHEETS_CLIENTEMAIL,
-            private_key: GOOGLESHEETS_PRIVATEKEY.replace(/\\n/g, '\n')
+            client_email: env.GOOGLESHEETS_CLIENTEMAIL,
+            private_key: env.GOOGLESHEETS_PRIVATEKEY.replace(/\\n/g, '\n')
         },
         scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
     });
@@ -105,7 +104,7 @@ export async function isOnCommittee(email: string) {
         auth
     });
     const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: GOOGLESHEETS_COMMITTEESHEETID,
+        spreadsheetId: env.GOOGLESHEETS_COMMITTEESHEETID,
         range: 'Sheet1!A:C'
     });
     const rows: string[][] = response.data.values ?? [];
