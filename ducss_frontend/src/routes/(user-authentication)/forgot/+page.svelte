@@ -24,7 +24,8 @@
 	<form action="?/forgot" method="post" use:enhance>
 		<div class="login">
 			<h3>Forgot Password</h3>
-            {#if form?.message}
+			<p>Coming soon!</p>
+            <!--{#if form?.message}
                 <p class="error">{form.message}</p>
             {/if}
             {#if form?.success}
@@ -35,7 +36,7 @@
 			<button type="submit">
                 Send Reset Email
                 <span class="material-symbols-outlined">mail</span>
-			</button>
+			</button>-->
 			<div class="links">
 				<a href="/login" class="">Back to Login</a>
 			</div>
