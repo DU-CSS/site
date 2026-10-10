@@ -2,13 +2,10 @@
 	// @ts-nocheck
 
 	import '$lib/style.css';
+    import EventCategory from '$lib/components/EventCategory.svelte';
+    import { categories } from '$lib/shared';
 	import { events } from '$lib/shared'; // Import event data
 	import { sponsors } from '$lib/shared';
-	import social from '$lib/images/event_categories/social.png';
-	import gaming from '$lib/images/event_categories/gaming.png';
-	import competition from '$lib/images/event_categories/competition.svg';
-	import career from '$lib/images/event_categories/career.svg';
-	import tech from '$lib/images/event_categories/tech.png';
 	import Pond1 from '$lib/images/Ponds/Pond1.png';
 	import Pond2 from '$lib/images/Ponds/Pond2.png';
 	import TV from '$lib/images/Design/tv.png';
@@ -19,6 +16,7 @@
 	import instagram from '$lib/images/Footer_Icons/instagram.png';
 	import Our_Society from '$lib/images/Our_Society.png';
 	import { onMount } from 'svelte';
+	import { get } from 'svelte/store';
 
 	function Johnathan_hover(element) {
 		element.setAttribute('src', Johnathan_Stares_Into_Soul);
@@ -139,33 +137,12 @@
 	</section>
 	<section class="blue">
 		<div class="list">
-			<div class="category tech">
-				<div class="noise"></div>
-				<img src={tech} alt={'Mechanical cog.'} />
-			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightorange);">Technical Talks and Workshops</h3>
-			<div class="category competition">
-				<div class="noise"></div>
-				<img src={competition} alt={'Tournament medal.'} />
-			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightpurple);">Coding Competitions and Hackathons</h3>
-			<div class="category career">
-				<div class="noise"></div>
-				<img src={career} alt={'Tournament medal.'} />
-			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightteal);">Careers and Industry Events</h3>
-			<div class="category gaming">
-				<div class="noise"></div>
-				<img src={gaming} alt="Headphones." />
-			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightred);">Gaming and Esports Tournaments</h3>
-			<div class="category social">
-				<div class="noise"></div>
-				<img src={social} alt="Coffee cup." />
-			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightgreen);">
-				Social Events and Community Outreach
-			</h3>
+            {#each categories as aCategory}
+                <EventCategory category={aCategory}/>
+                <h3 style="-webkit-text-fill-color: var(--light{aCategory.get('color')}">
+                    {aCategory.get('title')}
+                </h3>
+            {/each}
 		</div>
 		<div class="header">
 			<h2>Our Society</h2>

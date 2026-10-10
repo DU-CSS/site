@@ -15,98 +15,135 @@
     'Sponsor' : Sponsor string
 **/
 
+export const categories = [
+    new Map([
+        ['name', 'social'],
+        ['src', 'src/lib/images/event_categories/social.png'],
+        ['alt', 'Coffee cup.'],
+        ['color', 'green'],
+        ['title', 'Technical Talks and Workshops']
+    ]),
+    new Map([
+        ['name', 'gaming'],
+        ['src', 'src/lib/images/event_categories/gaming.png'],
+        ['alt', 'Headphones.'],
+        ['color', 'red'],
+        ['title', 'Gaming and Esports Tournaments']
+    ]),
+    new Map([
+        ['name', 'competition'],
+        ['src', 'src/lib/images/event_categories/competition.svg'],
+        ['alt', 'Trophy.'],
+        ['color', 'purple'],
+        ['title', 'Coding Competitions and Hackathons']
+    ]),
+    new Map([
+        ['name', 'career'],
+        ['src', 'src/lib/images/event_categories/career.svg'],
+        ['alt', 'Construction hat.'],
+        ['color', 'teal'],
+        ['title', 'Careers and Industry Events']
+    ]),
+    new Map([
+        ['name', 'tech'],
+        ['src', 'src/lib/images/event_categories/tech.png'],
+        ['alt', 'Mechanical cog.'],
+        ['color', 'orange'],
+        ['title', 'Technical Talks and Workshops']
+    ])
+];
 
 export const committee = [
     new Map<string, any>([
-        ['Name','Ayushmaan Kumar Yadav'],
-        ['Title','Chair'],
-        ['Course','5th Year Integrated Computer Science'],
-        ['Role','Conductor of the DUCSS orchestra.']
+        ['Name', 'Ayushmaan Kumar Yadav'],
+        ['Title', 'Chair'],
+        ['Course', '5th Year Integrated Computer Science'],
+        ['Role', 'Conductor of the DUCSS orchestra.']
     ]),
     new Map<string, any>([
-        ['Name','Dimitris Charalampakis'],
-        ['Title','Treasurer'],
-        ['Course','2nd Year Integrated Computer Science'],
-        ['Role',"I'm in charge of the accounts, meaning that I am responsible for tracking our accounts and expenditure throughout the year."]
+        ['Name', 'Dimitris Charalampakis'],
+        ['Title', 'Treasurer'],
+        ['Course', '2nd Year Integrated Computer Science'],
+        ['Role', "I'm in charge of the accounts, meaning that I am responsible for tracking our accounts and expenditure throughout the year."]
     ]),
     new Map<string, any>([
-        ['Name','Zara Braastad-Korhonen'],
-        ['Title','Secretary'],
-        ['Course','3rd Year Computer Science & Economics'],
-        ['Role','I am responsible for sending the DUCSS weekly emails to keep everyone updated on upcoming events and career opportunities.']
+        ['Name', 'Zara Braastad-Korhonen'],
+        ['Title', 'Secretary'],
+        ['Course', '3rd Year Computer Science & Economics'],
+        ['Role', 'I am responsible for sending the DUCSS weekly emails to keep everyone updated on upcoming events and career opportunities.']
     ]),
     new Map<string, any>([
-        ['Name','Jacek Jedraszko'],
-        ['Title','Public Relations Officer'],
-        ['Course','2nd Year Computer Science & Economics'],
-        ['Role','I take care of the DUCSS social media presence.']
+        ['Name', 'Jacek Jedraszko'],
+        ['Title', 'Public Relations Officer'],
+        ['Course', '2nd Year Computer Science & Economics'],
+        ['Role', 'I take care of the DUCSS social media presence.']
     ]),
     new Map<string, any>([
-        ['Name','Brynne Mittleider'],
-        ['Title','Technical Lead'],
-        ['Course','2nd Year Computer Science, Linguistics, & Spanish'],
-        ['Role','I design the website, arrange workshops, and manage coding sessions. I also help support members on technical projects and learning.']
+        ['Name', 'Brynne Mittleider'],
+        ['Title', 'Technical Lead'],
+        ['Course', '2nd Year Computer Science, Linguistics, & Spanish'],
+        ['Role', 'I design the website, arrange workshops, and manage coding sessions. I also help support members on technical projects and learning.']
     ]),
     new Map<string, any>([
-        ['Name','Raghav Rashgotra'],
-        ['Title','Competitions Officer'],
-        ['Course','2nd Year Integrated Computer Science'],
-        ['Role','I organize computer science competitions and challenges to engage members of the society.']
+        ['Name', 'Raghav Rashgotra'],
+        ['Title', 'Competitions Officer'],
+        ['Course', '2nd Year Integrated Computer Science'],
+        ['Role', 'I organize computer science competitions and challenges to engage members of the society.']
     ]),
     new Map<string, any>([
-        ['Name','Madalina Costovici'],
-        ['Title','ENTS Officer'],
-        ['Course','5th Year Integrated Computer Science'],
-        ['Role','I handle all of the fun social events for the society, like pub quizzes and nights out.']
+        ['Name', 'Madalina Costovici'],
+        ['Title', 'ENTS Officer'],
+        ['Course', '5th Year Integrated Computer Science'],
+        ['Role', 'I handle all of the fun social events for the society, like pub quizzes and nights out.']
     ]),
     new Map<string, any>([
-        ['Name','Xhainn Raza Muhammad'],
-        ['Title','Gaming Officer'],
-        ['Course','2nd Year Integrated Computer Science'],
-        ['Role','I organize fun, chill gaming events for the society.']
+        ['Name', 'Xhainn Raza Muhammad'],
+        ['Title', 'Gaming Officer'],
+        ['Course', '2nd Year Integrated Computer Science'],
+        ['Role', 'I organize fun, chill gaming events for the society.']
     ]),
     new Map<string, any>([
-        ['Name','Ethan Ó Mórdha'],
-        ['Title','Gaming and Esports Officer'],
-        ['Course','2nd Year Computer Science, Linguistics, & Irish'],
-        ['Role','I organize fun gaming and Esports events.']
+        ['Name', 'Ethan Ó Mórdha'],
+        ['Title', 'Gaming and Esports Officer'],
+        ['Course', '2nd Year Computer Science, Linguistics, & Irish'],
+        ['Role', 'I organize fun gaming and Esports events.']
     ]),
     new Map<string, any>([
-        ['Name','Darren McCabe'],
-        ['Title','Amenities Officer'],
-        ['Course','Computer Science, Security, & Forensics'],
-        ['Role','One of the unsung heroes of DUCSS, I keep the room clean, organized, stocked, and a great place for members to hang out.']
+        ['Name', 'Darren McCabe'],
+        ['Title', 'Amenities Officer'],
+        ['Course', 'Computer Science, Security, & Forensics'],
+        ['Role', 'One of the unsung heroes of DUCSS, I keep the room clean, organized, stocked, and a great place for members to hang out.']
     ]),
     new Map<string, any>([
-        ['Name','Isabelle Guey'],
-        ['Title','Volunteer & Outreach Officer'],
-        ['Course','2nd Year Computer Science & Linguistics'],
-        ['Role','I help organize and lead coding workshops for kids with CoderDojo.']
+        ['Name', 'Isabelle Guey'],
+        ['Title', 'Volunteer & Outreach Officer'],
+        ['Course', '2nd Year Computer Science & Linguistics'],
+        ['Role', 'I help organize and lead coding workshops for kids with CoderDojo.']
     ]),
     new Map<string, any>([
-        ['Name','Kyrylo Borovyk'],
-        ['Title','General Officer'],
-        ['Course','2nd Year Integrated Computer Science'],
-        ['Role','I support day-to-day operations and team tasks.']
+        ['Name', 'Kyrylo Borovyk'],
+        ['Title', 'General Officer'],
+        ['Course', '2nd Year Integrated Computer Science'],
+        ['Role', 'I support day-to-day operations and team tasks.']
     ]),
     new Map<string, any>([
-        ['Name','Ahaan Singh'],
-        ['Title','General Officer'],
-        ['Course','2nd Year Integrated Computer Science'],
-        ['Role','I assist all committee members with their duties, and any other things they may need help with.']
+        ['Name', 'Ahaan Singh'],
+        ['Title', 'General Officer'],
+        ['Course', '2nd Year Integrated Computer Science'],
+        ['Role', 'I assist all committee members with their duties, and any other things they may need help with.']
     ])
 ]
- export const events = [
+export const events = [
     new Map<string, any>([
         ['Title', 'Jackbox Games Night'],
-        ['Category','Gaming'],
+        ['Category', 'Gaming'],
         ['Start', new Date(2026, 8, 16, 18, 30)],
         ['End', new Date(2026, 8, 16, 20, 30)],
-        ['Date',''],
-        ['Day',''],
-        ['Month',''],
-        ['Start Time',''],
-        ['End Time','Late'],
+        ['Date', ''],
+        ['Day', ''],
+        ['Month', ''],
+        ['Start Time', ''],
+        ['End Time', 'Late'],
         ['Location', 'DUCSS Room'],
         ['Sponsor', null],
         [
@@ -116,14 +153,14 @@ export const committee = [
     ]),
     new Map<string, any>([
         ['Title', 'White Lies T-Shirt Pub Crawl'],
-        ['Category','Social'],
+        ['Category', 'Social'],
         ['Start', new Date(2026, 8, 17, 18, 30)],
         ['End', null],
-        ['Date',''],
-        ['Day',''],
-        ['Month',''],
-        ['Start Time',''],
-        ['End Time','Late'],
+        ['Date', ''],
+        ['Day', ''],
+        ['Month', ''],
+        ['Start Time', ''],
+        ['End Time', 'Late'],
         ['Location', 'Meet at the Pav'],
         ['Sponsor', null],
         [
@@ -133,14 +170,14 @@ export const committee = [
     ]),
     new Map<string, any>([
         ['Title', 'Beerio Kart w/ a Live Band'],
-        ['Category','Gaming'],
+        ['Category', 'Gaming'],
         ['Start', new Date(2026, 8, 21, 19, 30)],
         ['End', null],
-        ['Date',''],
-        ['Day',''],
-        ['Month',''],
-        ['Start Time',''],
-        ['End Time','Late'],
+        ['Date', ''],
+        ['Day', ''],
+        ['Month', ''],
+        ['Start Time', ''],
+        ['End Time', 'Late'],
         ['Location', 'Marquee in Front of the Pav'],
         ['Sponsor', null],
         [
@@ -150,14 +187,14 @@ export const committee = [
     ]),
     new Map<string, any>([
         ['Title', 'Coffee Hour'],
-        ['Category','Social'],
+        ['Category', 'Social'],
         ['Start', new Date(2026, 8, 22, 12, 0)],
         ['End', new Date(2026, 8, 22, 14, 0)],
-        ['Date',''],
-        ['Day',''],
-        ['Month',''],
-        ['Start Time',''],
-        ['End Time','Late'],
+        ['Date', ''],
+        ['Day', ''],
+        ['Month', ''],
+        ['Start Time', ''],
+        ['End Time', 'Late'],
         ['Location', 'DUCSS Room'],
         ['Sponsor', null],
         [
@@ -209,39 +246,39 @@ for (const event of events) {
     const start = event.get('Start');
     const end = event.get('End');
     if (start != null) {
-        event.set('Date',start.getDate());
+        event.set('Date', start.getDate());
         let day = '';
         switch (start.getDay()) {
-        case 0:
-            day = 'Sunday';
-            break;
-        case 1:
-            day = 'Monday';
-            break;
-        case 2:
-            day = 'Tuesday';
-            break;
-        case 3:
-            day = 'Wednesday';
-            break;
-        case 4:
-            day = 'Thursday';
-            break;
-        case 5:
-            day = 'Friday';
-            break;
-        case 6:
-            day = 'Saturday';
-            break;
+            case 0:
+                day = 'Sunday';
+                break;
+            case 1:
+                day = 'Monday';
+                break;
+            case 2:
+                day = 'Tuesday';
+                break;
+            case 3:
+                day = 'Wednesday';
+                break;
+            case 4:
+                day = 'Thursday';
+                break;
+            case 5:
+                day = 'Friday';
+                break;
+            case 6:
+                day = 'Saturday';
+                break;
         }
-        event.set('Day',day);
-        event.set('Month',start.toLocaleString('default', { month: 'long' }));
+        event.set('Day', day);
+        event.set('Month', start.toLocaleString('default', { month: 'long' }));
         event.set('Start Time',
-            `${start.getHours()}:${start.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}`);
+            `${start.getHours()}:${start.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}`);
     }
     if (end != null) {
         event.set('End Time',
-            `${end.getHours()}:${end.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}`);
+            `${end.getHours()}:${end.getMinutes().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}`);
     }
 }
 
