@@ -485,22 +485,22 @@ p {
     background-color: var(--lightteal);
 }
 .category.competition img {
-    filter: contrast(60%) hue-rotate(-20deg)
-            saturate(200%) brightness(110%)
+    filter: contrast(50%)
+            saturate(400%) brightness(110%)
             drop-shadow(1px 1px var(--purple))
             drop-shadow(-1px -1px var(--purple))
             drop-shadow(4px 1px var(--purple));
 }
 .category.career img {
     filter: contrast(150%) hue-rotate(-30deg)
-            saturate(90%)
+            saturate(80%)
             drop-shadow(1px 1px var(--teal))
             drop-shadow(-1px -1px var(--teal))
             drop-shadow(4px 1px var(--teal));
 }
 .category.social img {
     filter: contrast(130%) hue-rotate(-80deg)
-            saturate(70%) brightness(100%)
+            saturate(70%) brightness(110%)
             drop-shadow(1px 1px var(--green))
             drop-shadow(-1px -1px var(--green))
             drop-shadow(5px 1px var(--green));
@@ -508,16 +508,17 @@ p {
 .category.gaming img {
     filter: invert(20%) sepia(80%)
             saturate(7) hue-rotate(90deg)
-            brightness(90%)
+            brightness(110%)
             drop-shadow(1px 1px var(--red))
             drop-shadow(-1px -1px var(--red))
             drop-shadow(4px 1px var(--red));
     transform: scale(1.1);
 }
 .category.tech img {
-    filter: hue-rotate(160deg)
-            saturate(150%) brightness(90%)
-        drop-shadow(1px 1px var(--orange)) drop-shadow(-1px -1px var(--orange))
+    filter: hue-rotate(160deg) contrast(80%)
+            saturate(500%) brightness(90%)
+        drop-shadow(1px 1px var(--orange))
+        drop-shadow(-1px -1px var(--orange))
         drop-shadow(4px 1px var(--orange));
 }
 .category img {
