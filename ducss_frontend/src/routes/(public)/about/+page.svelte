@@ -4,9 +4,6 @@
 	import '$lib/style.css';
 	import { events } from '$lib/shared'; // Import event data
 	import { committee } from '$lib/shared';
-	import social from '$lib/images/event_categories/social.png';
-	import gaming from '$lib/images/event_categories/gaming.png';
-	import tech from '$lib/images/event_categories/tech.png';
 	import Pond1 from '$lib/images/Ponds/Pond1.png';
 	import Pond2 from '$lib/images/Ponds/Pond2.png';
 	import TV from '$lib/images/Design/tv.png';
