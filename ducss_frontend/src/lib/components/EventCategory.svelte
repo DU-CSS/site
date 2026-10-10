@@ -11,7 +11,7 @@
 </script>
 
 <div class="category {category.get('name')}"
-style="background-color: var(--light{category.get('color')}); 
+    style="background-color: var(--light{category.get('color')}); 
         border: 2px solid var(--{category.get('color')});">
     <div class="noise"></div>
     <img src={category.get('src')} alt={category.get('alt')} />

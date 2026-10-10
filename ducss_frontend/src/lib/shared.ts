@@ -19,7 +19,7 @@ export const categories = [
     new Map<string, any>([
         ['id', 1],
         ['name', 'Social'],
-        ['src', 'src/lib/images/event_categories/social.png'],
+        ['src', 'event_categories/social.png'],
         ['alt', 'Coffee cup.'],
         ['color', 'green'],
         ['title', 'Technical Talks and Workshops']
@@ -27,7 +27,7 @@ export const categories = [
     new Map<string, any>([
         ['id', 5],
         ['name', 'Gaming'],
-        ['src', 'src/lib/images/event_categories/gaming.png'],
+        ['src', 'event_categories/gaming.png'],
         ['alt', 'Headphones.'],
         ['color', 'red'],
         ['title', 'Gaming and Esports Tournaments']
@@ -35,7 +35,7 @@ export const categories = [
     new Map<string, any>([
         ['id', 3],
         ['name', 'Competition'],
-        ['src', 'src/lib/images/event_categories/competition.svg'],
+        ['src', 'event_categories/competition.svg'],
         ['alt', 'Trophy.'],
         ['color', 'purple'],
         ['title', 'Coding Competitions and Hackathons']
@@ -43,7 +43,7 @@ export const categories = [
     new Map<string, any>([
         ['id', 4],
         ['name', 'Career'],
-        ['src', 'src/lib/images/event_categories/career.svg'],
+        ['src', 'event_categories/career.svg'],
         ['alt', 'Construction hat.'],
         ['color', 'teal'],
         ['title', 'Careers and Industry Events']
@@ -51,7 +51,7 @@ export const categories = [
     new Map<string, any>([
         ['id', 2],
         ['name', 'Technical'],
-        ['src', 'src/lib/images/event_categories/tech.png'],
+        ['src', 'event_categories/tech.png'],
         ['alt', 'Mechanical cog.'],
         ['color', 'orange'],
         ['title', 'Technical Talks and Workshops']
