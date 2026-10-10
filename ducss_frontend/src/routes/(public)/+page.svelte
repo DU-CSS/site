@@ -17,6 +17,7 @@
 	import Our_Society from '$lib/images/Our_Society.png';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
+	import Card from '$lib/components/Card.svelte';
 
 	function Johnathan_hover(element) {
 		element.setAttribute('src', Johnathan_Stares_Into_Soul);
@@ -86,24 +87,29 @@
 		</div>
 		<div class="grid">
 			{#each data.events as event}
-				<div class="card">
-					<p class="caps">{event.start_date.toLocaleDateString('en-IE')}</p>
-					<h3>{event.title}</h3>
-					<div class="tags">
-						<div class="tag">
-							<span class="material-symbols-outlined">confirmation_number</span>
-							<p>Free</p>
-						</div>
-						<div class="tag">
-							<span class="material-symbols-outlined">schedule</span>
-							<p>{event.start_time.substring(0,5)}-{event.end_time.substring(0,5)}</p>
-						</div>
-						<div class="tag">
-							<span class="material-symbols-outlined">location_on</span>
-							<p>{event.location}</p>
-						</div>
-					</div>
-					<p class="description">{event.content}</p>
+				<Card
+                    caps={event.start_date.toLocaleDateString('en-IE')}
+                    title={event.title}
+                    tags={[new Map([
+                            ['icon','confirmation_number'],
+                            ['name', 'Free']
+                            ]),
+                        new Map([
+                            ['icon','schedule'],
+                            ['name', `${event.start_time.substring(0,5)} - ${event.end_time.substring(0,5)}`]
+                            ]),
+                        new Map([
+                            ['icon','location_on'],
+                            ['name', `${event.location}`]
+                            ])
+                        ]}
+                    description={event.content}
+                    categoryId={event.category_id} />
+            {/each}
+        </div>
+
+<style>
+</style>
 					<!--<div
 						class="category {event=== 'Social'
 							? 'social'
@@ -131,14 +137,11 @@
 										: ''}
 						/>
 					</div>-->
-				</div>
-			{/each}
-		</div>
 	</section>
 	<section class="blue">
 		<div class="list">
             {#each categories as aCategory}
-                <EventCategory category={aCategory}/>
+                <EventCategory categoryNumber={aCategory.get('id')}/>
                 <h3 style="-webkit-text-fill-color: var(--light{aCategory.get('color')}">
                     {aCategory.get('title')}
                 </h3>

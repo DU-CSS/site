@@ -387,58 +387,12 @@ p {
     border: 2px solid var(--darkgreen);
     box-shadow: 2px 2px var(--darkgreen);
 }
-
-/* Card */
-.card {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 30px;
-    border-radius: var(--border-radius);
-    border: 2px solid var(--orange);
-    background-color: var(--lightyellow);
-    box-shadow: 6px 6px var(--lightorange);
-}
-.card .caps {
-    font-style: normal;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: calc(var(--p-size) - 2px);
-}
-.card h3 {
-    margin-top: 15px;
-    color: var(--orange);
-}
-.tags {
-    display: flex;
-    flex-flow: row wrap;
-    column-gap: 30px;
-    row-gap: 5px;
-    margin-bottom: 30px;
-}
-.tag {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    gap: 7px;
-}
 /* Icon styling */
 .material-symbols-outlined {
     font-size: calc(var(--p-size) + 10px);
     color: var(--orange);
     margin-top: -3px;
-}
-.card .description {
-    font-style: italic;
-    margin-top: auto;
-    color: var(--gray);
-}
-.card .category {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: -2px;
-}
+}/* Form styling */
 .error {
     background-color:mistyrose;
     color: indianred;

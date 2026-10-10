@@ -1,8 +1,18 @@
 <script lang="ts">
-	let { category} = $props();
+	import { categories } from "$lib/shared";
+
+	let { categoryNumber } = $props();
+    let category = $state(new Map());
+    for (const aCategory of categories) {
+        if (aCategory.get('id') === categoryNumber) {
+            category = aCategory;
+        }
+    }
 </script>
 
-<div class="category {category.get('name')}" style="background-color: var(--light{category.get('color')})">
+<div class="category {category.get('name')}"
+style="background-color: var(--light{category.get('color')}); 
+        border: 2px solid var(--{category.get('color')});">
     <div class="noise"></div>
     <img src={category.get('src')} alt={category.get('alt')} />
 </div>
@@ -29,36 +39,35 @@
 		align-items: center;
 		padding: 5px;
 		border-radius: 0px var(--border-radius);
-		border: 2px solid var(--gray);
 		height: 50px;
 		width: 50px;
-		/* border-top: 3px solid var(--orange);
-        border-right: 3px solid var(--orange);
-        border-bottom: 2px solid var(--gray);
-        border-left: 2px solid var(--gray);
-        box-shadow: inset 7px -2px 7px rgb(220, 212, 188); **/
+        box-shadow: inset 7px -2px 7px solid var(--shadow);
+		/*border-top: 2px solid var(--orange);
+        border-right: 2px solid var(--orange);
+        border-bottom: 2px solid var(--yellow);
+        border-left: 2px solid var(--yellow);*/
 	}
-	.category.competition img {
+	.category.Competition img {
 		filter: contrast(60%) saturate(400%) brightness(110%) drop-shadow(1px 1px var(--purple))
 			drop-shadow(-1px -1px var(--purple)) drop-shadow(4px 1px var(--purple));
 	}
-	.category.career img {
+	.category.Career img {
 		filter: contrast(150%) hue-rotate(-30deg) saturate(80%) drop-shadow(1px 1px var(--teal))
 			drop-shadow(-1px -1px var(--teal)) drop-shadow(4px 1px var(--teal));
 	}
-	.category.social img {
+	.category.Social img {
 		filter: contrast(130%) hue-rotate(-80deg) saturate(70%) brightness(110%)
 			drop-shadow(1px 1px var(--green)) drop-shadow(-1px -1px var(--green))
 			drop-shadow(5px 1px var(--green));
 	}
-	.category.gaming img {
+	.category.Gaming img {
 		filter: invert(20%) sepia(80%) saturate(7) hue-rotate(90deg) brightness(110%)
 			drop-shadow(1px 1px var(--red)) drop-shadow(-1px -1px var(--red))
 			drop-shadow(4px 1px var(--red));
 		transform: scale(1.1);
 	}
-	.category.tech img {
-		filter: hue-rotate(160deg) contrast(80%) saturate(500%) brightness(90%)
+	.category.Technical img {
+		filter: hue-rotate(160deg) contrast(80%) saturate(300%) brightness(100%)
 			drop-shadow(1px 1px var(--orange)) drop-shadow(-1px -1px var(--orange))
 			drop-shadow(4px 1px var(--orange));
 	}

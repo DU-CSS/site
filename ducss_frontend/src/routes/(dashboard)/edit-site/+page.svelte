@@ -41,8 +41,6 @@
             start_date: event.start_date.toLocaleDateString('en-CA'),
             end_date: event.end_date.toLocaleDateString('en-CA')
         }
-        console.log('event start date: ' + event.start_date);
-        console.log('event to edit start date: ' + eventToEdit.start_date);
     }
 </script>
 

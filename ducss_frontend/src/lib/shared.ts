@@ -16,36 +16,41 @@
 **/
 
 export const categories = [
-    new Map([
-        ['name', 'social'],
+    new Map<string, any>([
+        ['id', 1],
+        ['name', 'Social'],
         ['src', 'src/lib/images/event_categories/social.png'],
         ['alt', 'Coffee cup.'],
         ['color', 'green'],
         ['title', 'Technical Talks and Workshops']
     ]),
-    new Map([
-        ['name', 'gaming'],
+    new Map<string, any>([
+        ['id', 5],
+        ['name', 'Gaming'],
         ['src', 'src/lib/images/event_categories/gaming.png'],
         ['alt', 'Headphones.'],
         ['color', 'red'],
         ['title', 'Gaming and Esports Tournaments']
     ]),
-    new Map([
-        ['name', 'competition'],
+    new Map<string, any>([
+        ['id', 3],
+        ['name', 'Competition'],
         ['src', 'src/lib/images/event_categories/competition.svg'],
         ['alt', 'Trophy.'],
         ['color', 'purple'],
         ['title', 'Coding Competitions and Hackathons']
     ]),
-    new Map([
-        ['name', 'career'],
+    new Map<string, any>([
+        ['id', 4],
+        ['name', 'Career'],
         ['src', 'src/lib/images/event_categories/career.svg'],
         ['alt', 'Construction hat.'],
         ['color', 'teal'],
         ['title', 'Careers and Industry Events']
     ]),
-    new Map([
-        ['name', 'tech'],
+    new Map<string, any>([
+        ['id', 2],
+        ['name', 'Technical'],
         ['src', 'src/lib/images/event_categories/tech.png'],
         ['alt', 'Mechanical cog.'],
         ['color', 'orange'],
