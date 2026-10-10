@@ -6,6 +6,8 @@
 	import { sponsors } from '$lib/shared';
 	import social from '$lib/images/event_categories/social.png';
 	import gaming from '$lib/images/event_categories/gaming.png';
+	import competition from '$lib/images/event_categories/competition.svg';
+	import career from '$lib/images/event_categories/career.svg';
 	import tech from '$lib/images/event_categories/tech.png';
 	import Pond1 from '$lib/images/Ponds/Pond1.png';
 	import Pond2 from '$lib/images/Ponds/Pond2.png';
@@ -142,16 +144,16 @@
 				<img src={tech} alt={'Mechanical cog.'} />
 			</div>
 			<h3 style="-webkit-text-fill-color: var(--lightorange);">Technical Talks and Workshops</h3>
-			<div class="category contest">
+			<div class="category competition">
 				<div class="noise"></div>
-				<img src={tech} alt={'Headphones'} />
+				<img src={competition} alt={'Tournament medal.'} />
 			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightteal);">Coding Competitions and Hackathons</h3>
+			<h3 style="-webkit-text-fill-color: var(--lightpurple);">Coding Competitions and Hackathons</h3>
 			<div class="category career">
 				<div class="noise"></div>
-				<img src={tech} alt={'Headphones'} />
+				<img src={career} alt={'Tournament medal.'} />
 			</div>
-			<h3 style="-webkit-text-fill-color: var(--lightpurple);">Careers and Industry Events</h3>
+			<h3 style="-webkit-text-fill-color: var(--lightteal);">Careers and Industry Events</h3>
 			<div class="category gaming">
 				<div class="noise"></div>
 				<img src={gaming} alt="Headphones." />
