@@ -485,7 +485,7 @@ p {
     background-color: var(--lightteal);
 }
 .category.competition img {
-    filter: contrast(50%)
+    filter: contrast(60%)
             saturate(400%) brightness(110%)
             drop-shadow(1px 1px var(--purple))
             drop-shadow(-1px -1px var(--purple))
