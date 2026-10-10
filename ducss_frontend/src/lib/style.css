@@ -485,15 +485,15 @@ p {
     background-color: var(--lightteal);
 }
 .category.competition img {
-    filter: contrast(90%) hue-rotate(-20deg)
-            saturate(90%) brightness(120%)
+    filter: contrast(60%) hue-rotate(-20deg)
+            saturate(200%) brightness(110%)
             drop-shadow(1px 1px var(--purple))
             drop-shadow(-1px -1px var(--purple))
             drop-shadow(4px 1px var(--purple));
 }
 .category.career img {
-    filter: contrast(130%) hue-rotate(50deg)
-            saturate(120%) brightness(90%)
+    filter: contrast(150%) hue-rotate(-30deg)
+            saturate(90%)
             drop-shadow(1px 1px var(--teal))
             drop-shadow(-1px -1px var(--teal))
             drop-shadow(4px 1px var(--teal));
@@ -515,7 +515,7 @@ p {
     transform: scale(1.1);
 }
 .category.tech img {
-    filter: contrast(100%) hue-rotate(160deg)
+    filter: hue-rotate(160deg)
             saturate(150%) brightness(90%)
         drop-shadow(1px 1px var(--orange)) drop-shadow(-1px -1px var(--orange))
         drop-shadow(4px 1px var(--orange));
