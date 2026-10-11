@@ -7,6 +7,11 @@ export const actions = {
         const data = await request.formData();
 
         let email = data.get('email')?.toString();
+        const emailCheckSQL = `SELECT EXISTS (SELECT 1 FROM auth.users WHERE email = $1) AS exists;`;
+        const emailCheckRows = await DB().query(emailCheckSQL, [email]);
+        if (emailCheckRows[0].exists) {
+            return fail(400, { message: 'That email already has a DUCSS account.' });
+        }
         let password = data.get('password')?.toString();
         const confirmPassword = data.get('confirm-password')?.toString();
 
