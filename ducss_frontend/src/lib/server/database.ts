@@ -121,3 +121,18 @@ export async function isOnCommittee(email: string) {
         return true;
     } else return false;
 }
+
+// Check if new sign up is already a user
+export async function isSignedUp(email: string) {
+    return {
+        query: async (sql: string, parameters: unknown[] = []) => {
+            try {
+                const result = await pool.query(sql, parameters);
+                return result.rows;
+            } catch (error) {
+                console.error('Database query failed: ', error);
+                throw new Error('Unable to query database.');
+            }
+        }
+    };
+}

@@ -26,7 +26,8 @@ export const actions = {
             ['start_date', true],
             ['start_time', true],
             ['end_date', true],
-            ['end_time', true]
+            ['end_time', true],
+            ['category_id', true]
         ];
         const params: Record<string, FormDataEntryValue> = {};
         for (const [key, isRequired] of paramKeys) {
@@ -50,11 +51,13 @@ export const actions = {
 
         if (Number(id) > 0) {
             // Editing existing post i.e. ID > 0
+            console.log(`UPDATING EVENT WITH ID = ${id}`);
             for (const [paramKey, paramValue] of Object.entries(params)) {
                 if (!(paramKey === 'id')) {
-                    let sql = `UPDATE data.events SET ${paramKey} = $1 WHERE id = $2`;
+                    console.log(`SET ${paramKey} = ${paramValue}`);
+                    let sql = `UPDATE events.events SET ${paramKey} = $1 WHERE id = $2`;
                     await DB().query(sql, [paramValue, id]);
-                    // e.g. UPDATE data.events SET title = 'Example' WHERE id = [params.id]
+                    // e.g. UPDATE event.events SET title = 'Example' WHERE id = [params.id]
                 }
             }
         } else {
