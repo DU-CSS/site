@@ -75,8 +75,8 @@
 				</div>
 				<div>
 					<p>Category</p>
-					<select name="category_id">
-						bind:value={eventToEdit.category}
+					<select name="category_id"
+						bind:value={eventToEdit.category} >
 						{#each data.categories as category}
 							<option value={category.id}>{category.content}</option>
 						{/each}
