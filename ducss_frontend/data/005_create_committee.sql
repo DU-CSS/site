@@ -18,5 +18,5 @@ CREATE TABLE org.committee (
     member_id integer NOT NULL REFERENCES org.members(id) ON DELETE CASCADE,
     role_id integer NOT NULL REFERENCES org.committee_roles(id) ON DELETE CASCADE,
     start_year integer NOT NULL,
-    end_year integer NOT NULL
+    end_year integer
 );
