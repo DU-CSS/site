@@ -104,6 +104,19 @@ export async function isUser(member_id: number) {
     return SQLrows[0].exists;
 }
 
+export async function getUserId(email: string, password: string) {
+    const SQL = `SELECT u.id
+                FROM org.members AS m
+                JOIN auth.users AS u
+                    ON m.id = u.id
+                WHERE m.email = $1
+                AND u.hash_password = crypt($2, u.hash_password);`;
+    const SQLrows = await DB().query(SQL, [email, password]);
+    if (SQLrows.length == 0) {
+        return null;
+    } else return SQLrows[0].id;
+}
+
 // Check if member is on committee
 export async function isOnCommittee(member_id: number) {
     const SQL = `SELECT EXISTS (

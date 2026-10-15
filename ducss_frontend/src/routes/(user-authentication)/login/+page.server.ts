@@ -1,4 +1,4 @@
-import { DB } from "$lib/server/database";
+import { DB, getUserId } from "$lib/server/database";
 import { redirect, fail, type Actions } from "@sveltejs/kit";
 
 export const actions = {
@@ -11,14 +11,11 @@ export const actions = {
             return fail(400, {message:'Please provide an email and password.'});
         }
 
-        // Create user and get ID
-        const sql = `SELECT * FROM auth.users WHERE lower(email) = lower($1)
-                     AND hash_password = crypt($2, hash_password)`;
-        const rows = await DB().query(sql, [email, password]);
-        if (!rows[0]) {
+        // Check if email or password is incorrect
+        const user_id = await getUserId(email, password);
+        if (user_id == null){
             return fail(400, {message: 'Your username or password is incorrect.'});
         }
-        const user_id: number = rows[0].id;
 
         // save session and get GUID
         const sessionSQL = `INSERT INTO auth.sessions (user_id, date_expired)
