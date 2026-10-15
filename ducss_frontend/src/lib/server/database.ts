@@ -94,45 +94,26 @@ export async function findMemberByEmail(email: string) {
 }
 
 // Check if member is on committee
-export async function isOnCommittee(email: string) {
-    const auth = new google.auth.GoogleAuth({
-        credentials: {
-            client_email: env.GOOGLESHEETS_CLIENTEMAIL,
-            private_key: env.GOOGLESHEETS_PRIVATEKEY.replace(/\\n/g, '\n')
-        },
-        scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
-    });
-    const sheets = google.sheets({
-        version: 'v4',
-        auth
-    });
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: env.GOOGLESHEETS_COMMITTEESHEETID,
-        range: 'Sheet1!A:C'
-    });
-    const rows: string[][] = response.data.values ?? [];
-    // Ignore header (first row, index 0) so rows.slice(1)
-    const matchingRow = rows.slice(1).find(
-        (row) =>
-            // Email is third column (index 2) so row[2]
-            row[2]?.trim().toLowerCase() === email.trim().toLowerCase()
-    );
-    if (matchingRow) {
-        return true;
-    } else return false;
+export async function isOnCommittee(member_id: number) {
+    const memberCheckSQL = `SELECT EXISTS (
+                                SELECT 1
+                                FROM org.committee AS c
+                                WHERE c.member_id = $1
+                            ) AS exists;`;
+    const memberCheckRows = await DB().query(memberCheckSQL, [member_id]);
+    return memberCheckRows[0].exists;
 }
 
-// Check if new sign up is already a user
-export async function isSignedUp(email: string) {
-    return {
-        query: async (sql: string, parameters: unknown[] = []) => {
-            try {
-                const result = await pool.query(sql, parameters);
-                return result.rows;
-            } catch (error) {
-                console.error('Database query failed: ', error);
-                throw new Error('Unable to query database.');
-            }
-        }
-    };
+// Check if member is an executive on committee
+export async function isExec(member_id: number) {
+    const memberCheckSQL = `SELECT EXISTS (
+                                SELECT 1
+                                FROM org.committee AS c
+                                JOIN org.committee_roles AS r
+                                    ON r.id = c.role_id
+                                WHERE c.member_id = $1
+                                    AND r.executive = TRUE
+                            ) AS exists;`;
+    const memberCheckRows = await DB().query(memberCheckSQL, [member_id]);
+    return memberCheckRows[0].exists;
 }

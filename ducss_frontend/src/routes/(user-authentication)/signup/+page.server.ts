@@ -7,9 +7,9 @@ export const actions = {
         const data = await request.formData();
 
         let email = data.get('email')?.toString();
-        const emailCheckSQL = `SELECT EXISTS (SELECT 1 FROM auth.users WHERE email = $1) AS exists;`;
-        const emailCheckRows = await DB().query(emailCheckSQL, [email]);
-        if (emailCheckRows[0].exists) {
+        const userCheckSQL = `SELECT EXISTS (SELECT 1 FROM auth.users WHERE email = $1) AS exists;`;
+        const userCheckRows = await DB().query(userCheckSQL, [email]);
+        if (userCheckRows[0].exists) {
             return fail(400, { message: 'That email already has a DUCSS account.' });
         }
         let password = data.get('password')?.toString();
@@ -21,23 +21,22 @@ export const actions = {
         if (!email || email.trim() === '' || !password || password.trim() === '') {
             return fail(400, { message: 'Please provide an email and password.' });
         }
-        const member = await findMemberByEmail(email);
-        if (member) {
-            let role = 'member';
-            if (await isOnCommittee(email)) {
-                role = 'committee';
-            }
+        
+        const memberCheckSQL = `SELECT EXISTS (SELECT 1 FROM org.members WHERE email = $1) AS exists;`;
+        const memberCheckRows = await DB().query(memberCheckSQL, [email]);
+        const member = memberCheckRows[0];
+        if (member.exists) {
             // Create user and get ID
             const sql = `INSERT INTO auth.users (email, first_name, last_name, hash_password, role)
-                     VALUES ($1, $2, $3, crypt($4, gen_salt('bf', 8)), $5)
-                     RETURNING *`;
+                         VALUES ($1, $2, $3, crypt($4, gen_salt('bf', 8)), $5)
+                         RETURNING *`;
             const rows = await DB().query(sql, [email, member.firstName, member.lastName, password, role]);
             const user_id: number = rows[0].id;
 
             // save session and get session ID
             const sessionSQL = `INSERT INTO auth.sessions (user_id, date_expired)
-                            VALUES ($1, now() + interval '8 hour')
-                            RETURNING id`;
+                                VALUES ($1, now() + interval '8 hour')
+                                RETURNING id`;
             const sessionRows = await DB().query(sessionSQL, [user_id]);
             const sessionID = sessionRows[0].id;
 
