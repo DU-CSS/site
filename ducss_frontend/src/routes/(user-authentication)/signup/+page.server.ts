@@ -1,17 +1,11 @@
 import { GOOGLE_APIKEY, GOOGLE_CLIENTID } from "$env/static/private";
-import { DB, findMemberByEmail, isOnCommittee } from "$lib/server/database";
+import { DB, isUser, isOnCommittee } from "$lib/server/database";
 import { redirect, fail, type Actions } from "@sveltejs/kit";
 
 export const actions = {
     create: async ({ request, cookies }) => {
         const data = await request.formData();
-
         let email = data.get('email')?.toString();
-        const userCheckSQL = `SELECT EXISTS (SELECT 1 FROM auth.users WHERE email = $1) AS exists;`;
-        const userCheckRows = await DB().query(userCheckSQL, [email]);
-        if (userCheckRows[0].exists) {
-            return fail(400, { message: 'That email already has a DUCSS account.' });
-        }
         let password = data.get('password')?.toString();
         const confirmPassword = data.get('confirm-password')?.toString();
 
@@ -26,18 +20,21 @@ export const actions = {
         const memberCheckRows = await DB().query(memberCheckSQL, [email]);
         const member = memberCheckRows[0];
         if (member.exists) {
+            if (await isUser(member.id)) {
+                return fail(400, { message: 'That email already has a DUCSS account.' });
+            }
+            
             // Create user and get ID
-            const sql = `INSERT INTO auth.users (email, first_name, last_name, hash_password, role)
-                         VALUES ($1, $2, $3, crypt($4, gen_salt('bf', 8)), $5)
+            const sql = `INSERT INTO auth.users (id, hash_password)
+                         VALUES ($1, crypt($2, gen_salt('bf', 8)))
                          RETURNING *`;
-            const rows = await DB().query(sql, [email, member.firstName, member.lastName, password, role]);
-            const user_id: number = rows[0].id;
+            const rows = await DB().query(sql, [member.id, password]);
 
             // save session and get session ID
             const sessionSQL = `INSERT INTO auth.sessions (user_id, date_expired)
                                 VALUES ($1, now() + interval '8 hour')
                                 RETURNING id`;
-            const sessionRows = await DB().query(sessionSQL, [user_id]);
+            const sessionRows = await DB().query(sessionSQL, [member.id]);
             const sessionID = sessionRows[0].id;
 
             // Set cookie

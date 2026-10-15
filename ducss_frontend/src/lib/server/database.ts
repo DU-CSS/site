@@ -93,27 +93,38 @@ export async function findMemberByEmail(email: string) {
     };
 }
 
+// Check if member has a DUCSS account
+export async function isUser(member_id: number) {
+    const SQL = `SELECT EXISTS (
+                                SELECT 1
+                                FROM auth.users AS u
+                                WHERE u.id = $1
+                            ) AS exists;`;
+    const SQLrows = await DB().query(SQL, [member_id]);
+    return SQLrows[0].exists;
+}
+
 // Check if member is on committee
 export async function isOnCommittee(member_id: number) {
-    const memberCheckSQL = `SELECT EXISTS (
+    const SQL = `SELECT EXISTS (
                                 SELECT 1
                                 FROM org.committee AS c
                                 WHERE c.member_id = $1
                             ) AS exists;`;
-    const memberCheckRows = await DB().query(memberCheckSQL, [member_id]);
-    return memberCheckRows[0].exists;
+    const SQLrows = await DB().query(SQL, [member_id]);
+    return SQLrows[0].exists;
 }
 
 // Check if member is an executive on committee
 export async function isExec(member_id: number) {
-    const memberCheckSQL = `SELECT EXISTS (
-                                SELECT 1
-                                FROM org.committee AS c
-                                JOIN org.committee_roles AS r
-                                    ON r.id = c.role_id
-                                WHERE c.member_id = $1
-                                    AND r.executive = TRUE
-                            ) AS exists;`;
-    const memberCheckRows = await DB().query(memberCheckSQL, [member_id]);
-    return memberCheckRows[0].exists;
+    const SQL = `SELECT EXISTS (
+                    SELECT 1
+                    FROM org.committee AS c
+                    JOIN org.committee_roles AS r
+                        ON r.id = c.role_id
+                    WHERE c.member_id = $1
+                        AND r.executive = TRUE
+                ) AS exists;`;
+    const SQLrows = await DB().query(SQL, [member_id]);
+    return SQLrows[0].exists;
 }
