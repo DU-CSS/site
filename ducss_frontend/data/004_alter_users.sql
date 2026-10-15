@@ -7,11 +7,8 @@ DROP IDENTITY IF EXISTS;
 ALTER TABLE auth.users
 ADD CONSTRAINT users_id_fk_is_members_id
 FOREIGN KEY (id)
-REFERENCES auth.members(id);
-
--- Make auth.users.created_at able to be null
-ALTER TABLE auth.users
-ALTER COLUMN created_at DROP NOT NULL;
+REFERENCES auth.members(id)
+ON DELETE CASCADE;
 
 --Drop columns from User Table
 ALTER TABLE auth.users
