@@ -5,8 +5,8 @@ import { redirect, fail, type Actions } from "@sveltejs/kit";
 export const actions = {
     create: async ({ request, cookies }) => {
         const data = await request.formData();
-        let email = data.get('email')?.toString();
-        let password = data.get('password')?.toString();
+        const email = data.get('email')?.toString();
+        const password = data.get('password')?.toString();
         const confirmPassword = data.get('confirm-password')?.toString();
 
         if (password != confirmPassword) {
