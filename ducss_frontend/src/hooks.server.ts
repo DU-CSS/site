@@ -1,4 +1,4 @@
-import { DB, isOnCommittee } from '$lib/server/database';
+import { DB, isExec, isOnCommittee } from '$lib/server/database';
 import { redirect } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
@@ -11,8 +11,10 @@ export async function handle({ event, resolve }) {
         const rows = await DB().query(sql, [guid_id]);
         if (rows[0]) {
             event.locals.id = rows[0].id;
-            event.locals.first_name = rows[0].first_name,
-            event.locals.last_name = rows[0].last_name
+            event.locals.first_name = rows[0].first_name;
+            event.locals.last_name = rows[0].last_name;
+            event.locals.on_committee = await isOnCommittee(event.locals.id);
+            event.locals.is_exec = await isExec(event.locals.id);
         }
     }
 
@@ -23,7 +25,7 @@ export async function handle({ event, resolve }) {
     if (event.url.pathname === '/profile' && !event.locals.id) {
         throw redirect(303, '/');
     }
-    if (event.url.pathname === '/edit-site' && !(await isOnCommittee(event.locals.id))) {
+    if (event.url.pathname === '/edit-site' && !event.locals.on_committee) {
         throw redirect(303, '/login');
     }
     return await resolve(event);

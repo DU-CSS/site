@@ -1,5 +1,5 @@
 import { GOOGLE_APIKEY, GOOGLE_CLIENTID } from "$env/static/private";
-import { DB, isUser, isOnCommittee } from "$lib/server/database";
+import { DB, isUser, isMember, getMemberId } from "$lib/server/database";
 import { redirect, fail, type Actions } from "@sveltejs/kit";
 
 export const actions = {
@@ -16,11 +16,10 @@ export const actions = {
             return fail(400, { message: 'Please provide an email and password.' });
         }
         
-        const memberCheckSQL = `SELECT EXISTS (SELECT 1 FROM org.members WHERE email = $1) AS exists;`;
-        const memberCheckRows = await DB().query(memberCheckSQL, [email]);
-        const member = memberCheckRows[0];
-        if (member.exists) {
-            if (await isUser(member.id)) {
+        if (await isMember(email)) {
+            const id = await getMemberId(email);
+
+            if (await isUser(id)) {
                 return fail(400, { message: 'That email already has a DUCSS account.' });
             }
             
@@ -28,13 +27,13 @@ export const actions = {
             const sql = `INSERT INTO auth.users (id, hash_password)
                          VALUES ($1, crypt($2, gen_salt('bf', 8)))
                          RETURNING *`;
-            const rows = await DB().query(sql, [member.id, password]);
+            const rows = await DB().query(sql, [id, password]);
 
             // save session and get session ID
             const sessionSQL = `INSERT INTO auth.sessions (user_id, date_expired)
                                 VALUES ($1, now() + interval '8 hour')
                                 RETURNING id`;
-            const sessionRows = await DB().query(sessionSQL, [member.id]);
+            const sessionRows = await DB().query(sessionSQL, [id]);
             const sessionID = sessionRows[0].id;
 
             // Set cookie

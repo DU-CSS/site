@@ -6,7 +6,9 @@ declare global {
 		interface Locals {
 			id: number,
 			first_name: string,
-			last_name: string
+			last_name: string,
+			on_committee: boolean,
+			is_exec: boolean
 		}
 		// interface PageData {}
 		// interface PageState {}
