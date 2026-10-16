@@ -32,6 +32,7 @@
 	let lastScrollY = $state(0);
 
 	onMount(() => {
+		const id = data.id;
 		const onScroll = () => {
 			const scrollY = window.scrollY;
 			if (scrollY <= 0 || scrollY < lastScrollY) {
@@ -123,13 +124,13 @@
 				- My Profile
 				- Logout
 			-->
-			{#if data.email}
+			{#if data.id}
 				<li>
 					<div class="dropdown">
-						<button class="compass">{data.email}</button>
+						<button class="compass">{data.first_name}</button>
 						<div class="compass-dropdown">
 							<a href="/profile">My Profile</a>
-							{#if data.role === 'committee'}
+							{#if true}
 								<a href="/edit-site">Edit Site</a>
 								<!--<a href="/bulletin-board">Bulletin Board</a>-->
 							{/if}

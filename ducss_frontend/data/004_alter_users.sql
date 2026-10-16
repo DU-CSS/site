@@ -10,7 +10,7 @@ FOREIGN KEY (id)
 REFERENCES auth.members(id)
 ON DELETE CASCADE;
 
---Drop columns from User Table
+-- Drop columns from User Table
 ALTER TABLE auth.users
 DROP first_name,
 DROP last_name,

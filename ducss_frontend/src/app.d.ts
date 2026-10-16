@@ -4,10 +4,11 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			email: string,
-			role: string,
+			id: number,
 			first_name: string,
-			last_name: string
+			last_name: string,
+			on_committee: boolean,
+			is_exec: boolean
 		}
 		// interface PageData {}
 		// interface PageState {}
