@@ -1,0 +1,32 @@
+
+name: Deploy to DigitalOcean
+on:
+  push:
+    branches:
+      - main
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to DigitalOcean
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: ${{ secrets.DO_USER }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          port: 22
+          script: |
+            cd /root/site
+            echo "Fetching latest changes..."
+            git fetch origin
+            git pull --ff-only origin main
+            echo "Building and deploying..."
+            docker compose up -d --build --pull always --remove-orphans
+            echo "Cleaning unused Docker resources..."
+            docker system prune -f
+            echo "Checking container status..."
+            docker compose ps
+            echo "Deployment completed!"
