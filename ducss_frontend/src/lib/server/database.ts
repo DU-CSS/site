@@ -44,7 +44,7 @@ export const transaction = async <T>(
     callback: (client: PoolClient) => Promise<T>
 ): Promise<T> => {
     const client = await pool.connect();
-    
+
     try {
         await client.query('BEGIN');
         const result = await callback(client);
@@ -93,7 +93,7 @@ export async function findMemberByEmail(email: string) {
         transactionId: matchingRow[4] ?? ''
     };
     **/
-   const SQL = `SELECT 1
+    const SQL = `SELECT 1
                 FROM org.members AS m
                 WHERE m.email = $1;`;
     const SQLrows = await DB().query(SQL, [email]);
@@ -106,7 +106,32 @@ export async function findMemberByEmail(email: string) {
     }
 }
 
-
+// Add or update member in org.members
+export async function addMember(firstName: string, lastName: string, email: string, date: Date) {
+    const SQL = `INSERT INTO org.members (
+                    first_name,
+                    last_name,
+                    email,
+                    date_joined
+                )
+                VALUES ($1, $2, $3, $4)
+                ON CONFLICT (email)
+                DO UPDATE SET
+                    first_name = EXCLUDED.first_name,
+                    last_name = EXCLUDED.last_name,
+                    date_joined = CASE
+                        WHEN date_joined IS NULL
+                        THEN EXCLUDED.date_joined
+                        ELSE date_joined
+                    END,
+                    date_renewed = CASE
+                        WHEN EXCLUDED.date_joined IS DISTINCT FROM date_joined
+                        THEN EXCLUDED.date_joined
+                        ELSE date_renewed
+                    END
+                `;
+    const SQLrows = await DB().query(SQL, [firstName, lastName, email, date]);
+}
 
 // Check if member has a DUCSS account
 export async function isUser(member_id: number) {
