@@ -54,7 +54,7 @@
 		style="background-image: linear-gradient(var(--clear-only-fullscreen), rgba(15, 10, 0, 0.8)), url({Pond2});"
 	>
 		<div class="header">
-			<h1>Welcome to the quackiest society! :)</h1>
+			<h1>Welcome to the quackiest society!</h1>
 			<p>
 				The Dublin University Computer Science Society (DUCSS) is Trinity College Dublin’s student
 				society for computer science, technology and the wider computing community.
