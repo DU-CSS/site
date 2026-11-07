@@ -1,7 +1,11 @@
 
 name: Deploy to DigitalOcean
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Build and push Docker images
+    types:
+      - completed
     branches:
       - main
 concurrency:
@@ -9,7 +13,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
     steps:
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v1
@@ -19,14 +24,15 @@ jobs:
           key: ${{ secrets.DO_SSH_KEY }}
           port: 22
           script: |
+            set -e
             cd /root/site
             echo "Fetching latest changes..."
             git fetch origin
             git pull --ff-only origin main
-            echo "Building and deploying..."
-            docker compose up -d --build --pull always --remove-orphans
-            echo "Cleaning unused Docker resources..."
-            docker system prune -f
+            echo "Pulling latest Docker images..."
+            docker compose pull frontend-node backend
+            echo "Restarting containers..."
+            docker compose up -d --remove-orphans
             echo "Checking container status..."
             docker compose ps
             echo "Deployment completed!"
