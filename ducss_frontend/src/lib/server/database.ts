@@ -61,6 +61,7 @@ export const transaction = async <T>(
 
 // Get DUCSS member info or return null if not a member
 export async function findMemberByEmail(email: string) {
+    /* OLD VERSION OF MEMBER SCRAPE DRAWING FROM SHEET DIRECTLY
     const auth = new google.auth.GoogleAuth({
         credentials: {
             client_email: env.GOOGLESHEETS_CLIENTEMAIL,
@@ -91,7 +92,21 @@ export async function findMemberByEmail(email: string) {
         lastName: matchingRow[3] ?? '',
         transactionId: matchingRow[4] ?? ''
     };
+    **/
+   const SQL = `SELECT 1
+                FROM org.members AS m
+                WHERE m.email = $1;`;
+    const SQLrows = await DB().query(SQL, [email]);
+    return {
+        dateJoined: SQLrows[0].date_joined ?? '',
+        dateRenewed: SQLrows[0].date_renewed ?? '',
+        email: SQLrows[0].email ?? '',
+        firstName: SQLrows[0].first_name ?? '',
+        lastName: SQLrows[0].last_name ?? ''
+    }
 }
+
+
 
 // Check if member has a DUCSS account
 export async function isUser(member_id: number) {
