@@ -11,13 +11,10 @@ const pool = new Pool({
     password: env.SECRET_PGPASSWORD,
     database: env.SECRET_PGDATABASE,
     port: Number(env.SECRET_PGPORT),
-    ssl: env.SECRET_PGSSLMODE === 'require' ? {
-        rejectUnauthorized: false
-    } : false,
-    /*ssl: {
+    ssl: {
         rejectUnauthorized: true,
-        ca: readFileSync(SECRET_PGSSLROOTCERT, 'utf8')
-    },*/
+        ca: readFileSync(env.SECRET_PGSSLROOTCERT, 'utf8')
+    },
     // Stop waiting if a database connection cannot be established.
     connectionTimeoutMillis: 5000,
     // Close idle connections after 15 seconds.
