@@ -68,14 +68,6 @@ public static class MemberSyncEndpoints
                         message = "1+ member records contain invalid data."
                     });
                 }
-
-                if (!emails.Add(member.Email.Trim()))
-                {
-                    return Results.BadRequest(new
-                    {
-                        message = "Duplicate email in request."
-                    });
-                }
             }
 
             // 3. Execute database operations
