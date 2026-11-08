@@ -29,6 +29,10 @@ jobs:
             echo "Fetching latest changes..."
             git fetch origin
             git pull --ff-only origin main
+            echo "Cleaning unused Docker bits..."
+            docker container prune -f
+            docker image prune -f
+            docker builder prune -f
             echo "Pulling latest Docker images..."
             docker compose pull frontend-node backend
             echo "Restarting containers..."
