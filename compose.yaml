@@ -28,14 +28,10 @@ services:
   backend:
     image: ghcr.io/du-css/backend:latest
     restart: unless-stopped
+    env_file:
+      - ./ducss_frontend/.env
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
-      - SECRET_PGHOST=${SECRET_PGHOST}
-      - SECRET_PGUSER=${SECRET_PGUSER}
-      - SECRET_PGPASSWORD=${SECRET_PGPASSWORD}
-      - SECRET_PGDATABASE=${SECRET_PGDATABASE}
-      - SECRET_PGPORT=${SECRET_PGPORT}
-      - SECRET_PGSSLMODE=${SECRET_PGSSLMODE}
   certbot:
     image: certbot/certbot    
     container_name: certbot
