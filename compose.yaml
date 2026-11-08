@@ -30,7 +30,11 @@ services:
     restart: unless-stopped
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
-
+      - SECRET_PGHOST=${SECRET_PGHOST}
+      - SECRET_PGUSER=${SECRET_PGUSER}
+      - SECRET_PGPASSWORD=${SECRET_PGPASSWORD}
+      - SECRET_PGDATABASE=${SECRET_PGDATABASE}
+      - SECRET_PGPORT=${SECRET_PGPORT}
   certbot:
     image: certbot/certbot    
     container_name: certbot
