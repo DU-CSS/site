@@ -3,30 +3,41 @@ import { Pool, type PoolClient } from "pg";
 import { readFileSync } from 'fs';
 import { google } from 'googleapis';
 
+
 // Create one PostgreSQL connection pool
 // The pool manages individual database connections automatically
-const pool = new Pool({
-    host: env.SECRET_PGHOST,
-    user: env.SECRET_PGUSER,
-    password: env.SECRET_PGPASSWORD,
-    database: env.SECRET_PGDATABASE,
-    port: Number(env.SECRET_PGPORT),
-    ssl: {
-        rejectUnauthorized: true,
-        ca: readFileSync(env.SECRET_PGSSLROOTCERT, 'utf8')
-    },
-    // Stop waiting if a database connection cannot be established.
-    connectionTimeoutMillis: 5000,
-    // Close idle connections after 15 seconds.
-    idleTimeoutMillis: 15000
-});
+let pool: Pool | undefined;
+function getPool(): Pool {
+    if (!pool) {
+        const certPath = env.SECRET_PGSSLROOTCERT;
+        if (!certPath) {
+            throw new Error('Missing SECRET_PGSSLROOTCERT environment variable');
+        }
+        pool = new Pool({
+            host: env.SECRET_PGHOST,
+            user: env.SECRET_PGUSER,
+            password: env.SECRET_PGPASSWORD,
+            database: env.SECRET_PGDATABASE,
+            port: Number(env.SECRET_PGPORT),
+            ssl: {
+                rejectUnauthorized: true,
+                ca: readFileSync(certPath, 'utf8')
+            },
+            // Stop waiting if a database connection cannot be established.
+            connectionTimeoutMillis: 5000,
+            // Close idle connections after 15 seconds.
+            idleTimeoutMillis: 15000
+        });
+    }
+    return pool;
+}
 
 // Run a normal database query
 export const DB = () => {
     return {
         query: async (sql: string, parameters: unknown[] = []) => {
             try {
-                const result = await pool.query(sql, parameters);
+                const result = await getPool().query(sql, parameters);
                 return result.rows;
             } catch (error) {
                 console.error('Database query failed: ', error);
@@ -40,7 +51,7 @@ export const DB = () => {
 export const transaction = async <T>(
     callback: (client: PoolClient) => Promise<T>
 ): Promise<T> => {
-    const client = await pool.connect();
+    const client = await getPool().connect();
 
     try {
         await client.query('BEGIN');
