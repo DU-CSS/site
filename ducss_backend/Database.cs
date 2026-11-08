@@ -22,13 +22,8 @@ namespace Ducss
                 Username = GetRequiredEnvironmentVariable("SECRET_PGUSER"),
                 Password = GetRequiredEnvironmentVariable("SECRET_PGPASSWORD"),
                 Database = GetRequiredEnvironmentVariable("SECRET_PGDATABASE"),
-
-                SslMode =
-                    GetRequiredEnvironmentVariable("SECRET_PGSSLMODE") == "require"
-                        ? SslMode.Require
-                        : SslMode.Disable,
-
-                TrustServerCertificate = true,
+                SslMode = SslMode.VerifyFull,
+                RootCertificate = GetRequiredEnvironmentVariable("SECRET_PGSSLROOTCERT"),
 
                 Timeout = 5,
                 Pooling = true

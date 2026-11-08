@@ -37,7 +37,8 @@ services:
     container_name: certbot
     volumes:
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot    
+      - ./certbot/www:/var/www/certbot
+      - ./certs/ca-certificate.crt:/app/certs/ca-certificate.crt:ro
     # command: certonly --webroot -w /var/www/certbot --force-renewal --email ducss@csc.tcd.ie -d www.ducss.ie --agree-tos
     depends_on:
       - frontend-node
