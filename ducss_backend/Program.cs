@@ -24,36 +24,6 @@ app.UseRouting();
 // Api \ Members \ MemberSyncEndpoints
 app.MapMemberSyncEndpoints();
 
-app.MapGet("/api/test-db", async () =>
-{
-    try
-    {
-        await using var connection = Database.CreateConnection();
-        await connection.OpenAsync();
-
-        await using var command = new NpgsqlCommand(
-            "SELECT NOW()",
-            connection
-        );
-
-        var result = await command.ExecuteScalarAsync();
-
-        return Results.Ok(new
-        {
-            success = true,
-            databaseTime = result
-        });
-    }
-    catch (Exception ex)
-    {
-        app.Logger.LogError(ex, "Database connection test failed.");
-
-        return Results.Problem(
-            "Database connection failed."
-        );
-    }
-});
-
 app.MapPost("/checkout", async (ILogger<Program> logger, JsonElement json) =>
 {
     logger.LogDebug("\n\nJSON:" + json.GetRawText() + "\n\n");
