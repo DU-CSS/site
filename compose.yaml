@@ -35,6 +35,7 @@ services:
       - SECRET_PGPASSWORD=${SECRET_PGPASSWORD}
       - SECRET_PGDATABASE=${SECRET_PGDATABASE}
       - SECRET_PGPORT=${SECRET_PGPORT}
+      - SECRET_PGSSLMODE=${SECRET_PGSSLMODE}
   certbot:
     image: certbot/certbot    
     container_name: certbot
