@@ -31,6 +31,7 @@
 		if (document) document.body.classList = 'yellow';
 	});
 	let { data } = $props();
+    const today = new Date();
 </script>
 
 <svelte:head>
@@ -87,24 +88,27 @@
 		</div>
 		<div class="grid">
 			{#each data.events as event}
-				<Card
-                    caps={event.start_date.toLocaleDateString('en-IE')}
-                    title={event.title}
-                    tags={[new Map([
-                            ['icon','confirmation_number'],
-                            ['name', 'Free']
-                            ]),
-                        new Map([
-                            ['icon','schedule'],
-                            ['name', `${event.start_time.substring(0,5)} - ${event.end_time.substring(0,5)}`]
-                            ]),
-                        new Map([
-                            ['icon','location_on'],
-                            ['name', `${event.location}`]
-                            ])
-                        ]}
-                    description={event.content}
-                    categoryId={event.category_id} />
+                {#if event.start_date >= today}
+                    <Card
+                        caps={event.start_date.toLocaleDateString('en-IE')}
+                        title={event.title}
+                        tags={[new Map([
+                                ['icon','confirmation_number'],
+                                ['name', 'Free']
+                                ]),
+                            new Map([
+                                ['icon','schedule'],
+                                ['name', `${event.start_time.substring(0,5)} - ${event.end_time.substring(0,5)}`]
+                                ]),
+                            new Map([
+                                ['icon','location_on'],
+                                ['name', `${event.location}`]
+                                ])
+                            ]}
+                        description={event.content}
+                        categoryId={event.category_id}
+                    />
+                {/if}
             {/each}
         </div>
 
