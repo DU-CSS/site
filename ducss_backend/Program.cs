@@ -20,26 +20,31 @@ var app = builder.Build();
 app.UseCors();
 app.UseRouting();
 
-app.MapGet("/test-db", async () =>
+app.MapGet("/api/test", async () =>
 {
     try
     {
         await using var connection = Database.CreateConnection();
         await connection.OpenAsync();
 
-        await using var command = new NpgsqlCommand(
-            "SELECT NOW()",
-            connection
-        );
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT NOW()";
 
         var result = await command.ExecuteScalarAsync();
 
-        return Results.Ok(new { connected = true, databaseTime = result });
+        return Results.Ok(new
+        {
+            connected = true,
+            databaseTime = result
+        });
     }
     catch (Exception ex)
     {
         Console.Error.WriteLine(ex);
-        return Results.Problem("Database connection failed.");
+
+        return Results.Problem(
+            "Database connection failed."
+        );
     }
 });
 
