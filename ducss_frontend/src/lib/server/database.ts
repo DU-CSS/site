@@ -108,7 +108,7 @@ export async function findMemberByEmail(email: string) {
 
 // Add or update member in org.members
 export async function addMember(firstName: string, lastName: string, email: string, date: Date) {
-    const SQL = `INSERT INTO org.members (
+    const SQL = `INSERT INTO org.members AS current_member (
                     first_name,
                     last_name,
                     email,
@@ -120,16 +120,25 @@ export async function addMember(firstName: string, lastName: string, email: stri
                     first_name = EXCLUDED.first_name,
                     last_name = EXCLUDED.last_name,
                     date_joined = CASE
-                        WHEN date_joined IS NULL
+                        WHEN current_member.date_joined IS NULL
                         THEN EXCLUDED.date_joined
-                        ELSE date_joined
+                        ELSE current_member.date_joined
                     END,
                     date_renewed = CASE
-                        WHEN EXCLUDED.date_joined IS DISTINCT FROM date_joined
+                        WHEN EXCLUDED.date_joined IS DISTINCT FROM current_member.date_joined
+                        AND EXCLUDED.date_joined IS DISTINCT FROM current_member.date_renewed
                         THEN EXCLUDED.date_joined
-                        ELSE date_renewed
+                        ELSE member.date_renewed
                     END
-                `;
+                WHERE
+                    member.first_name IS DISTINCT FROM EXCLUDED.first_name
+                    OR member.last_name IS DISTINCT FROM EXCLUDED.first_name
+                    OR member.date_joined IS DISTINCT FROM EXCLUDED.first_name
+                    OR (
+                        EXCLUDED.date_joined IS DISTINCT FROM member.date_joined
+                        AND EXCLUDED.date_joined IS DISTINCT FROM member.date_renewed
+                    )
+                ;`;
     const SQLrows = await DB().query(SQL, [firstName, lastName, email, date]);
 }
 

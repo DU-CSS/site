@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using Ducss;
 using Npgsql;
+using Ducss.Api.Members;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -20,33 +21,8 @@ var app = builder.Build();
 app.UseCors();
 app.UseRouting();
 
-app.MapGet("/api/test", async () =>
-{
-    try
-    {
-        await using var connection = Database.CreateConnection();
-        await connection.OpenAsync();
-
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT NOW()";
-
-        var result = await command.ExecuteScalarAsync();
-
-        return Results.Ok(new
-        {
-            connected = true,
-            databaseTime = result
-        });
-    }
-    catch (Exception ex)
-    {
-        Console.Error.WriteLine(ex);
-
-        return Results.Problem(
-            "Database connection failed."
-        );
-    }
-});
+// Api \ Members \ MemberSyncEndpoints
+app.MapMemberSyncEndpoints();
 
 app.MapPost("/checkout", async (ILogger<Program> logger, JsonElement json) =>
 {
