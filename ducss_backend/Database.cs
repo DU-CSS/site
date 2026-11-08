@@ -4,15 +4,34 @@ namespace Ducss
 {
     public static class Database
     {
+        private static string GetRequiredEnvironmentVariable(string name)
+        {
+            return Environment.GetEnvironmentVariable(name)
+                ?? throw new InvalidOperationException(
+                    $"Missing env variable: {name}"
+                );
+        }
+
         private static readonly string ConnectionString =
             new NpgsqlConnectionStringBuilder
             {
-                Host = Environment.GetEnvironmentVariable("SECRET_PGHOST"),
-                Port = int.Parse(Environment.GetEnvironmentVariable("SECRET_PGPORT")!),
-                Username = Environment.GetEnvironmentVariable("SECRET_PGUSER"),
-                Password = Environment.GetEnvironmentVariable("SECRET_PGPASSWORD"),
-                Database = Environment.GetEnvironmentVariable("SECRET_PGDATABASE"),
-                SslMode = SslMode.Require
+                Host = GetRequiredEnvironmentVariable("SECRET_PGHOST"),
+                Port = int.Parse(
+                    GetRequiredEnvironmentVariable("SECRET_PGPORT")
+                ),
+                Username = GetRequiredEnvironmentVariable("SECRET_PGUSER"),
+                Password = GetRequiredEnvironmentVariable("SECRET_PGPASSWORD"),
+                Database = GetRequiredEnvironmentVariable("SECRET_PGDATABASE"),
+
+                SslMode =
+                    GetRequiredEnvironmentVariable("SECRET_PGSSLMODE") == "require"
+                        ? SslMode.Require
+                        : SslMode.Disable,
+
+                TrustServerCertificate = true,
+
+                Timeout = 5,
+                Pooling = true
             }.ConnectionString;
 
         public static NpgsqlConnection CreateConnection()
