@@ -12,6 +12,8 @@ services:
       - "com.centurylinklabs.watchtower.enable=false"
     env_file:
       - ./ducss_frontend/.env
+    volumes:
+      - ./certs/ca-certificate.crt:/app/certs/ca-certificate.crt:ro
 
   frontend-nginx:
     container_name: nginx
