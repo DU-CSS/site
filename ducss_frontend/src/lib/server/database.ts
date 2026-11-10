@@ -13,21 +13,36 @@ function getPool(): Pool {
         if (!certPath) {
             throw new Error('Missing SECRET_PGSSLROOTCERT environment variable');
         }
-        pool = new Pool({
-            host: env.SECRET_PGHOST,
-            user: env.SECRET_PGUSER,
-            password: env.SECRET_PGPASSWORD,
-            database: env.SECRET_PGDATABASE,
-            port: Number(env.SECRET_PGPORT),
-            ssl: {
-                rejectUnauthorized: true,
-                ca: readFileSync(certPath, 'utf8')
-            },
-            // Stop waiting if a database connection cannot be established.
-            connectionTimeoutMillis: 5000,
-            // Close idle connections after 15 seconds.
-            idleTimeoutMillis: 15000
-        });
+        if (env.SECRET_PGSSLMODE='disable') {
+            pool = new Pool({
+                host: env.SECRET_PGHOST,
+                user: env.SECRET_PGUSER,
+                password: env.SECRET_PGPASSWORD,
+                database: env.SECRET_PGDATABASE,
+                port: Number(env.SECRET_PGPORT),
+                // Stop waiting if a database connection cannot be established.
+                connectionTimeoutMillis: 5000,
+                // Close idle connections after 15 seconds.
+                idleTimeoutMillis: 15000
+            });
+        }
+        else {
+            pool = new Pool({
+                host: env.SECRET_PGHOST,
+                user: env.SECRET_PGUSER,
+                password: env.SECRET_PGPASSWORD,
+                database: env.SECRET_PGDATABASE,
+                port: Number(env.SECRET_PGPORT),
+                ssl: {
+                    rejectUnauthorized: true,
+                    ca: readFileSync(certPath, 'utf8')
+                },
+                // Stop waiting if a database connection cannot be established.
+                connectionTimeoutMillis: 5000,
+                // Close idle connections after 15 seconds.
+                idleTimeoutMillis: 15000
+            });
+        }
     }
     return pool;
 }

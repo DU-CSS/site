@@ -35,9 +35,6 @@
     today.setHours(0, 0, 0, 0);
     const upcomingEvents = $derived(
         data.events.filter(event => {
-            console.log("Event date:", event.start_date);
-            console.log("Parsed date:", new Date(event.start_date));
-            console.log("Today:", today);
             return new Date(event.start_date) >= today
         })
     );
