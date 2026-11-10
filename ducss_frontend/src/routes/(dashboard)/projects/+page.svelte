@@ -3,8 +3,14 @@
 	import { enhance } from '$app/forms';
 
 	let projectToEdit = $state({
-		staged: false,
-		published: false
+		id: 0,
+		date_submitted: null,
+		title: '',
+		overview: '',
+		repo_link: '',
+		demo_path: '',
+		featured: false,
+		stage_id: ''
 	});
 
 	let { form, data } = $props();
@@ -12,8 +18,14 @@
 	$effect(() => {
 		if (form?.success) {
 			projectToEdit = {
-				staged: false,
-				published: false
+				id: 0,
+				date_submitted: null,
+				title: '',
+				overview: '',
+				repo_link: '',
+				demo_path: '',
+				featured: false,
+				stage_id: ''
 			};
 		}
 	});
@@ -39,7 +51,7 @@
 					</a>
 				{/each}
 				{#if data.projects.length === 0}
-					<p>No Events Yet</p>
+					<p>No Projects Yet</p>
 				{/if}
 			</div>
 		</div>
@@ -49,46 +61,38 @@
 				<p class="error">{form.message}</p>
 			{/if}
 			<form method="post" use:enhance enctype="multipart/form-data">
-				<div style="grid-column: span 3;">
-					<p>Title</p>
-					<input type="text" name="title" bind:value={eventToEdit.title} />
-				</div>
 				<div>
-					<p>Category</p>
-					<select name="category_id"
-						bind:value={eventToEdit.category_id} >
-						{#each data.categories as category}
-							<option value={category.id}>{category.title}</option>
+					<p>Stage</p>
+					<select name="stage_id"
+						bind:value={projectToEdit.stage_id} >
+						{#each data.stages as stage}
+							<option value={stage.id}>{stage.title}</option>
 						{/each}
 					</select>
 				</div>
 				<div>
-					<p>Start Date</p>
-					<input type="date" name="start_date" bind:value={eventToEdit.start_date} />
+					<p>Featured</p>
+					<input type="checkbox" name="featured" bind:checked={projectToEdit.featured} />
 				</div>
 				<div>
-					<p>Start Time</p>
-					<input type="time" name="start_time" bind:value={eventToEdit.start_time} />
-				</div>
-				<div>
-					<p>Ticketed?</p>
-					<input type="checkbox" name="ticketed" bind:checked={eventToEdit.ticketed} />
-				</div>
-				<div>
-					<p>End Date</p>
-					<input type="date" name="end_date" bind:value={eventToEdit.end_date} />
-				</div>
-				<div>
-					<p>End Time</p>
-					<input type="time" name="end_time" bind:value={eventToEdit.end_time} />
+					<p>Submitted Date</p>
+					<input type="date" name="date_submitted" bind:value={projectToEdit.date_submitted} />
 				</div>
 				<div style="grid-column: span 3;">
-					<p>Location</p>
-					<input type="text" name="location" bind:value={eventToEdit.location} />
+					<p>Title</p>
+					<input type="text" name="title" bind:value={projectToEdit.title} />
 				</div>
 				<div style="grid-column: span 3;">
-					<p>Content</p>
-					<input type="text" name="content" bind:value={eventToEdit.content} />
+					<p>Overview</p>
+					<input type="text" name="overview" bind:value={projectToEdit.overview} />
+				</div>
+				<div style="grid-column: span 3;">
+					<p>Repo Link</p>
+					<input type="text" name="overview" bind:value={projectToEdit.repo_link} />
+				</div>
+				<div style="grid-column: span 3;">
+					<p>Demo Path</p>
+					<input type="text" name="overview" bind:value={projectToEdit.demo_path} />
 				</div>
 				<button style="grid-column: span 2;" type="submit"> Don't Forget to Save! </button>
 			</form>

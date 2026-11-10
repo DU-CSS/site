@@ -5,11 +5,17 @@ import { dev } from '$app/environment';
 import { unlinkSync, writeFileSync } from 'node:fs';
 
 export const load: PageServerLoad = async () => {
-    const projects = await DB().query(`SELECT * FROM comp.projects ORDER BY date_submitted DESC`);
+    const projects = await DB().query(`SELECT * FROM comp.projects ORDER BY date_submitted DESC;`);
+    const stages = await DB().query(`SELECT * FROM comp.project_stages;`);
     return {
-        projects
+        projects,
+        stages
     };
 }
+
+// Default stage is 'Unstaged'
+// If it is month after date_submitted:
+// If stage is 'Staged' -> 'Published'
 
 export const actions = {
     default: async ({ request }) => {
