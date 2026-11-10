@@ -5,11 +5,9 @@ import { dev } from '$app/environment';
 import { unlinkSync, writeFileSync } from 'node:fs';
 
 export const load: PageServerLoad = async () => {
-    const categories = await DB().query(`SELECT * FROM events.categories ORDER BY title`);
-    const events = await DB().query(`SELECT * FROM events.events ORDER BY start_date DESC`);
+    const projects = await DB().query(`SELECT * FROM comp.projects ORDER BY date_submitted DESC`);
     return {
-        events,
-        categories
+        projects
     };
 }
 

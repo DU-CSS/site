@@ -2,73 +2,53 @@
 	import '$lib/style.css';
 	import { enhance } from '$app/forms';
 
-	let eventToEdit = $state({
-		id: 0,
-		title: '',
-		start_date: null,
-		start_time: null,
-		end_date: null,
-		end_time: null,
-		location: '',
-		organizer: '',
-		ticketed: false,
-		content: '',
-		category_id: ''
+	let projectToEdit = $state({
+		staged: false,
+		published: false
 	});
 
 	let { form, data } = $props();
 
 	$effect(() => {
 		if (form?.success) {
-			eventToEdit = {
-				id: 0,
-				title: '',
-				start_date: null,
-				start_time: null,
-				end_date: null,
-				end_time: null,
-				location: '',
-				organizer: '',
-				ticketed: false,
-				content: '',
-				category_id: ''
+			projectToEdit = {
+				staged: false,
+				published: false
 			};
 		}
 	});
-    function setEvent(event: any) {
-        eventToEdit = {
-            ...event,
-            start_date: event.start_date.toLocaleDateString('en-CA'),
-            end_date: event.end_date.toLocaleDateString('en-CA')
+    function setProject(project: any) {
+        projectToEdit = {
+            ...project,
+            date_submitted: project.date_submitted.toLocaleDateString('en-CA')
         }
     }
 </script>
 
 <main>
 	<section class="hero" style="display: flex;">
-		<h1>Edit Site</h1>
+		<h1>Edit Projects</h1>
 	</section>
 	<section class="yellow">
 		<div>
-			<h3>All Events</h3>
+			<h3>All Projects</h3>
 			<div>
-				{#each data.events as event}
-					<a href="/edit-site" onclick={() => (setEvent(event))}>
-						<p>{event.start_date.toLocaleDateString()} {event.title}</p>
+				{#each data.projects as project}
+					<a href="(dashboard)/projects" onclick={() => (setProject(project))}>
+						<p>{project.date_submitted.toLocaleDateString()} {project.title}</p>
 					</a>
 				{/each}
-				{#if data.events.length === 0}
+				{#if data.projects.length === 0}
 					<p>No Events Yet</p>
 				{/if}
 			</div>
 		</div>
 		<div style="width: 100%;">
-			<h3>Add/Edit Events</h3>
+			<h3>Edit Projects</h3>
 			{#if form?.message}
 				<p class="error">{form.message}</p>
 			{/if}
 			<form method="post" use:enhance enctype="multipart/form-data">
-				<input type="hidden" name="id" bind:value={eventToEdit.id} />
 				<div style="grid-column: span 3;">
 					<p>Title</p>
 					<input type="text" name="title" bind:value={eventToEdit.title} />
