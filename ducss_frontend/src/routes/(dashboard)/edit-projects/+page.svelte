@@ -14,6 +14,7 @@
 		stage_id: 2
 	};
 	let showForm = $state(false);
+	let isReadOnly = $state(false);
 
 	let projectToEdit = $state(projectParams);
 	let { form, data } = $props();
@@ -22,6 +23,7 @@
 	$effect(() => {
 		if (form?.success) {
 			showForm = false;
+			isReadOnly = false;
 			projectToEdit = projectParams;
 		}
 	});
@@ -32,11 +34,13 @@
             ...project,
             date_submitted: project.date_submitted.toLocaleDateString('en-CA')
         }
+		isReadOnly = true;
 		showForm = true;
     }
 
 	function newProject() {
 		projectToEdit = projectParams;
+		isReadOnly = false;
 		showForm = true;
 	}
 </script>
@@ -73,7 +77,7 @@
 				<form method="post" use:enhance enctype="multipart/form-data">
 					<input type="hidden" name="id" bind:value={projectToEdit.id} />
 					<div>
-						<p>Stage</p>
+						<p>Stage*</p>
 						<select name="stage_id" required
 							bind:value={projectToEdit.stage_id} >
 							{#each data.stages as stage}
@@ -83,27 +87,27 @@
 					</div>
 					<div>
 						<p>Featured</p>
-						<input type="checkbox" name="featured" bind:checked={projectToEdit.featured} />
+						<input type="checkbox" name="featured" bind:checked={projectToEdit.featured}/>
 					</div>
 					<div>
-						<p>Submitted Date</p>
-						<input required type="date" name="date_submitted" bind:value={projectToEdit.date_submitted} />
+						<p>Submitted Date*</p>
+						<input required type="date" name="date_submitted" bind:value={projectToEdit.date_submitted} readOnly={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
-						<p>Title</p>
-						<input required type="text" name="title" bind:value={projectToEdit.title} />
+						<p>Title*</p>
+						<input required type="text" name="title" bind:value={projectToEdit.title} readOnly={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
-						<p>Overview</p>
-						<input required type="text" name="overview" bind:value={projectToEdit.overview} />
+						<p>Overview*</p>
+						<input required type="text" name="overview" bind:value={projectToEdit.overview} readOnly={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Repo Link</p>
-						<input type="text" name="repo_link" bind:value={projectToEdit.repo_link} />
+						<input type="text" name="repo_link" bind:value={projectToEdit.repo_link} readOnly={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Demo Path</p>
-						<input type="text" name="demo_path" bind:value={projectToEdit.demo_path} />
+						<input type="text" name="demo_path" bind:value={projectToEdit.demo_path} readOnly={isReadOnly} />
 					</div>
 					<button style="grid-column: span 2;" type="submit"
 							formaction="?/save"> Don't Forget to Save! </button>
