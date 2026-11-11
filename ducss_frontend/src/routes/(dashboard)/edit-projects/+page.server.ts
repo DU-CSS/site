@@ -1,9 +1,10 @@
 import { DB } from '$lib/server/database';
 import { fail, type Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from '../edit-site/$types';
+import type { PageServerLoad } from './$types';
 import { dev } from '$app/environment';
 import { unlinkSync, write, writeFileSync } from 'node:fs';
 import { redirect } from '@sveltejs/kit';
+import { uploadProjectDemo, getSpacesPublicUrl } from '$lib/server/spaces';
 
 export const load: PageServerLoad = async ({ locals }) => {
     if (!locals.on_committee) {
@@ -12,7 +13,12 @@ export const load: PageServerLoad = async ({ locals }) => {
     const projects = await DB().query(`SELECT * FROM comp.projects ORDER BY date_submitted DESC;`);
     const stages = await DB().query(`SELECT * FROM comp.project_stages;`);
     return {
-        projects,
+        projects: projects.map(project => ({
+            ...project,
+            demo_URL: project.demo_path
+                ? getSpacesPublicUrl(project.demo_path)
+                : null
+        })),
         stages
     };
 }
@@ -49,30 +55,36 @@ export const actions = {
             for (const [paramKey, paramValue] of form.entries()) {
                 console.log("PARAMKEY: " + paramKey);
                 if (paramKey === 'demo_path') {
-                    let demo_path = null;
-                    const file = paramValue as File;
-                    if (file && file.size > 0) {
-                        let path = '/var/www/html/files/';
-                        if (dev) {
-                            path = 'C:/temp/';
+                    const demo = paramValue;
+                    let demo_path: string | null = null;
+                    if (demo instanceof File && demo.size > 0) {
+                        if (demo.type !== 'video/mp4') {
+                            return fail(400, {
+                                success: false,
+                                error: 'Please upload an MP4 video.'
+                            });
                         }
-                        demo_path = crypto.randomUUID();
-                        writeFileSync(path+demo_path, Buffer.from(await file.arrayBuffer()));
-                    }
-                    console.log('Path from form: ' + paramValue);
-                    console.log('File: ' + file);
-                    console.log('Demo path to save in db: ' + demo_path); 
+                        if (demo.size > 250 * 1024 * 1024) {
+                            return fail(400, {
+                                success: false,
+                                error: 'Video must be smaller than 250 MB.'
+                            });
+                        }
+                        demo_path = await uploadProjectDemo(demo);
+                    } 
                     paramKeys.push('demo_path');
                     paramValues.push(demo_path);
                     tags.push('$' + index++);
-                }
-                if (paramKey !== 'id' && paramKey !== 'featured') {
+                } else if (paramKey !== 'id' && paramKey !== 'featured') {
                     paramKeys.push(paramKey);
                     paramValues.push(paramValue);
                     tags.push('$' + index++);
                     // e.g. paramValues = [title, content] tags = [$1, $2] and index = 3
                 }
             }
+            paramKeys.push('featured');
+            paramValues.push(featured);
+            tags.push('$' + index++);
             let sql = `INSERT INTO comp.projects (${paramKeys.toString()}) `; // e.g. INSERT INTO events.events (title, content) 
             sql += `VALUES (${tags.toString()}) RETURNING id`; // e.g. VALUES ($1, $2) RETURNING id
             console.log('sql: ' + sql);

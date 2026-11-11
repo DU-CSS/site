@@ -9,7 +9,8 @@
 		title: '',
 		overview: '',
 		repo_link: '',
-		demo_path: '',
+		demo_path: null,
+		demo_URL: null,
 		featured: false,
 		stage_id: 2
 	};
@@ -34,7 +35,7 @@
     function setProject(project: any) {
         projectToEdit = {
             ...project,
-            date_submitted: project.date_submitted.toLocaleDateString('en-CA')
+            date_submitted: project.date_submitted.toLocaleDateString('en-CA'),
         }
 		isReadOnly = true;
 		showForm = true;
@@ -83,7 +84,7 @@
 		</div>
 		{#if showForm}
 			<div style="width: 100%;" id="project-form">
-				<form method="post" use:enhance enctype="multipart/form-data">
+				<form method="POST" action="?/save" use:enhance enctype="multipart/form-data">
 					<input type="hidden" name="id" bind:value={projectToEdit.id} />
 					<div>
 						<p>Stage*</p>
@@ -120,12 +121,19 @@
 							<video width="400" controls>
 								<source src={demoPreview} type="video/mp4" />
 							</video>
-						{:else if projectToEdit.demo_path}
+						{:else if projectToEdit.demo_URL}
 							<video width="400" controls>
-								<source src={`/file/${projectToEdit.demo_path}`} type="video/mp4" />
+								<source src={projectToEdit.demo_URL} type="video/mp4" />
 							</video>
 						{/if}
-						<input required type="file" name="demo_path" onchange={onDemoChange} readOnly={isReadOnly} />
+						<input
+							required
+							type="file"
+							name="demo_path"
+							accept="video/mp4"
+							onchange={onDemoChange}
+							readOnly={isReadOnly}
+						/>
 					</div>
 					<button style="grid-column: span 2;" type="submit"
 							formaction="?/save"> Don't Forget to Save! </button>
