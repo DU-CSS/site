@@ -132,6 +132,7 @@
 							<a href="/profile">My Profile</a>
 							{#if true}
 								<a href="/edit-site">Edit Site</a>
+								<a href="/edit-projects">Edit Projects</a>
 								<!--<a href="/bulletin-board">Bulletin Board</a>-->
 							{/if}
 							<a href="/logout">Logout</a>
