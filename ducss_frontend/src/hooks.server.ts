@@ -26,7 +26,13 @@ export async function handle({ event, resolve }) {
         throw redirect(303, '/');
     }
     if (event.url.pathname === '/edit-site' && !event.locals.on_committee) {
-        throw redirect(303, '/login');
+        throw redirect(303, '/');
+    }
+    if (event.url.pathname === '/projects' ||
+        event.url.pathname.startsWith('/projects/')) {
+        if (!event.locals.on_committee) {
+            throw redirect(303, '/');
+        }
     }
     return await resolve(event);
 }

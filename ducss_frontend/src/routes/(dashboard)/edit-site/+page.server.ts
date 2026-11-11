@@ -3,8 +3,12 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { dev } from '$app/environment';
 import { unlinkSync, writeFileSync } from 'node:fs';
+import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals }) => {
+    if (!locals.on_committee) {
+        throw redirect(303, '/');
+    }
     const categories = await DB().query(`SELECT * FROM events.categories ORDER BY title`);
     const events = await DB().query(`SELECT * FROM events.events ORDER BY start_date DESC`);
     return {
