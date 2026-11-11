@@ -59,7 +59,7 @@
 			<button onclick={newProject}>New Project</button>
 			<div>
 				{#each data.projects as project}
-					<a href="./projects" onclick={() => (setProject(project))}>
+					<a href="/edit-projects" onclick={() => (setProject(project))}>
 						<p>{project.date_submitted.toLocaleDateString()} {project.title}</p>
 					</a>
 				{/each}
