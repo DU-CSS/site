@@ -2,7 +2,7 @@ import { DB } from '$lib/server/database';
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from '../edit-site/$types';
 import { dev } from '$app/environment';
-import { unlinkSync, writeFileSync } from 'node:fs';
+import { unlinkSync, write, writeFileSync } from 'node:fs';
 import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -47,6 +47,25 @@ export const actions = {
             let paramKeys = [];
             let paramValues = [];
             for (const [paramKey, paramValue] of form.entries()) {
+                console.log("PARAMKEY: " + paramKey);
+                if (paramKey === 'demo_path') {
+                    let demo_path = null;
+                    const file = paramValue as File;
+                    if (file && file.size > 0) {
+                        let path = '/var/www/html/files/';
+                        if (dev) {
+                            path = 'C:/temp/';
+                        }
+                        demo_path = crypto.randomUUID();
+                        writeFileSync(path+demo_path, Buffer.from(await file.arrayBuffer()));
+                    }
+                    console.log('Path from form: ' + paramValue);
+                    console.log('File: ' + file);
+                    console.log('Demo path to save in db: ' + demo_path); 
+                    paramKeys.push('demo_path');
+                    paramValues.push(demo_path);
+                    tags.push('$' + index++);
+                }
                 if (paramKey !== 'id' && paramKey !== 'featured') {
                     paramKeys.push(paramKey);
                     paramValues.push(paramValue);

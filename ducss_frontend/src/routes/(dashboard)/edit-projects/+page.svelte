@@ -15,6 +15,8 @@
 	};
 	let showForm = $state(false);
 	let isReadOnly = $state(false);
+	let demoFile: File | null = $state(null);
+	let demoPreview = $state('');
 
 	let projectToEdit = $state(projectParams);
 	let { form, data } = $props();
@@ -37,11 +39,18 @@
 		isReadOnly = true;
 		showForm = true;
     }
-
 	function newProject() {
 		projectToEdit = projectParams;
 		isReadOnly = false;
 		showForm = true;
+	}
+	function onDemoChange(event: Event) {
+		const input = event.currentTarget as HTMLInputElement;
+		demoFile = input.files?.[0] ?? null;
+		if (demoPreview) {
+			URL.revokeObjectURL(demoPreview);
+		}
+		demoPreview = demoFile ? URL.createObjectURL(demoFile) : '';
 	}
 </script>
 
@@ -106,8 +115,17 @@
 						<input type="text" name="repo_link" bind:value={projectToEdit.repo_link} readOnly={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
-						<p>Demo Path</p>
-						<input type="text" name="demo_path" bind:value={projectToEdit.demo_path} readOnly={isReadOnly} />
+						<p>Demo Path*</p>
+						{#if demoPreview}
+							<video width="400" controls>
+								<source src={demoPreview} type="video/mp4" />
+							</video>
+						{:else if projectToEdit.demo_path}
+							<video width="400" controls>
+								<source src={`/file/${projectToEdit.demo_path}`} type="video/mp4" />
+							</video>
+						{/if}
+						<input required type="file" name="demo_path" onchange={onDemoChange} readOnly={isReadOnly} />
 					</div>
 					<button style="grid-column: span 2;" type="submit"
 							formaction="?/save"> Don't Forget to Save! </button>
