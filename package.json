@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1166.0",
     "@types/pg": "^8.23.1",
     "pg": "^8.23.0"
   }
