@@ -18,77 +18,62 @@ export const load: PageServerLoad = async () => {
 // If stage is 'Staged' -> 'Published'
 
 export const actions = {
-    default: async ({ request }) => {
-        const data = await request.formData();
-
-        // Event parameter [key, isRequired]
-        const paramKeys: [string, boolean][] = [
-            ['title', true],
-            ['content', true],
-            ['location', true],
-            ['ticketed', false],
-            ['start_date', true],
-            ['start_time', true],
-            ['end_date', true],
-            ['end_time', true],
-            ['category_id', true]
-        ];
-        const params: Record<string, FormDataEntryValue> = {};
-        for (const [key, isRequired] of paramKeys) {
-            const paramValue = data.get(key);
-            if (isRequired && (!paramValue || paramValue === '')) {
-                return fail(400, { message: `Please provide the ${key} for the event.` });
+    save: async ({ request }) => {
+        const form = await request.formData();
+        const id = form.get('id');
+        const featured = form.has('featured');
+        if (!id || Number(id) < 0) {
+            return {
+                success: false,
+                error: 'Not a valid project ID'
             }
-            if (paramValue !== null) {
-                params[key] = paramValue;
-            } else if (key === 'ticketed') {
-                params[key] = 'off';
-            }
-            // Can now access params.title, params.content etc.
-        }
-
-        let id = data.get('id');
-        let category_id = data.get('category_id');
-        if (!category_id || category_id === '') {
-            return fail(400, { message: `Please choose a category for the event.` });
         }
 
         if (Number(id) > 0) {
-            // Editing existing post i.e. ID > 0
-            console.log(`UPDATING EVENT WITH ID = ${id}`);
-            for (const [paramKey, paramValue] of Object.entries(params)) {
-                if (!(paramKey === 'id')) {
-                    console.log(`SET ${paramKey} = ${paramValue}`);
-                    let sql = `UPDATE events.events SET ${paramKey} = $1 WHERE id = $2`;
-                    await DB().query(sql, [paramValue, id]);
-                    // e.g. UPDATE event.events SET title = 'Example' WHERE id = [params.id]
-                }
-            }
+            // Submitted an edited version of existing project i.e. ID > 0
+            const stage_id = form.get('stage_id');
+            // FormData handling of checkbox learned below
+            // https://stackoverflow.com/questions/33487360/formdata-and-checkboxes
+            let sql = `UPDATE comp.projects SET stage_id = $1, featured = $2 WHERE id = $3;`;
+            await DB().query(sql, [stage_id, featured, id]);
         } else {
-            // Editing new post i.e. ID = 0
+            // Submitted a new project i.e. ID = 0
             let index = 1;
             let tags = [];
+            let paramKeys = [];
             let paramValues = [];
-            for (const [paramKey, paramValue] of Object.entries(params)) {
-                if (!(paramKey === 'id')) {
+            for (const [paramKey, paramValue] of form.entries()) {
+                if (paramKey !== 'id' && paramKey !== 'featured') {
+                    paramKeys.push(paramKey);
                     paramValues.push(paramValue);
-                    tags.push('$' + index++); // e.g. paramValues = [title, content] tags = [$1, $2] and index = 3
+                    tags.push('$' + index++);
+                    // e.g. paramValues = [title, content] tags = [$1, $2] and index = 3
                 }
             }
-            const keysOnly = [];
-            for (const [key, isRequired] of paramKeys) {
-                keysOnly.push(key);
-            }
-            let sql = `INSERT INTO events.events (${keysOnly.toString()}) `; // e.g. INSERT INTO events.events (title, content) 
+            let sql = `INSERT INTO comp.projects (${paramKeys.toString()}) `; // e.g. INSERT INTO events.events (title, content) 
             sql += `VALUES (${tags.toString()}) RETURNING id`; // e.g. VALUES ($1, $2) RETURNING id
             console.log('sql: ' + sql);
             console.log('values: ' + paramValues);
-            const new_events = await DB().query(sql, paramValues); // e.g. paramValues = [title, content]
-            id = new_events[0].id;
+            const new_project = await DB().query(sql, paramValues); // e.g. paramValues = [title, content]
         }
-
         return {
             success: true
         };
+    },
+    delete: async ({ request }) => {
+        const form = await request.formData();
+        const id = form.get('id');
+        if (!id || Number(id) <= 0) {
+            return {
+                success: false,
+                error: 'Not a valid project ID'
+            }
+        }
+        const sql = `DELETE FROM comp.projects WHERE id = $1`;
+        const deleted_project = await DB().query(sql, [id]);
+        console.log(`DELETED PROJECT WITH ID = ${id}`);
+        return {
+            success: true
+        }
     }
 } satisfies Actions;
