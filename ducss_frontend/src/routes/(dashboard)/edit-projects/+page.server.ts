@@ -64,13 +64,28 @@ export const actions = {
                                 error: 'Please upload an MP4 video.'
                             });
                         }
-                        if (demo.size > 250 * 1024 * 1024) {
+                        if (demo.size > 50 * 1024 * 1024) {
                             return fail(400, {
                                 success: false,
-                                error: 'Video must be smaller than 250 MB.'
+                                error: 'Video must be smaller than 50 MB.'
                             });
                         }
-                        demo_path = await uploadProjectDemo(demo);
+                        // Old demo upload system with spaces.ts
+                        // demo_path = await uploadProjectDemo(demo);
+                        const title = form.get('title') as string;
+                        const date = new Date(form.get('date_submitted') as string);
+                        const year = date.getFullYear();
+                        const data = new FormData();
+                        data.append('demo', demo);
+                        data.append('title', title);
+                        data.append('year', year.toString());
+                        const response =  await fetch('/api/members-sync/', {
+                            method: 'POST',
+                            body: data
+                        });
+                        const result = await response.json();
+                        console.log(response.status, result);
+                        demo_path = result.url;
                     } 
                     paramKeys.push('demo_path');
                     paramValues.push(demo_path);

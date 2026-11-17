@@ -3,6 +3,7 @@ using System.Text.Json;
 using Ducss;
 using Npgsql;
 using Ducss.Api.Members;
+using Ducss.Api.Projects;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -21,8 +22,9 @@ var app = builder.Build();
 app.UseCors();
 app.UseRouting();
 
-// Api \ Members \ MemberSyncEndpoints
+// Ducss Api endpoints
 app.MapMemberSyncEndpoints();
+app.MapDemoUploadEndpoints();
 
 app.MapPost("/checkout", async (ILogger<Program> logger, JsonElement json) =>
 {
