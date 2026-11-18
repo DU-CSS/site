@@ -240,9 +240,9 @@ export const sponsors = [
         ['Photo', '/sponsors/MongoDB.png']
     ]),
     new Map<string, any>([
-        ['Title', 'Susquehanna International Group (SIG)'],
-        ['Description', 'Susquehanna is a global quantitative trading firm that brings together technology, quantitative research and trading to operate across financial markets. Founded in 1987, the firm uses mathematics, probability, data and technology to solve complex problems and make decisions under uncertainty. SIG is particularly relevant to students interested in software engineering, quantitative trading, algorithms, machine learning, mathematics and financial technology.'],
-        ['Photo', '/sponsors/SIG.png']
+        ['Title', 'Susquehanna'],
+        ['Description', 'Susquehanna is a global quantitative trading firm that brings together technology, quantitative research and trading to operate across financial markets. Founded in 1987, the firm uses mathematics, probability, data and technology to solve complex problems and make decisions under uncertainty. Susquehanna is particularly relevant to students interested in software engineering, quantitative trading, algorithms, machine learning, mathematics and financial technology.'],
+        ['Photo', '/sponsors/susquehanna.svg']
     ])
 ]
 
