@@ -1,10 +1,10 @@
-
+using Ducss;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ducss.Api.Demos;
+namespace Ducss.Api.Projects;
 
 public static class DemoUploadEndpoints
 {
@@ -138,6 +138,6 @@ public static class DemoUploadEndpoints
 
                 return Results.Problem("Demo upload failed.");
             }
-        });
+        }).DisableAntiforgery();
     }
 }

@@ -10,7 +10,6 @@
 		overview: '',
 		repo_link: '',
 		demo_path: null,
-		demo_URL: null,
 		featured: false,
 		stage_id: 2
 	};
@@ -21,6 +20,7 @@
 
 	let projectToEdit = $state(projectParams);
 	let { form, data } = $props();
+	let submitting = $state(false);
 
 	// Reset form to blank
 	$effect(() => {
@@ -53,6 +53,10 @@
 		}
 		demoPreview = demoFile ? URL.createObjectURL(demoFile) : '';
 	}
+
+	projectForm.addEventListener('submit', () => {
+		submitting = true;
+	});
 </script>
 
 <svelte:head>
@@ -83,8 +87,11 @@
 			</div>
 		</div>
 		{#if showForm}
-			<div style="width: 100%;" id="project-form">
+			<div style="width: 100%;">
 				<form method="POST" action="?/save" use:enhance enctype="multipart/form-data">
+					{#if form?.error}
+						<p class="error">{form.error}</p>
+					{/if}
 					<input type="hidden" name="id" bind:value={projectToEdit.id} />
 					<div>
 						<p>Stage*</p>
@@ -121,9 +128,9 @@
 							<video width="400" controls>
 								<source src={demoPreview} type="video/mp4" />
 							</video>
-						{:else if projectToEdit.demo_URL}
+						{:else if projectToEdit.demo_path !== null}
 							<video width="400" controls>
-								<source src={projectToEdit.demo_URL} type="video/mp4" />
+								<source src={projectToEdit.demo_path} type="video/mp4" />
 							</video>
 						{/if}
 						<input
@@ -135,15 +142,20 @@
 							readOnly={isReadOnly}
 						/>
 					</div>
+					{#if submitting}
+					<button style="grid-column: span 2;" type="button">
+						Submitting... </button>
+					{:else}
 					<button style="grid-column: span 2;" type="submit"
-							formaction="?/save"> Don't Forget to Save! </button>
+						formaction="?/save"> Don't Forget to Save! </button>
+					{/if}
 					<button class="icon" type="submit"
-							formaction="?/delete" formmethod="POST"
-							onclick={(event) => {
-								if (!confirm('Are you sure you want to delete this project?')) {
-									event.preventDefault();
-								}
-							}}> Delete Project </button>
+						formaction="?/delete" formmethod="POST"
+						onclick={(event) => {
+							if (!confirm('Are you sure you want to delete this project?')) {
+								event.preventDefault();
+							}
+						}}> Delete Project </button>
 				</form>
 			</div>
 		{/if}
@@ -155,5 +167,8 @@
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 30px;
+	}
+	form .error {
+		grid-column: span 3;
 	}
 </style>
