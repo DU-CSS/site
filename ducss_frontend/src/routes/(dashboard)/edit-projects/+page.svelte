@@ -53,10 +53,6 @@
 		}
 		demoPreview = demoFile ? URL.createObjectURL(demoFile) : '';
 	}
-
-	projectForm.addEventListener('submit', () => {
-		submitting = true;
-	});
 </script>
 
 <svelte:head>
@@ -88,7 +84,13 @@
 		</div>
 		{#if showForm}
 			<div style="width: 100%;">
-				<form method="POST" action="?/save" use:enhance enctype="multipart/form-data">
+				<form method="POST" action="?/save" enctype="multipart/form-data" use:enhance={() => {
+					submitting = true;
+					return async ({ update }) => {
+						await update();
+						submitting = false;
+					};
+				}}>
 					{#if form?.error}
 						<p class="error">{form.error}</p>
 					{/if}
@@ -142,13 +144,9 @@
 							readOnly={isReadOnly}
 						/>
 					</div>
-					{#if submitting}
-					<button style="grid-column: span 2;" type="button">
-						Submitting... </button>
-					{:else}
 					<button style="grid-column: span 2;" type="submit"
-						formaction="?/save"> Don't Forget to Save! </button>
-					{/if}
+						disabled={submitting} formaction="?/save">
+						{submitting ? "Submitting..." : "Don't Forget to Save!"} </button>
 					<button class="icon" type="submit"
 						formaction="?/delete" formmethod="POST"
 						onclick={(event) => {
