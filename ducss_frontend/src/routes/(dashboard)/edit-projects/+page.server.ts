@@ -1,10 +1,7 @@
+import { env } from '$env/dynamic/private';
 import { DB } from '$lib/server/database';
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { dev } from '$app/environment';
-import { unlinkSync, write, writeFileSync } from 'node:fs';
-import { redirect } from '@sveltejs/kit';
-import { uploadProjectDemo, getSpacesPublicUrl } from '$lib/server/spaces';
 
 export const load: PageServerLoad = async ({ locals }) => {
     if (!locals.on_committee) {
@@ -13,12 +10,7 @@ export const load: PageServerLoad = async ({ locals }) => {
     const projects = await DB().query(`SELECT * FROM comp.projects ORDER BY date_submitted DESC;`);
     const stages = await DB().query(`SELECT * FROM comp.project_stages;`);
     return {
-        projects: projects.map(project => ({
-            ...project,
-            demo_URL: project.demo_path
-                ? getSpacesPublicUrl(project.demo_path)
-                : null
-        })),
+        projects,
         stages
     };
 }
@@ -64,13 +56,50 @@ export const actions = {
                                 error: 'Please upload an MP4 video.'
                             });
                         }
-                        if (demo.size > 250 * 1024 * 1024) {
+                        if (demo.size > (50 * 1024 * 1024)) {
+                        console.log('Too big, size is ' + demo.size);
                             return fail(400, {
                                 success: false,
-                                error: 'Video must be smaller than 250 MB.'
+                                error: 'Video must be smaller than 50 MB.'
                             });
                         }
-                        demo_path = await uploadProjectDemo(demo);
+                        // Old demo upload system with spaces.ts
+                        // demo_path = await uploadProjectDemo(demo);
+                        const title = form.get('title') as string;
+                        const date = new Date(form.get('date_submitted') as string);
+                        const year = date.getFullYear();
+                        const data = new FormData();
+                        data.append('demo', demo);
+                        data.append('title', title);
+                        data.append('year', year.toString());
+                        console.log('About to upload demo');
+                        const response =  await fetch(
+                            `${env.ROOT_URL}/api/demo-upload/`, {
+                                method: 'POST',
+                                headers: {
+                                    'X-Demo-Secret': env.DEMO_UPLOAD_KEY
+                                },
+                                body: data
+                            }
+                        );
+                        const responseText = await response.text();
+
+                        console.log('Backend status:', response.status);
+                        console.log('Backend response:', responseText);
+
+                        let result;
+
+                        try {
+                            result = JSON.parse(responseText);
+                        } catch {
+                            return fail(502, {
+                                success: false,
+                                error: 'Backend returned an invalid response: ' + responseText
+                            });
+                        }
+                        /*const result = await response.json();
+                        console.log(response.status, result);**/
+                        demo_path = result.fileUrl;
                     } 
                     paramKeys.push('demo_path');
                     paramValues.push(demo_path);

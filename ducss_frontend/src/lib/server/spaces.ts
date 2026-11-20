@@ -29,7 +29,14 @@ function getSpacesClient() {
     });
 }
 
+// Source - https://stackoverflow.com/q/63374794
+// Posted by Marcel Dz, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-11-17, License - CC BY-SA 4.0
+
 export async function uploadProjectDemo(file: File): Promise<string> {
+    
+
+    /*
     const { bucket } = getSpacesConfig();
     const spaces = getSpacesClient();
 
@@ -44,7 +51,7 @@ export async function uploadProjectDemo(file: File): Promise<string> {
         ACL: 'public-read'
     }));
 
-    return key;
+    return key;**/
 }
 
 export function getSpacesPublicUrl(key: string): string {
