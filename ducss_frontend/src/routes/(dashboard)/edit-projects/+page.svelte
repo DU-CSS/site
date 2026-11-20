@@ -42,6 +42,7 @@
     }
 	function newProject() {
 		projectToEdit = projectParams;
+		demoPreview = '';
 		isReadOnly = false;
 		showForm = true;
 	}
@@ -110,50 +111,59 @@
 					</div>
 					<div>
 						<p>Submitted Date*</p>
-						<input required type="date" name="date_submitted" bind:value={projectToEdit.date_submitted} readOnly={isReadOnly} />
+						<input required type="date" name="date_submitted" bind:value={projectToEdit.date_submitted} disabled={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Title*</p>
-						<input required type="text" name="title" bind:value={projectToEdit.title} readOnly={isReadOnly} />
+						<input required type="text" name="title" bind:value={projectToEdit.title} disabled={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Overview*</p>
-						<input required type="text" name="overview" bind:value={projectToEdit.overview} readOnly={isReadOnly} />
+						<input required type="text" name="overview" bind:value={projectToEdit.overview} disabled={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Repo Link</p>
-						<input type="text" name="repo_link" bind:value={projectToEdit.repo_link} readOnly={isReadOnly} />
+						<input type="text" name="repo_link" bind:value={projectToEdit.repo_link} disabled={isReadOnly} />
 					</div>
 					<div style="grid-column: span 3;">
 						<p>Demo Path*</p>
-						{#if demoPreview}
-							<video width="400" controls>
-								<source src={demoPreview} type="video/mp4" />
-							</video>
-						{:else if projectToEdit.demo_path !== null}
-							<video width="400" controls>
-								<source src={projectToEdit.demo_path} type="video/mp4" />
-							</video>
-						{/if}
+						{#key demoPreview}
+							{#if demoPreview}
+								<video width="400" controls>
+									<source src={demoPreview} type="video/mp4" />
+								</video>
+
+							{:else if projectToEdit.demo_path !== null}
+								<video width="400" controls>
+									<source src={projectToEdit.demo_path} type="video/mp4" />
+								</video>
+							{/if}
+						{/key}
+						{#if !isReadOnly}
 						<input
 							required
 							type="file"
 							name="demo_path"
 							accept="video/mp4"
 							onchange={onDemoChange}
-							readOnly={isReadOnly}
 						/>
+						{/if}
 					</div>
 					<button style="grid-column: span 2;" type="submit"
 						disabled={submitting} formaction="?/save">
 						{submitting ? "Submitting..." : "Don't Forget to Save!"} </button>
-					<button class="icon" type="submit"
-						formaction="?/delete" formmethod="POST"
-						onclick={(event) => {
-							if (!confirm('Are you sure you want to delete this project?')) {
-								event.preventDefault();
-							}
-						}}> Delete Project </button>
+					{#if !isReadOnly}
+						<button class="icon" type="reset" onclick={onDemoChange}> Reset </button>
+					{:else}
+						<button class="icon" type="submit"
+							formaction="?/delete" formmethod="POST"
+							onclick={(event) => {
+								if (!confirm('Are you sure you want to delete this project?')) {
+									newProject();
+									event.preventDefault();
+								}
+							}}> Delete Project </button>
+					{/if}
 				</form>
 			</div>
 		{/if}
