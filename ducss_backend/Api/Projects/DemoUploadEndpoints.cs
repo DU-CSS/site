@@ -2,6 +2,7 @@
 using Ducss;
 using System.Security.Cryptography;
 using System.Text;
+using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Concurrent;
@@ -218,11 +219,27 @@ public static class DemoUploadEndpoints
                 {
                     Content = content
                 };
+                var appsScriptTotalTimer = Stopwatch.StartNew();
+
+                // 1. Send request and wait for response headers
+                var sendTimer = Stopwatch.StartNew();
                 var response = await client.SendAsync(
                     request,
                     HttpCompletionOption.ResponseHeadersRead
                 );
+                sendTimer.Stop();
+
+                // 2. Read the response body
+                var readTimer = Stopwatch.StartNew();
                 var result = await response.Content.ReadAsStringAsync();
+                readTimer.Stop();
+                appsScriptTotalTimer.Stop();
+
+                // 3. Log timings
+                Console.WriteLine("Apps Script C# timings:");
+                Console.WriteLine($"  Send request / wait for headers: {sendTimer.ElapsedMilliseconds} ms");
+                Console.WriteLine($"  Read response body: {readTimer.ElapsedMilliseconds} ms");
+                Console.WriteLine($"  Total: {appsScriptTotalTimer.ElapsedMilliseconds} ms");
                 Console.WriteLine("Apps Script HTTP status: " + response.StatusCode);
                 Console.WriteLine("Apps Script response: " + result);
                 if (!response.IsSuccessStatusCode)
