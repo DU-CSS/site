@@ -30,15 +30,25 @@ public static class DemoUploadEndpoints
         {
             Console.WriteLine($"Download requested: {uploadId}");
             Console.WriteLine($"Active uploads: {ActiveUploads.Count}");
+
             if (!ActiveUploads.TryGetValue(uploadId, out var upload))
-                Console.WriteLine("Upload ID not found.");
+            {
+                Console.WriteLine("FAILED: Upload ID not found.");
                 return Results.NotFound();
+            }
+
+            Console.WriteLine($"Expiry: {upload.ExpiresAt:O}");
+            Console.WriteLine($"Current time: {DateTime.UtcNow:O}");
+            Console.WriteLine($"File path: {upload.FilePath}");
+            Console.WriteLine($"File exists: {File.Exists(upload.FilePath)}");
 
             if (upload.ExpiresAt < DateTime.UtcNow)
             {
+                Console.WriteLine("FAILED: Upload expired.");
                 ActiveUploads.TryRemove(uploadId, out _);
                 return Results.NotFound();
             }
+
             string? suppliedToken =
                 httpRequest.Headers["X-Demo-Download-Token"].FirstOrDefault();
 
@@ -47,11 +57,18 @@ public static class DemoUploadEndpoints
                     Encoding.UTF8.GetBytes(upload.Token),
                     Encoding.UTF8.GetBytes(suppliedToken)))
             {
+                Console.WriteLine("FAILED: Invalid download token.");
                 return Results.Unauthorized();
             }
+
             if (!File.Exists(upload.FilePath))
+            {
+                Console.WriteLine("FAILED: Temporary file does not exist.");
                 return Results.NotFound();
-            Console.WriteLine($"Serving file: {upload.FilePath}");
+            }
+
+            Console.WriteLine("SUCCESS: Serving MP4.");
+
             return Results.File(
                 upload.FilePath,
                 "application/octet-stream"
